@@ -1,0 +1,6 @@
+-effectuer un movement
+-trouver 1 solution -> effectuer la suite de mouvements correspondants a cette solution
+-trouver la meilleure solution (avec plusieurs robots)
+-faire en sorte que l'IA choissise toujours la meilleure solution.
+-cas particuliers (robot déjà sur la case... etc)
+-créer plusiseurs niveaux de difficulté
