@@ -1,0 +1,21 @@
+///////////////////////////////////////////////////////////////////////
+//                                  Graphe                           //
+///////////////////////////////////////////////////////////////////////
+
+
+Propriété d'une case du plateau :
+- propriété parent : noeud qui a permis d'arriver au noeud courant
+- propriété G : coût du mouvement depuis le point de départ A jusqu'au noeud courant (en nombre de coups)
+- propriété H : coût estimé du mouvement vers le point de destination : heuristique
+- F : F = G+H
+
+Noeud : 
+- Correspond à une case du plateau sur laquelle le robot va s'arrêter
+- Les différents noeuds fils correspondent à une case sur laquelle on peut s'arrêter en partant du noeud courant
+
+Arêtes :
+- Si on peut aller d'un noeud A à un noeud B en un coup alors les 2 noeuds sont reliés par une arête
+
+3 robots sur 4 peuvent s'arrêter sur n'importe quelle case, à condition qu'un autre robot serve d'obstacle pour stopper sa course.
+Le dernier robot V ne peut s'arrêter que sur les obstacles intégrés au plateau, ainsi on évite de boucler à l'infini.
+Le graphe du robot V est simplifié car il y a maximum 3 noeuds fils pour un noeud (un par direction possible).
