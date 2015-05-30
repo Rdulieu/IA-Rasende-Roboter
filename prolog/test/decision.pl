@@ -57,7 +57,7 @@ dessous :
 */
 
 %test de mouvements
-move( [_,_,_,_,1|_],[0,1]):-!.
+move( [_,_,_,_,1|_],[0,1]):-!,
 move( [_,_,_,_,2|_],[0,2]):-!.
 move( [_,_,_,_,3|_],[0,3]):-!.
 move( [_,_,_,_,4|_],[0,4]):-!.
@@ -75,25 +75,34 @@ move( [_,_,_,_,15|_],[3,3]):-!.
 move( [_,_,_,_,16|_],[3,4]):-!.
 
 % Examples
-move( [0,0,0,0,  1, 4,0 | _], [0,4,0,1,0,4,0,1,0,2,0,3,0,2,0,3] ) :- !.
+% move( [0,0,0,0,  1, 4,0 | _], [0,4,0,1,0,4,0,1,0,2,0,3,0,2,0,3] ) :- !.
 % ETAT INITIAL : (0,0,0,0) -> configuration basique.
 % TARGET : 1. (robot bleu).
 % POSITION ROBOT : bleu(4,0).
 % SEQUENCE DE COUPS : robot bleu : bas,droite,bas,droite,haut,gauche,haut,gauche.
 
-move( [0,0,0,0,  2, 6,1 | _], [0,1,0,4] ) :- !.
+% move( [0,0,0,0,  2, 6,1 | _], [0,1,0,4] ) :- !.
 % ETAT INITIAL : (0,0,0,0) -> configuration basique.
 % TARGET : 2.  (robot bleu).
 % POSITION ROBOT : bleu(6,1).
 % SEQUENCE DE COUPS : robot bleu : droite,bas.
 
-move( [0,0,0,0, 14, _,_, _,_, _,_, 5,15], [3,3,3,2,3,3,3,4] ) :- !.
+% move( [0,0,0,0, 14, _,_, _,_, _,_, 5,15], [3,3,3,2,3,3,3,4] ) :- !.
 % ETAT INITIAL : (0,0,0,0) -> configuration basique.
 % TARGET : 14. (robot rouge).
 % POSITION ROBOT : rouge(5,15).
 % SEQUENCE DE COUPS : robot rouge : gauche,haut,gauche,bas.
 
-move( _, [] ) :- !.
+% move( _, [] ) :- !.
 %        ^
 %        |
 %        Action: next configuration
+
+ move([TL,TR,BL,BR, TargetId, BlueRobotPosition, GreenRobotPosition,
+YellowRobotPosition, RedRobotPosition ],ActionId):-
+%	Calculer l'ID du robot qui doit atteindre la cible. Attention à la target 0 (envoie -1).
+ 				Robot is floor((TargetId-1)/4),write('robot is : '),write(Robot),
+				
+				
+				
+
