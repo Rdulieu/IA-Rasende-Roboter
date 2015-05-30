@@ -55,7 +55,7 @@ dessous :
 |o| Il y a un cut à la fin de chaque move(). 
 
 */
-
+/*
 %test de mouvements
 move( [_,_,_,_,1|_],[0,1]):-!,
 move( [_,_,_,_,2|_],[0,2]):-!.
@@ -72,7 +72,9 @@ move( [_,_,_,_,12|_],[2,4]):-!.
 move( [_,_,_,_,13|_],[3,1]):-!.
 move( [_,_,_,_,14|_],[3,2]):-!.
 move( [_,_,_,_,15|_],[3,3]):-!.
-move( [_,_,_,_,16|_],[3,4]):-!.
+move( [_,_,_,_,16|_],[3,4]):-!.*/
+
+move([_,_,_,_,TargetId|_],[Robot,1]):-Robot is floor((TargetId-1)/4).
 
 % Examples
 % move( [0,0,0,0,  1, 4,0 | _], [0,4,0,1,0,4,0,1,0,2,0,3,0,2,0,3] ) :- !.
@@ -101,7 +103,7 @@ move( [_,_,_,_,16|_],[3,4]):-!.
  move([TL,TR,BL,BR, TargetId, BlueRobotPosition, GreenRobotPosition,
 YellowRobotPosition, RedRobotPosition ],ActionId):-
 %	Calculer l'ID du robot qui doit atteindre la cible. Attention à la target 0 (envoie -1).
- 				Robot is floor((TargetId-1)/4),write('robot is : '),write(Robot),
+ 				Robot is floor((TargetId-1)/4).
 				
 				
 				
