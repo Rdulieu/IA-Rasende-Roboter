@@ -172,7 +172,7 @@ YellowRobotPosition, RedRobotPosition ],ActionId):-
  			Robot is floor((TargetId-1)/4), robotC(Robot,CoordR, BlueRobotPosition, GreenRobotPosition,
 YellowRobotPosition, RedRobotPosition),
 %	Calculer les coordonnées de la target
-			target([TL,TR,BL,BR],
+			target([TL,TR,BL,BR],L),list_get(L,N,CoordT),
 			
 				
 				
@@ -180,6 +180,8 @@ robotC(-1,Coor,BlueRobotPosition,_,_,_):- Coor is BlueRobotPosition.
 robotC(0,Coor,BlueRobotPosition,_,_,_):- Coor is BlueRobotPosition.				
 robotC(1,Coor,_,GreenRobotPosition,_,_):- Coor is GreenRobotPosition.
 robotC(2,Coor,_,_,YellowRobotPosition,_):- Coor is YellowRobotPosition.
-robotC(3,Coor,_,_,_,RedRobotPosition):- Coor is RedRobotPosition.				
+robotC(3,Coor,_,_,_,RedRobotPosition):- Coor is RedRobotPosition.		
+
+		
 				
 
