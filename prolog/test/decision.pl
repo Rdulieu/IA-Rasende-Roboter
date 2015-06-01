@@ -171,8 +171,8 @@ YellowRobotPosition, RedRobotPosition ],ActionId):-
 %	Calculer l'ID du robot qui doit atteindre la cible.
  			Robot is floor((TargetId-1)/4), robotC(Robot,CoordR, BlueRobotPosition, GreenRobotPosition,
 YellowRobotPosition, RedRobotPosition),
-%	Calculer les coordonnées de la target
-			target([TL,TR,BL,BR],L),list_get(L,N,CoordT),
+%	Calculer les coordonnées de la target -> CoordT
+			target([TL,TR,BL,BR],L),nth0(TargetId,L,CoordT),
 			
 				
 				
