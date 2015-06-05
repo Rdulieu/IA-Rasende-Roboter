@@ -149,25 +149,84 @@ IpseityTalker::selectResponse()
 {
     int robot_target;
     int target=m_CurrentStimulus[4];
-    int robot_target_coord[2];
-    int target_coord[2];
-    Coordonnees list_target[16];
+    Coordonnees robot_target_coord;
+    Coordonnees target_coord;
+    Coordonnees list_target[17];
 
     robot_target=floor((target-1)/4);     // prolog : move([_,_,_,_,TargetId|_],[Robot,1]):-Robot is floor((TargetId-1)/4).
     cout << robot_target << endl;
+    switch(robot_target){
+        case 0:
+            robot_target_coord=Coordonnees(m_CurrentStimulus[5],m_CurrentStimulus[6]);
+        break;
+        case 1:
+            robot_target_coord=Coordonnees(m_CurrentStimulus[7],m_CurrentStimulus[8]);
+        break;
+        case 2:
+            robot_target_coord=Coordonnees(m_CurrentStimulus[9],m_CurrentStimulus[10]);
+        break;
+        case 3:
+            robot_target_coord=Coordonnees(m_CurrentStimulus[11],m_CurrentStimulus[12]);
+        break;
+    default:
+            robot_target_coord=Coordonnees(m_CurrentStimulus[0],m_CurrentStimulus[0]);
+    }
 
-    //
+
+
 
     /* Base de connaissances
      où sont placés les murs et les target ?
-     Target [Scenario,liste des targets (dans l'ordre)]
+     Target [Scenario,liste des targets (dans l'ordre)]*/
 
     if(m_CurrentStimulus[0]){
-        list_target[0]=
+        list_target[0]=Coordonnees(3,7);
+        list_target[1]=Coordonnees(5,6);
+        list_target[6]=Coordonnees(1,3);
+        list_target[12]=Coordonnees(6,4);
+        list_target[15]=Coordonnees(2,1);
     }else{
-
+        list_target[0]=Coordonnees(7,5);
+        list_target[1]=Coordonnees(6,1);
+        list_target[6]=Coordonnees(5,4);
+        list_target[12]=Coordonnees(1,3);
+        list_target[15]=Coordonnees(2,5);
     }
+    if(m_CurrentStimulus[1]){
+        list_target[3]=Coordonnees(11,2);
+        list_target[5]=Coordonnees(13,6);
+        list_target[10]=Coordonnees(10,7);
+        list_target[16]=Coordonnees(14,1);
+    }else{
+        list_target[3]=Coordonnees(13,5);
+        list_target[5]=Coordonnees(11,2);
+        list_target[10]=Coordonnees(9,1);
+        list_target[16]=Coordonnees(10,7);
+    }
+    if(m_CurrentStimulus[2]){
+        list_target[4]=Coordonnees(3,9);
+        list_target[7]=Coordonnees(6,14);
+        list_target[9]=Coordonnees(1,13);
+        list_target[14]=Coordonnees(5,11);
+    }else{
+        list_target[4]=Coordonnees(6,13);
+        list_target[7]=Coordonnees(1,10);
+        list_target[9]=Coordonnees(4,9);
+        list_target[14]=Coordonnees(2,14);
+    }
+    if(m_CurrentStimulus[3]){
+        list_target[2]=Coordonnees(12,9);
+        list_target[11]=Coordonnees(9,12);
+        list_target[13]=Coordonnees(11,14);
+    }else{
+        list_target[2]=Coordonnees(9,10);
+        list_target[11]=Coordonnees(9,14);
+        list_target[13]=Coordonnees(12,9);
+    }
+    list_target[8]=Coordonnees(14,13);
+    target_coord=list_target[target];
 
+/*
     target([0,0,0,0],[[7,5],[6,1],[9,10],[13,5],[6,13],[11,2],[5,4],[1,10],[14,13],[4,9],[9,1],[9,14],[1,3],[12,9],[2,14],[2,5],[10,7]]).
     target([0,0,0,1],[[7,5],[6,1],[12,9],[13,5],[6,13],[11,2],[5,4],[1,10],[14,13],[4,9],[9,1],[9,12],[1,3],[11,14],[2,14],[2,5],[10,7]]).
     target([0,0,1,0],[[7,5],[6,1],[9,10],[13,5],[3,9],[11,2],[5,4],[6,14],[14,13],[1,13],[9,1],[9,14],[1,3],[12,9],[5,11],[2,5],[10,7]]).
@@ -184,6 +243,9 @@ IpseityTalker::selectResponse()
     target([1,1,0,1],[[3,7],[5,6],[12,9],[11,2],[6,13],[13,6],[1,3],[1,10],[14,13],[4,9],[10,7],[9,12],[6,4],[11,14],[2,14],[2,1],[14,1]]).
     target([1,1,1,0],[[3,7],[5,6],[9,10],[11,2],[3,9],[13,6],[1,3],[6,14],[14,13],[1,13],[10,7],[9,14],[6,4],[12,9],[5,11],[2,1],[14,1]]).
     target([1,1,1,1],[[3,7],[5,6],[12,9],[11,2],[3,9],[13,6],[1,3],[6,14],[14,13],[1,13],[10,7],[9,12],[6,4],[11,14],[5,11],[2,1],[14,1]]).
+
+
+
 
     // murhaut [Scenario,liste des murs]
     murdroite([0,0,0,0], [[3,0],[10,0],[9,1],[5,1],[11,2],[1,3],[2,5],[4,4],[7,5],[12,5],[12,9],[9,7],[6,7],[6,8],[8,7],[8,8],[8,10],[3,9],[1,10],[2,14],[3,15],[5,13],[8,14],[10,15],[14,13]]).
@@ -224,7 +286,7 @@ IpseityTalker::selectResponse()
 
 
 
-    /* move([TL,TR,BL,BR, TargetId, BlueRobotPosition, GreenRobotPosition,
+     move([TL,TR,BL,BR, TargetId, BlueRobotPosition, GreenRobotPosition,
 YellowRobotPosition, RedRobotPosition ],ActionId):-
 %	Calculer l'ID du robot qui doit atteindre la cible.
             Robot is floor((TargetId-1)/4), robotC(Robot,CoordR, BlueRobotPosition, GreenRobotPosition,
@@ -276,3 +338,30 @@ IpseityTalker::saveStats()
 
 
 //*****************************************************************************
+
+//***Coordonnees Class***//
+Coordonnees::Coordonnees(){
+    x=0;
+    y=0;
+}
+
+Coordonnees::Coordonnees(int px,int py){
+    x=px;
+    y=py;
+}
+
+void Coordonnees::setX(int px){
+    x=px;
+}
+
+void Coordonnees::setY(int py){
+    y=py;
+}
+
+int Coordonnees::getX(){
+    return x;
+}
+
+int Coordonnees::getY(){
+    return y;
+}

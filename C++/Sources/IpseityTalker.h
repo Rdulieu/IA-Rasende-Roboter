@@ -49,6 +49,12 @@ class Coordonnees {
     public:
         Coordonnees();
         Coordonnees(int px,int py);
+        //getters et setters
+        void setX(int px);
+        void setY(int py);
+
+        int getX();
+        int getY();
 
 };
 
