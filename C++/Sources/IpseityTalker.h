@@ -40,6 +40,27 @@
     \author
 */
 
+<<<<<<< HEAD
+=======
+class Coordonnees {
+
+    private:
+        int x;
+        int y;
+
+    public:
+        Coordonnees();
+        Coordonnees(int px,int py);
+        //getters et setters
+        void setX(int px);
+        void setY(int py);
+
+        int getX();
+        int getY();
+
+};
+
+>>>>>>> origin/master
 class IpseityTalker : public QObject, public BasePluginCognitiveModule
 {
     Q_OBJECT
@@ -55,7 +76,15 @@ class IpseityTalker : public QObject, public BasePluginCognitiveModule
     protected:
         Stimulus m_CurrentStimulus;
         Response m_NextResponse;
+<<<<<<< HEAD
 };
 
 
+=======
+
+};
+
+
+
+>>>>>>> origin/master
 #endif

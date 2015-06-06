@@ -1,2 +1,5 @@
-move(TargetId):-
-	Robot is floor((TargetId-1)/4),write('robot is : '),write(Robot).
+
+
+recupere(L,N,X):- recupere(L,N,X,1).
+recupere([X|_],N,X,N):-!.
+recupere([_|R],N,X,N2):- recupere(R,N,X,N3),N3 is N2+1.
