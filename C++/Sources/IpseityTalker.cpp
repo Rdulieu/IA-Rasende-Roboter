@@ -31,6 +31,8 @@
 
 #include <ostream>
 #include <QDebug>
+#include "noeud.h"
+#include "arc.h"
 
 
 //const int32 SHIFT = 1;
@@ -147,6 +149,8 @@ IpseityTalker::observe( const Sensation & x )
 const Response &
 IpseityTalker::selectResponse()
 {
+    Noeud *n = new Noeud(); //unused
+
     int robot_target;
     int target=m_CurrentStimulus[4];
     Coordonnees robot_target_coord;
@@ -376,9 +380,10 @@ YellowRobotPosition, RedRobotPosition),
 
     m_NextResponse[1] = 2;
 
-    m_NextResponse[2] = 2;
+    m_NextResponse[2] = 1;
 
-    m_NextResponse[3] = 2;
+    m_NextResponse[3] = 1;
+
 
     cout << "=================================================Projet IA41 Retour de la reponse" << endl;
     return m_NextResponse;
@@ -415,6 +420,7 @@ IpseityTalker::saveStats()
 
 //*****************************************************************************
 
+
 //***Coordonnees Class***//
 Coordonnees::Coordonnees(){
     x=0;
@@ -441,6 +447,7 @@ int Coordonnees::getX(){
 int Coordonnees::getY(){
     return y;
 }
+
 
 //***Coordonnees mur ***//
 

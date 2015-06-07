@@ -61,6 +61,7 @@ class Coordonnees {
 
 };
 
+
 class Coord_mur: public Coordonnees {
 
     private:
