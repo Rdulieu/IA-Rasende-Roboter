@@ -26,8 +26,11 @@
 #ifndef IpseityTalker_h
 #define IpseityTalker_h
 
+using namespace std;
+
 
 #include <QtGui>
+#include <string>
 
 #include "AL/IpseityTypes.h"
 #include "Math/RandomNumberGenerator.h"
@@ -55,6 +58,21 @@ class Coordonnees {
 
         int getX();
         int getY();
+
+};
+
+class Coord_mur: public Coordonnees {
+
+    private:
+        string orientation;
+
+    public:
+        Coord_mur();
+        Coord_mur(string porientation);
+        //getters et setters
+        void setOrientation(string porientation);
+
+        string getOrientation();
 
 };
 
