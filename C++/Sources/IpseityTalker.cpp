@@ -253,13 +253,15 @@ IpseityTalker::selectResponse()
     /*
         Construction de la list_murV qui contient les Coordonnées de chaque mur
         en fonction de des 4 variables définissant le plateau. Ce sont bien les coordonnées des murs et non des cases*/
-        //carré du centre
     for(int i=0;i<16;++i){
         for(int j=0;j<15;++j){
             list_murH[i][j]=list_murV[j][i]=false;
         }
     }
 
+    //Il ne reste plus qu'a les répartir dans les bons if et a faire les 1
+
+    //carré du centre
     list_murH[6][7]=true;
     list_murH[8][7]=true;
     list_murH[6][8]=true;
@@ -268,57 +270,61 @@ IpseityTalker::selectResponse()
     list_murV[8][6]=true;
     list_murV[7][8]=true;
     list_murV[8][8]=true;
+
+       //murH
        //1rst==0
     list_murH[3][0]=true;
-    list_murH[10][0]=true;
     list_murH[5][1]=true;
-    list_murH[9][1]=true;
-    list_murH[11][2]=true;
     list_murH[1][3]=true;
     list_murH[4][4]=true;
     list_murH[2][5]=true;
     list_murH[7][5]=true;
+        //2nd==0
+    list_murH[10][0]=true;
+    list_murH[9][1]=true;
+    list_murH[11][2]=true;
     list_murH[12][5]=true;
     list_murH[9][7]=true;
+        //3rd==0
     list_murH[3][9]=true;
-    list_murH[12][9]=true;
     list_murH[1][10]=true;
-    list_murH[8][10]=true;
     list_murH[5][13]=true;
-    list_murH[14][13]=true;
     list_murH[2][14]=true;
-    list_murH[8][14]=true;
     list_murH[3][15]=true;
+        //4th==0
+    list_murH[12][9]=true;
+    list_murH[8][10]=true;
+    list_murH[14][13]=true;
+    list_murH[8][14]=true;
     list_murH[10][15]=true;
 
+    //murV
+       //1rst==0
     list_murV[0][3]=true;
     list_murV[0][6]=true;
     list_murV[1][2]=true;
-    list_murV[1][9]=true;
     list_murV[2][5]=true;
-    list_murV[2][14]=true;
-    list_murV[4][9]=true;
     list_murV[5][3]=true;
     list_murV[6][1]=true;
-    list_murV[6][12]=true;
     list_murV[7][5]=true;
+        //2nd==0
+    list_murV[1][9]=true;
+    list_murV[2][14]=true;
+    list_murV[4][9]=true;
+    list_murV[6][12]=true;
+        //3rd==0
     list_murV[9][0]=true;
-    list_murV[9][10]=true;
-    list_murV[9][13]=true;
     list_murV[10][6]=true;
     list_murV[11][2]=true;
-    list_murV[12][8]=true;
     list_murV[13][5]=true;
-    list_murV[14][13]=true;
     list_murV[15][3]=true;
+        //4th==0
+    list_murV[9][10]=true;
+    list_murV[9][13]=true;
+    list_murV[12][8]=true;
+    list_murV[14][13]=true;
     list_murV[15][9]=true;
 
-    for(int i=0;i<16;++i){
-        for(int j=0;j<15;++j){
-            cout << list_murH[i][j] << endl;
-            cout << list_murV[j][i] << endl;
-        }
-    }
   /*
    *murdroite([0,0,0,0], [[3,0],[10,0],[9,1],[5,1],[11,2],[1,3],[2,5],[4,4],[7,5],[12,5],[12,9],[9,7],[6,7],[6,8],[8,7],[8,8],[8,10],[3,9],[1,10],[2,14],[3,15],[5,13],[8,14],[10,15],[14,13]]).
     murdroite([0,0,0,1], [[3,0],[5,1],[9,1],[10,0],[11,2],[1,3],[4,4],[12,5],[7,5],[2,5],[6,7],[6,8],[8,7],[8,8],[9,7],[12,9],[3,9],[1,10],[5,13],[2,14],[3,15],[8,12],[11,14],[13,13],[13,15]]).
