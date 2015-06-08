@@ -43,40 +43,6 @@ using namespace std;
     \author
 */
 
-class Coordonnees {
-
-    private:
-        int x;
-        int y;
-
-    public:
-        Coordonnees();
-        Coordonnees(int px,int py);
-        //getters et setters
-        void setX(int px);
-        void setY(int py);
-
-        int getX();
-        int getY();
-
-};
-
-
-class Coord_mur: public Coordonnees {
-
-    private:
-        string orientation;
-
-    public:
-        Coord_mur();
-        Coord_mur(string porientation);
-        //getters et setters
-        void setOrientation(string porientation);
-
-        string getOrientation();
-
-};
-
 class IpseityTalker : public QObject, public BasePluginCognitiveModule
 {
     Q_OBJECT
