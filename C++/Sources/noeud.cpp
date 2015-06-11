@@ -103,8 +103,14 @@ void Noeud::chercherFils()
         count++;
         Noeud filsHaut = new Noeud(count,i,j);
         this->getLstNoeudFils().push_back(filsHaut); // On ajoute le noeud fils à la liste des noeuds fils
+        Arc up(getPosition(1)-j, &filsHaut);
+        this->setArc(0, &up);
     }
-    else this->getLstNoeudFils().push_back(NULL);
+    else
+    {
+        this->getLstNoeudFils().push_back(NULL);
+        this->setArc(0, NULL);
+    }
 
     // On revient sur notre case de départ
     i = this->getPosition(0);
@@ -119,8 +125,14 @@ void Noeud::chercherFils()
         count++;
         Noeud filsBas = new Noeud(count,i,j);
         this->getLstNoeudFils().push_back(filsBas); // On ajoute le noeud fils à la liste des noeuds fils
+        Arc down(j-getPosition(1), &filsBas);
+        this->setArc(1, &down);
     }
-    else this->getLstNoeudFils().push_back(NULL);
+    else
+    {
+        this->getLstNoeudFils().push_back(NULL);
+        this->setArc(1, NULL);
+    }
 
     i = this->getPosition(0);
     j = this->getPosition(1);
@@ -134,8 +146,14 @@ void Noeud::chercherFils()
         count++;
         Noeud filsGauche = new Noeud(count,i,j);
         this->getLstNoeudFils().push_back(filsGauche); // On ajoute le noeud fils à la liste des noeuds fils
+        Arc left(j-getPosition(1), &filsGauche);
+        this->setArc(1, &left);
     }
-    else this->getLstNoeudFils().push_back(NULL);
+    else
+    {
+        this->getLstNoeudFils().push_back(NULL);
+        this->setArc(2, NULL);
+    }
 
     i = this->getPosition(0);
     j = this->getPosition(1);
@@ -149,8 +167,14 @@ void Noeud::chercherFils()
         count++;
         Noeud filsDroite = new Noeud(count,i,j);
         this->getLstNoeudFils().push_back(filsDroite); // On ajoute le noeud fils à la liste des noeuds fils
+        Arc r(j-getPosition(1), &filsDroite);
+        this->setArc(1, &right);
     }
-    else this->getLstNoeudFils().push_back(NULL);
+    else
+    {
+        this->getLstNoeudFils().push_back(NULL);
+        this->setArc(3, NULL);
+    }
 
     i = this->getPosition(0);
     j = this->getPosition(1);
@@ -196,9 +220,15 @@ int* Noeud::astar(const Noeud& final)
     return NULL;
 }
 
-Noeud* getBestNode(const std::list<Noeud*>& open);
+Noeud* getBestNode(const std::list<Noeud*>& open)
+{
 
-int* build_path(const std::list<Noeud*>& origin, const Noeud& final);
+}
+
+int* build_path(const std::list<Noeud*>& origin, const Noeud& final)
+{
+
+}
 
 bool member(const std::list<Noeud*>& list, const Noeud* node)
 {

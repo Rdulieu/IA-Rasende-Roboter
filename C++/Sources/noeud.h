@@ -41,7 +41,7 @@ public :
     int getG();
     int setG(int);
     Arc* getArc(int);
-    void setArc(int);
+    void setArc(int, Arc*);
 
     int* astar(const Noeud& final);
 
