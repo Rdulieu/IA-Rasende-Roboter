@@ -36,11 +36,10 @@ public :
     std::list<Noeud*> getLstNoeudFils();
     void chercherFils();
     void setLstNoeudFils(std::list<Noeud*>);
-/*<<<<<<< HEAD
+/* -> INUTILE
     std::list<std::pair<Noeud*, int> > astar(const Noeud& final);
 };
-std::list<std::pair<Noeud*, int> > build_path(const std::list<Noeud*>& origin, const Noeud& final);
-=======
+std::list<std::pair<Noeud*, int> > build_path(const std::list<Noeud*>& origin, const Noeud& final);*/
     int getG();
     int setG(int);
     Arc* getArc(int);
@@ -54,5 +53,5 @@ Noeud* getBestNode(const std::list<Noeud*>& open);
 int* build_path(const std::list<Noeud*>& origin, const Noeud& final);
 
 bool member(const std::list<Noeud*>& list, const Noeud* node); //true if node is in list, false otherwise.
->>>>>>> origin/master*/
+
 #endif // NOEUD_H
