@@ -153,6 +153,53 @@ void Noeud::chercherFils()
     return;
 }
 
-int* astar(const Noeud& final);
+int* astar(const Noeud& final)
+{
+    std::list<Noeud*> open, closed, origin;
+    open.push_back(this);
+
+    int g(0), f(g + heuristique), tempG;
+
+    while(!(open.empty()))
+    {
+        Noeud* cur = getBestNode(open);
+        if(cur == final)
+        {
+            return build_path(origin, final);
+        }
+        open.remove(cur);
+        closed.push_back(cur);
+
+        for(int i = 0; i<lstNoeudFils.size(); i++)
+        {
+            if(!(member(lstNoeudFils[i], closed)))
+            {
+                tempG = cur->getG() + cur->getArc(i)->getWeight();
+
+                if(!(member(lstNoeudFils[i], open)) || tempG < lstNoeudsFils[i]->getG())
+                {
+                    origin.push_back(cur);
+                    lstNoeudFils[i].setG(tempG);
+                    lstNoeudFils[i].setHeuristique(tempG + 0); //Add calcHeuritique.
+
+                    if(!(member(lstNoeudFils[i], open))) open.push_back(lstNoeudsFils[i]);
+
+                }
+            }
+        }
+    }
+    return NULL;
+}
+
+Noeud* getBestNode(const std::list<Noeud*>& open);
 
 int* build_path(const std::list<Noeud*>& origin, const Noeud& final);
+
+bool member(const std::list<Noeud*>& list, const Noeud* node)
+{
+    for(int i = 0; i < list.size(); i++)
+    {
+        if(list[i] == node) return true;
+    }
+    return false;
+}
