@@ -1,7 +1,5 @@
 #ifndef NOEUD_H
 #define NOEUD_H
-#include <List>
-#include <Map>
 #include <map>
 #include <list>
 #include "arc.h"

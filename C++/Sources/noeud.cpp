@@ -187,17 +187,24 @@ int* Noeud::astar(const Noeud& final)
     std::list<Noeud*> open, closed, origin;
     open.push_back(this);
 
-    int g(0), f(g + calcHeuristique(final)), tempG;
+    int f(g + calcHeuristique(final)), tempG;
+    setG(0);
 
+    //Tant qu'on est pas au noeud final.
     while(!(open.empty()))
     {
+        //On récupère le meilleurs noeud selon f
+        //On rest s'il est le noeud final.
         Noeud* cur = getBestNode(open);
         if(cur == final)
         {
-            return build_path(origin, final);
+            return build_path(origin, final); //On retourne le chemin parcouru.
         }
         open.remove(cur);
         closed.push_back(cur);
+
+        //S'il ne l'est pas on met dans open tout les noeuds fils qui ne sont ni dans open,
+        //ni dans closed et qui possède un coût de déplacement inférieur au noeud courrant.
 
         for(int i = 0; i<lstNoeudFils.size(); i++)
         {
@@ -217,16 +224,38 @@ int* Noeud::astar(const Noeud& final)
             }
         }
     }
+    //Si échec on retourne null.
     return NULL;
 }
 
 Noeud* getBestNode(const std::list<Noeud*>& open)
 {
+    Noeud* res = open[0];
+    int f(res->getHeuritisque() + res->getG());
 
+    //On parcours la liste des fils et on recupère le meilleurs noeuds selon f.
+    for(int i = 1; i<open.size(); i++)
+    {
+        if (f > open[i]->getG() + open[i]->getHeuristique()) res = open[i];
+    }
+
+    return res;
 }
 
 int* build_path(const std::list<Noeud*>& origin, const Noeud& final)
 {
+    int path[2(origin.size()+1)], j(0);
+    for(int i = 0, k = 0; i < 2(origin.size()+1); i+=2, k++)
+    {
+        path[i] = 0;
+        //On cherche la direction
+        while(origin[k].getLstNoeudFils()[j] != origin[k+1])
+        {
+            j++;
+        }
+        path[i+1] = j;
+
+    }
 
 }
 
