@@ -48,6 +48,11 @@ int Noeud::getHeuristique()
     return this->heuristique;
 }
 
+void Noeud::calcHeuristique(Noeud* final)
+{
+    setHeuristique(0);
+}
+
 void Noeud::setPosition(int x, int y)
 {
     this->position[0] = x;
@@ -153,12 +158,12 @@ void Noeud::chercherFils()
     return;
 }
 
-int* astar(const Noeud& final)
+int* Noeud::astar(const Noeud& final)
 {
     std::list<Noeud*> open, closed, origin;
     open.push_back(this);
 
-    int g(0), f(g + heuristique), tempG;
+    int g(0), f(g + calcHeuristique(final)), tempG;
 
     while(!(open.empty()))
     {

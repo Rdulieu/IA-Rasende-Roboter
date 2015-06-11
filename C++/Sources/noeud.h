@@ -15,6 +15,7 @@ private :
     int id;
     int position[2];  // position[0] : coordX  position[1] : coordY
     int heuristique;
+    int gCost;
     std::list<Noeud*> lstNoeudFils;
     Arc* haut;
     Arc* bas;
@@ -22,7 +23,6 @@ private :
     Arc* droite;
 
 public :
-    std::list<std::pair<Noeud*,int> > astar(Noeud&); // 0 : haut 1: bas 2 : gauche 3 : droite
     Noeud();
     Noeud(int,int,int); // id, x, y
     Noeud(int,int,int,std::list<Noeud*>); // id, x, y, lstNoeudFils
@@ -32,12 +32,23 @@ public :
     void setId(int);
     int getHeuritisque();
     void setHeuristique(int);
+    void calcHeuristique(Noeud*);
     int* getPosition();
     void setPosition(int x, int y);
     std::list<Noeud*> getLstNoeudFils();
     void chercherFils();
     void setLstNoeudFils(std::list<Noeud*>);
-    std::list<std::pair<Noeud*, int>> astar(const Noeud& final);
+    int getG();
+    int setG(int);
+    Arc* getArc(int);
+    void setArc(int);
+
+    int* astar(const Noeud& final);
+
 };
-std::list<std::pair<Noeud*, int>> build_path(const std::list<Noeud*>& origin, const Noeud& final);
+Noeud* getBestNode(const std::list<Noeud*>& open);
+
+int* build_path(const std::list<Noeud*>& origin, const Noeud& final);
+
+bool member(const std::list<Noeud*>& list, const Noeud* node); //true if node is in list, false otherwise.
 #endif // NOEUD_H
