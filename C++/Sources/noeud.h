@@ -4,6 +4,7 @@
 #include <list>
 #include "arc.h"
 #include "bd.h"
+#include"IpseityTalker.h"
 class Arc;
 class Bd;
 class Noeud
@@ -45,12 +46,12 @@ std::list<std::pair<Noeud*, int> > build_path(const std::list<Noeud*>& origin, c
     Arc* getArc(int);
     void setArc(int, Arc*);
 
-    int* astar(const Noeud& final);
+    Response astar(const Noeud& final);
 
 };
 Noeud* getBestNode(const std::list<Noeud*>& open);
 
-int* build_path(const std::list<Noeud*>& origin, const Noeud& final);
+Response build_path(const std::list<Noeud*>& origin, const Noeud& final);
 
 bool member(const std::list<Noeud*>& list, const Noeud* node); //true if node is in list, false otherwise.
 

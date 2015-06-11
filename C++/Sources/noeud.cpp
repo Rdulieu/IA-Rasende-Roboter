@@ -189,7 +189,7 @@ void Noeud::chercherFils()
     return;
 }
 
-int* Noeud::astar(const Noeud& final)
+Response Noeud::astar(const Noeud& final)
 {
     std::list<Noeud*> open, closed, origin;
     open.push_back(this);
@@ -232,7 +232,7 @@ int* Noeud::astar(const Noeud& final)
         }
     }
     //Si échec on retourne null.
-    return NULL;
+    return VoidResponse;
 }
 
 Noeud* getBestNode(const std::list<Noeud*>& open)
@@ -249,9 +249,10 @@ Noeud* getBestNode(const std::list<Noeud*>& open)
     return res;
 }
 
-int* build_path(const std::list<Noeud*>& origin, const Noeud& final)
+Response build_path(const std::list<Noeud*>& origin, const Noeud& final)
 {
-    int path[2(origin.size()+1)], j(0);
+    Response path(2(origin.size()+1)); //On alloue un tableau de 2 fois la taille de origin + final
+    int j(0);
     for(int i = 0, k = 0; i < 2(origin.size()+1); i+=2, k++)
     {
         path[i] = 0;
