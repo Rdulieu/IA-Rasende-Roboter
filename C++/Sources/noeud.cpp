@@ -99,6 +99,7 @@ void Noeud::chercherFils()
         Noeud filsHaut = new Noeud(count,i,j);
         this->getLstNoeudFils().push_back(filsHaut); // On ajoute le noeud fils à la liste des noeuds fils
     }
+    else this->getLstNoeudFils().push_back(NULL);
 
     // On revient sur notre case de départ
     i = this->getPosition(0);
@@ -114,6 +115,7 @@ void Noeud::chercherFils()
         Noeud filsBas = new Noeud(count,i,j);
         this->getLstNoeudFils().push_back(filsBas); // On ajoute le noeud fils à la liste des noeuds fils
     }
+    else this->getLstNoeudFils().push_back(NULL);
 
     i = this->getPosition(0);
     j = this->getPosition(1);
@@ -128,6 +130,7 @@ void Noeud::chercherFils()
         Noeud filsGauche = new Noeud(count,i,j);
         this->getLstNoeudFils().push_back(filsGauche); // On ajoute le noeud fils à la liste des noeuds fils
     }
+    else this->getLstNoeudFils().push_back(NULL);
 
     i = this->getPosition(0);
     j = this->getPosition(1);
@@ -142,9 +145,14 @@ void Noeud::chercherFils()
         Noeud filsDroite = new Noeud(count,i,j);
         this->getLstNoeudFils().push_back(filsDroite); // On ajoute le noeud fils à la liste des noeuds fils
     }
+    else this->getLstNoeudFils().push_back(NULL);
 
     i = this->getPosition(0);
     j = this->getPosition(1);
 
     return;
 }
+
+int* astar(const Noeud& final);
+
+int* build_path(const std::list<Noeud*>& origin, const Noeud& final);

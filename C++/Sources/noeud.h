@@ -37,7 +37,7 @@ public :
     std::list<Noeud*> getLstNoeudFils();
     void chercherFils();
     void setLstNoeudFils(std::list<Noeud*>);
-
+    std::list<std::pair<Noeud*, int>> astar(const Noeud& final);
 };
-
+std::list<std::pair<Noeud*, int>> build_path(const std::list<Noeud*>& origin, const Noeud& final);
 #endif // NOEUD_H
