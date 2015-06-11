@@ -48,6 +48,11 @@ int Noeud::getHeuristique()
     return this->heuristique;
 }
 
+void Noeud::calcHeuristique(Noeud* final)
+{
+    setHeuristique(0);
+}
+
 void Noeud::setPosition(int x, int y)
 {
     this->position[0] = x;
@@ -97,9 +102,16 @@ void Noeud::chercherFils()
         }
         count++;
         Noeud filsHaut = new Noeud(count,i,j);
+
         this->getLstNoeudFils().push_back(filsHaut); // On ajoute le noeud fils �  la liste des noeuds fils
+        Arc up(getPosition(1)-j, &filsHaut);
+        this->setArc(0, &up);
     }
-    else this->getLstNoeudFils().push_back(NULL);
+    else
+    {
+        this->getLstNoeudFils().push_back(NULL);
+        this->setArc(0, NULL);
+    }
 
     // On revient sur notre case de départ
     i = this->getPosition()[0];
@@ -113,9 +125,17 @@ void Noeud::chercherFils()
         }
         count++;
         Noeud filsBas = new Noeud(count,i,j);
+
         this->getLstNoeudFils().push_back(filsBas); // On ajoute le noeud fils �  la liste des noeuds fils
+        Arc down(j-getPosition(1), &filsBas);
+        this->setArc(1, &down);
     }
-    else this->getLstNoeudFils().push_back(NULL);
+    else
+    {
+        this->getLstNoeudFils().push_back(NULL);
+        this->setArc(1, NULL);
+
+    }
 
     i = this->getPosition()[0];
     j = this->getPosition()[1];
@@ -128,9 +148,17 @@ void Noeud::chercherFils()
         }
         count++;
         Noeud filsGauche = new Noeud(count,i,j);
+
         this->getLstNoeudFils().push_back(filsGauche); // On ajoute le noeud fils �  la liste des noeuds fils
+        Arc left(j-getPosition(1), &filsGauche);
+        this->setArc(1, &left);
     }
-    else this->getLstNoeudFils().push_back(NULL);
+    else
+    {
+        this->getLstNoeudFils().push_back(NULL);
+        this->setArc(2, NULL);
+
+    }
 
     i = this->getPosition()[0];
     j = this->getPosition()[1];
@@ -143,9 +171,17 @@ void Noeud::chercherFils()
         }
         count++;
         Noeud filsDroite = new Noeud(count,i,j);
+
         this->getLstNoeudFils().push_back(filsDroite); // On ajoute le noeud fils �  la liste des noeuds fils
+        Arc r(j-getPosition(1), &filsDroite);
+        this->setArc(1, &right);
     }
-    else this->getLstNoeudFils().push_back(NULL);
+    else
+    {
+        this->getLstNoeudFils().push_back(NULL);
+        this->setArc(3, NULL);
+
+    }
 
     i = this->getPosition()[0];
     j = this->getPosition()[1];
@@ -153,6 +189,88 @@ void Noeud::chercherFils()
     return;
 }
 
-int* astar(const Noeud& final);
+int* Noeud::astar(const Noeud& final)
+{
+    std::list<Noeud*> open, closed, origin;
+    open.push_back(this);
 
-int* build_path(const std::list<Noeud*>& origin, const Noeud& final);
+    int f(g + calcHeuristique(final)), tempG;
+    setG(0);
+
+    //Tant qu'on est pas au noeud final.
+    while(!(open.empty()))
+    {
+        //On récupère le meilleurs noeud selon f
+        //On rest s'il est le noeud final.
+        Noeud* cur = getBestNode(open);
+        if(cur == final)
+        {
+            return build_path(origin, final); //On retourne le chemin parcouru.
+        }
+        open.remove(cur);
+        closed.push_back(cur);
+
+        //S'il ne l'est pas on met dans open tout les noeuds fils qui ne sont ni dans open,
+        //ni dans closed et qui possède un coût de déplacement inférieur au noeud courrant.
+
+        for(int i = 0; i<lstNoeudFils.size(); i++)
+        {
+            if(!(member(lstNoeudFils[i], closed)))
+            {
+                tempG = cur->getG() + cur->getArc(i)->getWeight();
+
+                if(!(member(lstNoeudFils[i], open)) || tempG < lstNoeudsFils[i]->getG())
+                {
+                    origin.push_back(cur);
+                    lstNoeudFils[i].setG(tempG);
+                    lstNoeudFils[i].setHeuristique(tempG + 0); //Add calcHeuritique.
+
+                    if(!(member(lstNoeudFils[i], open))) open.push_back(lstNoeudsFils[i]);
+
+                }
+            }
+        }
+    }
+    //Si échec on retourne null.
+    return NULL;
+}
+
+Noeud* getBestNode(const std::list<Noeud*>& open)
+{
+    Noeud* res = open[0];
+    int f(res->getHeuritisque() + res->getG());
+
+    //On parcours la liste des fils et on recupère le meilleurs noeuds selon f.
+    for(int i = 1; i<open.size(); i++)
+    {
+        if (f > open[i]->getG() + open[i]->getHeuristique()) res = open[i];
+    }
+
+    return res;
+}
+
+int* build_path(const std::list<Noeud*>& origin, const Noeud& final)
+{
+    int path[2(origin.size()+1)], j(0);
+    for(int i = 0, k = 0; i < 2(origin.size()+1); i+=2, k++)
+    {
+        path[i] = 0;
+        //On cherche la direction
+        while(origin[k].getLstNoeudFils()[j] != origin[k+1])
+        {
+            j++;
+        }
+        path[i+1] = j;
+
+    }
+
+}
+
+bool member(const std::list<Noeud*>& list, const Noeud* node)
+{
+    for(int i = 0; i < list.size(); i++)
+    {
+        if(list[i] == node) return true;
+    }
+    return false;
+}

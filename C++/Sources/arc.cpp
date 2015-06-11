@@ -10,7 +10,8 @@ Arc::Arc():poids(0)
 
 Arc::Arc(int p, Noeud* n)
 {
-    this->poids = p;
+    if(p<0) this->poids = p-2*p;
+    else this->poids = p;
     this->cible = n;
 }
 
