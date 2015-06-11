@@ -152,32 +152,6 @@ IpseityTalker::selectResponse()
 {
     Noeud *n = new Noeud(); //unused
 
-    int robot_target;
-    int target=m_CurrentStimulus[4];
-    Coordonnees robot_target_coord;
-    Coordonnees target_coord;
-    Coordonnees list_target[17];
-    bool list_murH[15][16];
-    bool list_murV[16][15];
-
-    robot_target=floor((target-1)/4);     // prolog : move([_,_,_,_,TargetId|_],[Robot,1]):-Robot is floor((TargetId-1)/4).
-    cout << robot_target << endl;
-    switch(robot_target){
-        case 0:
-            robot_target_coord=Coordonnees(m_CurrentStimulus[5],m_CurrentStimulus[6]);
-        break;
-        case 1:
-            robot_target_coord=Coordonnees(m_CurrentStimulus[7],m_CurrentStimulus[8]);
-        break;
-        case 2:
-            robot_target_coord=Coordonnees(m_CurrentStimulus[9],m_CurrentStimulus[10]);
-        break;
-        case 3:
-            robot_target_coord=Coordonnees(m_CurrentStimulus[11],m_CurrentStimulus[12]);
-        break;
-    default:
-            robot_target_coord=Coordonnees(m_CurrentStimulus[0],m_CurrentStimulus[0]);
-    }
 
     //    /*
     //        Construction de la list_murV qui contient les Coordonnées de chaque mur
@@ -350,7 +324,7 @@ IpseityTalker::selectResponse()
     //        list_murV[15][9]=true;
     //    }
     //    list_target[8]=Coordonnees(14,13);
-    target_coord=list_target[target];
+  //  target_coord=list_target[target];
 
 
 

@@ -69,86 +69,86 @@ std::list<Noeud*> Noeud::getLstNoeudFils()
     return this->lstNoeudFils;
 }
 
-// On cherche tous les noeuds fils, ce sont les cases qui sont accessibles Ã  partir de la case actuelle (Noeud parent)
+// On cherche tous les noeuds fils, ce sont les cases qui sont accessibles Ã  partir de la case actuelle (Noeud parent)
 void Noeud::chercherFils()
 {
-    int pos[4]; // : 0 haut 1 bas 2 gauche 3 droite, si pos[0]==1 alors il y a un obstacle horizontale au-dessus de notre case
-    int countFils; // nombre de fils Ã  partir du noeud parent
+    int pos[4]={0,0,0,0}; // : 0 haut 1 bas 2 gauche 3 droite, si pos[0]==1 alors il y a un obstacle horizontale au-dessus de notre case
+    int count; // nombre de fils Ã  partir du noeud parent
 
-    // On cherche Ã  quel(s) bords notre case est collÃ©e
-    if(Bd::getlist_murV(this->getPosition(0),this->getPosition(1))) // est-ce qu'il y a un mur vertical Ã  droite
+    // On cherche Ã  quel(s) bords notre case est collÃ©e
+    if(Bd::getlist_murV(this->getPosition()[0],this->getPosition()[1])) // est-ce qu'il y a un mur vertical Ã  droite
         pos[3]=1;
-    else if(Bd::getlist_murV(this->getPosition(0)-1,this->getPosition(1))) // est-ce qu'il y a un mur vertical Ã  gauche
+    else if(Bd::getlist_murV(this->getPosition()[0]-1,this->getPosition()[1])) // est-ce qu'il y a un mur vertical Ã  gauche
         pos[2]=1;
-    else if(Bd::getlist_murH(this->getPosition(0),this->getPosition(1))) // est-ce qu'il y a un mur horizontal en bas
+    else if(Bd::getlist_murH(this->getPosition()[0],this->getPosition()[1])) // est-ce qu'il y a un mur horizontal en bas
         pos[1]=1;
-    else if(Bd::getlist_murH(this->getPosition(0),this->getPosition(1)-1)) // est-ce qu'il y a un mur horizontal en haut
+    else if(Bd::getlist_murH(this->getPosition()[0],this->getPosition()[1]-1)) // est-ce qu'il y a un mur horizontal en haut
         pos[0]=1;
 
     // On cherche la position des noeuds fils possibles dans chaque direction
-    i = this->getPosition(0);
-    j = this->getPosition(1);
+    i = this->getPosition()[0];
+    j = this->getPosition()[1];
 
-    if(tab[0]==0) // On cherche la position d'un noeud fils s'il n'y a pas d'obstacle collÃ© au-dessus de notre case actuelle
+    if(pos[0]==0) // On cherche la position d'un noeud fils s'il n'y a pas d'obstacle collÃ© au-dessus de notre case actuelle
     {
-        while(Bd::getlist_murH(this->getPosition(i),this->getPosition(j)-1)==false) // On monte dans la grille tant qu'on ne rencontre pas de mur
+        while(Bd::getlist_murH(this->getPosition()[i],this->getPosition()[j]-1)==false) // On monte dans la grille tant qu'on ne rencontre pas de mur
         {
             j--;
         }
         count++;
         Noeud filsHaut = new Noeud(count,i,j);
-        this->getLstNoeudFils().push_back(filsHaut); // On ajoute le noeud fils Ã  la liste des noeuds fils
+        this->getLstNoeudFils().push_back(filsHaut); // On ajoute le noeud fils Ã  la liste des noeuds fils
     }
     else this->getLstNoeudFils().push_back(NULL);
 
     // On revient sur notre case de dÃ©part
-    i = this->getPosition(0);
-    j = this->getPosition(1);
+    i = this->getPosition()[0];
+    j = this->getPosition()[1];
 
-    if(tab[1]==0) // Libre en bas
+    if(pos[1]==0) // Libre en bas
     {
-        while(Bd::getlist_murH(this->getPosition(i),this->getPosition(j))==false) // On descend dans la grille tant qu'on ne rencontre pas de mur
+        while(Bd::getlist_murH(this->getPosition()[i],this->getPosition()[j])==false) // On descend dans la grille tant qu'on ne rencontre pas de mur
         {
             j++;
         }
         count++;
         Noeud filsBas = new Noeud(count,i,j);
-        this->getLstNoeudFils().push_back(filsBas); // On ajoute le noeud fils Ã  la liste des noeuds fils
+        this->getLstNoeudFils().push_back(filsBas); // On ajoute le noeud fils Ã  la liste des noeuds fils
     }
     else this->getLstNoeudFils().push_back(NULL);
 
-    i = this->getPosition(0);
-    j = this->getPosition(1);
+    i = this->getPosition()[0];
+    j = this->getPosition()[1];
 
-    if(tab[2]==0) // Libre Ã  gauche
+    if(pos[2]==0) // Libre Ã  gauche
     {
-        while(Bd::getlist_murH(this->getPosition(i)-1,this->getPosition(j))==false) // On va Ã  gauche dans la grille tant qu'on ne rencontre pas de mur
+        while(Bd::getlist_murH(this->getPosition()[i]-1,this->getPosition()[j])==false) // On va Ã  gauche dans la grille tant qu'on ne rencontre pas de mur
         {
             i--;
         }
         count++;
         Noeud filsGauche = new Noeud(count,i,j);
-        this->getLstNoeudFils().push_back(filsGauche); // On ajoute le noeud fils Ã  la liste des noeuds fils
+        this->getLstNoeudFils().push_back(filsGauche); // On ajoute le noeud fils Ã  la liste des noeuds fils
     }
     else this->getLstNoeudFils().push_back(NULL);
 
-    i = this->getPosition(0);
-    j = this->getPosition(1);
+    i = this->getPosition()[0];
+    j = this->getPosition()[1];
 
-    if(tab[3]==0) // Libre Ã  droite
+    if(pos[3]==0) // Libre Ã  droite
     {
-        while(Bd::getlist_murH(this->getPosition(i),this->getPosition(j))==false) // On va Ã  droite dans la grille tant qu'on ne rencontre pas de mur
+        while(Bd::getlist_murH(this->getPosition()[i],this->getPosition()[j])==false) // On va Ã  droite dans la grille tant qu'on ne rencontre pas de mur
         {
             i++;
         }
         count++;
         Noeud filsDroite = new Noeud(count,i,j);
-        this->getLstNoeudFils().push_back(filsDroite); // On ajoute le noeud fils Ã  la liste des noeuds fils
+        this->getLstNoeudFils().push_back(filsDroite); // On ajoute le noeud fils Ã  la liste des noeuds fils
     }
     else this->getLstNoeudFils().push_back(NULL);
 
-    i = this->getPosition(0);
-    j = this->getPosition(1);
+    i = this->getPosition()[0];
+    j = this->getPosition()[1];
 
     return;
 }

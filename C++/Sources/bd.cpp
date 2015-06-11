@@ -11,6 +11,11 @@ Bd::~Bd()
 
 }
 
+Bd::Bd(Stimulus _m)
+{
+    this->m_CurrentStimulus = _m;
+}
+
 // Construction de la base de connaissances
 void Bd::builddata()
 {
@@ -23,7 +28,7 @@ void Bd::builddata()
         }
     }
 
-
+    target=m_CurrentStimulus[4];
     /* Base de connaissances
         Construction de la list_target qui contient les Coordonnées de chaque cible
         en fonction de des 4 variables définissant le plateau*/
@@ -185,22 +190,47 @@ void Bd::builddata()
         list_murV[15][9]=true;
     }
     list_target[8]=Coordonnees(14,13);
+    target_coord=list_target[target];
+
+    robot_target=floor((target-1)/4);     // prolog : move([_,_,_,_,TargetId|_],[Robot,1]):-Robot is floor((TargetId-1)/4).
+    //cout << robot_target << endl;
+    switch(robot_target){
+        case 0:
+            robot_target_coord=Coordonnees(m_CurrentStimulus[5],m_CurrentStimulus[6]);
+        break;
+        case 1:
+            robot_target_coord=Coordonnees(m_CurrentStimulus[7],m_CurrentStimulus[8]);
+        break;
+        case 2:
+            robot_target_coord=Coordonnees(m_CurrentStimulus[9],m_CurrentStimulus[10]);
+        break;
+        case 3:
+            robot_target_coord=Coordonnees(m_CurrentStimulus[11],m_CurrentStimulus[12]);
+        break;
+    default:
+            robot_target_coord=Coordonnees(m_CurrentStimulus[5],m_CurrentStimulus[6]);
+
+
+    }
 
 }
 
 // Récupération de la position des cibles
-bool Bd::getlist_target(int i)
+Coordonnees Bd::getlist_target(int i)
 {
-    return list_target(i);
+    return list_target[i];
 }
 
 // Récupération de la position des obstacles
 bool Bd::getlist_murH(int i, int j)
 {
-    return list_target(i,j);
+    return list_murH[i][j];
 }
 
 bool Bd::getlist_murV(int i, int j)
 {
-    return list_target(i,j);
+    return list_murV[i][j];
 }
+
+
+
