@@ -1,6 +1,8 @@
 #include "arc.h"
 #include "noeud.h"
 
+
+// Constructeurs
 Arc::Arc():poids(0)
 {
 
@@ -12,6 +14,7 @@ Arc::Arc(int p, Noeud* n)
     this->cible = n;
 }
 
+// Accesseurs & Mutateurs
 void Arc::setCible(Noeud* n)
 {
     this->cible = n;
