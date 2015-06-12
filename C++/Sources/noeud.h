@@ -20,6 +20,7 @@ private :
     Arc* bas;
     Arc* gauche;
     Arc* droite;
+    Bd* map;
 
 public :
     Noeud();
@@ -29,9 +30,9 @@ public :
 
     int getId();
     void setId(int);
-    int getHeuritisque();
+    int getHeuristique();
     void setHeuristique(int);
-    void calcHeuristique(Noeud*);
+    void calcHeuristique(Noeud* final);
     int* getPosition();
     void setPosition(int x, int y);
     std::list<Noeud*> getLstNoeudFils();
@@ -46,13 +47,13 @@ std::list<std::pair<Noeud*, int> > build_path(const std::list<Noeud*>& origin, c
     Arc* getArc(int);
     void setArc(int, Arc*);
 
-    Response astar(const Noeud& final);
+    Response astar(Noeud* final);
 
 };
 Noeud* getBestNode(const std::list<Noeud*>& open);
 
-Response build_path(const std::list<Noeud*>& origin, const Noeud& final);
+Response build_path(const std::list<Noeud*>& origin, Noeud* final);
 
-bool member(const std::list<Noeud*>& list, const Noeud* node); //true if node is in list, false otherwise.
+bool member(const Noeud* node, const std::list<Noeud*>& list); //true if node is in list, false otherwise.
 
 #endif // NOEUD_H

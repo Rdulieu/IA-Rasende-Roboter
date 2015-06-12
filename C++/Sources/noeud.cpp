@@ -74,20 +74,23 @@ std::list<Noeud*> Noeud::getLstNoeudFils()
     return this->lstNoeudFils;
 }
 
-// On cherche tous les noeuds fils, ce sont les cases qui sont accessibles √  partir de la case actuelle (Noeud parent)
+// On cherche tous les noeuds fils, ce sont les cases qui sont accessibles partir de la case actuelle (Noeud parent)
 void Noeud::chercherFils()
 {
+    int i,j;
     int pos[4]={0,0,0,0}; // : 0 haut 1 bas 2 gauche 3 droite, si pos[0]==1 alors il y a un obstacle horizontale au-dessus de notre case
-    int count; // nombre de fils √  partir du noeud parent
+    int count; // nombre de fils partir du noeud parent
+    map = new Bd();
+   // Bd *t=new Bd();
 
-    // On cherche √  quel(s) bords notre case est coll√©e
-    if(Bd::getlist_murV(this->getPosition()[0],this->getPosition()[1])) // est-ce qu'il y a un mur vertical √  droite
+    // On cherche quel(s) bords notre case est coll√©e
+    if(map->getlist_murV(this->getPosition()[0],this->getPosition()[1])) // est-ce qu'il y a un mur vertical droite
         pos[3]=1;
-    else if(Bd::getlist_murV(this->getPosition()[0]-1,this->getPosition()[1])) // est-ce qu'il y a un mur vertical √  gauche
+    else if(map->getlist_murV(this->getPosition()[0]-1,this->getPosition()[1])) // est-ce qu'il y a un mur vertical gauche
         pos[2]=1;
-    else if(Bd::getlist_murH(this->getPosition()[0],this->getPosition()[1])) // est-ce qu'il y a un mur horizontal en bas
+    else if(map->getlist_murH(this->getPosition()[0],this->getPosition()[1])) // est-ce qu'il y a un mur horizontal en bas
         pos[1]=1;
-    else if(Bd::getlist_murH(this->getPosition()[0],this->getPosition()[1]-1)) // est-ce qu'il y a un mur horizontal en haut
+    else if(map->getlist_murH(this->getPosition()[0],this->getPosition()[1]-1)) // est-ce qu'il y a un mur horizontal en haut
         pos[0]=1;
 
     // On cherche la position des noeuds fils possibles dans chaque direction
@@ -96,15 +99,15 @@ void Noeud::chercherFils()
 
     if(pos[0]==0) // On cherche la position d'un noeud fils s'il n'y a pas d'obstacle coll√© au-dessus de notre case actuelle
     {
-        while(Bd::getlist_murH(this->getPosition()[i],this->getPosition()[j]-1)==false) // On monte dans la grille tant qu'on ne rencontre pas de mur
+        while(map->getlist_murH(this->getPosition()[i],this->getPosition()[j]-1)==false) // On monte dans la grille tant qu'on ne rencontre pas de mur
         {
             j--;
         }
         count++;
-        Noeud filsHaut = new Noeud(count,i,j);
+        Noeud *filsHaut = new Noeud(count,i,j);
 
-        this->getLstNoeudFils().push_back(filsHaut); // On ajoute le noeud fils √  la liste des noeuds fils
-        Arc up(getPosition(1)-j, &filsHaut);
+        this->getLstNoeudFils().push_back(filsHaut); // On ajoute le noeud fils la liste des noeuds fils
+        Arc up(getPosition()[1]-j, filsHaut);
         this->setArc(0, &up);
     }
     else
@@ -119,15 +122,15 @@ void Noeud::chercherFils()
 
     if(pos[1]==0) // Libre en bas
     {
-        while(Bd::getlist_murH(this->getPosition()[i],this->getPosition()[j])==false) // On descend dans la grille tant qu'on ne rencontre pas de mur
+        while(map->getlist_murH(this->getPosition()[i],this->getPosition()[j])==false) // On descend dans la grille tant qu'on ne rencontre pas de mur
         {
             j++;
         }
         count++;
-        Noeud filsBas = new Noeud(count,i,j);
+        Noeud *filsBas = new Noeud(count,i,j);
 
-        this->getLstNoeudFils().push_back(filsBas); // On ajoute le noeud fils √  la liste des noeuds fils
-        Arc down(j-getPosition(1), &filsBas);
+        this->getLstNoeudFils().push_back(filsBas); // On ajoute le noeud fils la liste des noeuds fils
+        Arc down(j-getPosition()[1], filsBas);
         this->setArc(1, &down);
     }
     else
@@ -140,17 +143,17 @@ void Noeud::chercherFils()
     i = this->getPosition()[0];
     j = this->getPosition()[1];
 
-    if(pos[2]==0) // Libre √  gauche
+    if(pos[2]==0) //Libre gauche
     {
-        while(Bd::getlist_murH(this->getPosition()[i]-1,this->getPosition()[j])==false) // On va √  gauche dans la grille tant qu'on ne rencontre pas de mur
+        while(map->getlist_murH(this->getPosition()[i]-1,this->getPosition()[j])==false) // On va gauche dans la grille tant qu'on ne rencontre pas de mur
         {
             i--;
         }
         count++;
-        Noeud filsGauche = new Noeud(count,i,j);
+        Noeud *filsGauche = new Noeud(count,i,j);
 
-        this->getLstNoeudFils().push_back(filsGauche); // On ajoute le noeud fils √  la liste des noeuds fils
-        Arc left(j-getPosition(1), &filsGauche);
+        this->getLstNoeudFils().push_back(filsGauche); // On ajoute le noeud fils la liste des noeuds fils
+        Arc left(i-getPosition()[0], filsGauche);
         this->setArc(1, &left);
     }
     else
@@ -163,17 +166,17 @@ void Noeud::chercherFils()
     i = this->getPosition()[0];
     j = this->getPosition()[1];
 
-    if(pos[3]==0) // Libre √  droite
+    if(pos[3]==0) // Libre droite
     {
-        while(Bd::getlist_murH(this->getPosition()[i],this->getPosition()[j])==false) // On va √  droite dans la grille tant qu'on ne rencontre pas de mur
+        while(map->getlist_murH(this->getPosition()[i],this->getPosition()[j])==false) // On va droite dans la grille tant qu'on ne rencontre pas de mur
         {
             i++;
         }
         count++;
-        Noeud filsDroite = new Noeud(count,i,j);
+        Noeud *filsDroite = new Noeud(count,i,j);
 
-        this->getLstNoeudFils().push_back(filsDroite); // On ajoute le noeud fils √  la liste des noeuds fils
-        Arc r(j-getPosition(1), &filsDroite);
+        this->getLstNoeudFils().push_back(filsDroite); // On ajoute le noeud fils la liste des noeuds fils
+        Arc right(j-getPosition()[0], filsDroite);
         this->setArc(1, &right);
     }
     else
@@ -189,12 +192,14 @@ void Noeud::chercherFils()
     return;
 }
 
-Response Noeud::astar(const Noeud& final)
+Response Noeud::astar(Noeud* final)
 {
     std::list<Noeud*> open, closed, origin;
     open.push_back(this);
 
-    int f(g + calcHeuristique(final)), tempG;
+    int f,tempG;
+    calcHeuristique(final);
+    f = getHeuristique();
     setG(0);
 
     //Tant qu'on est pas au noeud final.
@@ -212,23 +217,24 @@ Response Noeud::astar(const Noeud& final)
 
         //S'il ne l'est pas on met dans open tout les noeuds fils qui ne sont ni dans open,
         //ni dans closed et qui poss√®de un co√ªt de d√©placement inf√©rieur au noeud courrant.
-
-        for(int i = 0; i<lstNoeudFils.size(); i++)
+        int i = 0;
+        for(std::list<Noeud*>::iterator it = lstNoeudFils.begin(); it != lstNoeudFils.end(); it++)
         {
-            if(!(member(lstNoeudFils[i], closed)))
+            if(!(member(*it, closed)))
             {
-                tempG = cur->getG() + cur->getArc(i)->getWeight();
+                tempG = cur->getG() + cur->getArc(i)->getPoids();
 
-                if(!(member(lstNoeudFils[i], open)) || tempG < lstNoeudsFils[i]->getG())
+                if(!(member(*it, open)) || tempG < *it->getG())
                 {
                     origin.push_back(cur);
-                    lstNoeudFils[i].setG(tempG);
-                    lstNoeudFils[i].setHeuristique(tempG + 0); //Add calcHeuritique.
+                    *it->setG(tempG);
+                    *it->setHeuristique(tempG + 0); //Add calcHeuritique.
 
-                    if(!(member(lstNoeudFils[i], open))) open.push_back(lstNoeudsFils[i]);
+                    if(!(member(*it, open))) open.push_back(*it);
 
                 }
             }
+            i++;
         }
     }
     //Si √©chec on retourne null.
@@ -249,7 +255,7 @@ Noeud* getBestNode(const std::list<Noeud*>& open)
     return res;
 }
 
-Response build_path(const std::list<Noeud*>& origin, const Noeud& final)
+Response build_path(const std::list<Noeud*>& origin, Noeud* final)
 {
     Response path(2(origin.size()+1)); //On alloue un tableau de 2 fois la taille de origin + final
     int j(0);
