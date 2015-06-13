@@ -15,6 +15,17 @@ Arc::Arc(int p, Noeud* n)
     this->cible = n;
 }
 
+Arc::Arc(const Arc& copy)
+{
+    this->poids = copy.poids;
+    this->cible = copy.cible;
+}
+
+Arc::~Arc()
+{
+    delete cible;
+}
+
 // Accesseurs & Mutateurs
 void Arc::setCible(Noeud* n)
 {

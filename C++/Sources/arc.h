@@ -10,13 +10,16 @@ private :
     Noeud* cible;
 
 public :
+    Arc();
+    Arc(int,Noeud*);
+    Arc(const Arc& copy);
+
     int getPoids();
     void setPoids(int);
 
     Noeud* getCible();
     void setCible(Noeud*);
-    Arc();
-    Arc(int,Noeud*);
+
 };
 
 #endif // ARC_H
