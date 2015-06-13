@@ -128,7 +128,7 @@ void Noeud::chercherFils(QList<int[2]> &discover)
         {
             j--;
         }
-        j--; //TO TEST : I modified count-- by j--.
+        count++;
         //Si la position n'est pas encore découverte :
         p[0] = i;
         p[1] = j;
@@ -159,11 +159,18 @@ void Noeud::chercherFils(QList<int[2]> &discover)
             j++;
         }
         count++;
-        Noeud *filsBas = new Noeud(count,i,j,discover);
+        //Si la position n'est pas encore découverte :
+        p[0] = i;
+        p[1] = j;
+        if(!(discover.contains(p)))
+        {
+            discover.append(p);
+            Noeud *filsBas = new Noeud(count,i,j,discover);
 
-        this->getLstNoeudFils().push_back(filsBas); // On ajoute le noeud fils la liste des noeuds fils
-        Arc down(j-getPosition()[1], filsBas);
-        this->setArc(1, &down);
+            this->getLstNoeudFils().push_back(filsBas); // On ajoute le noeud fils la liste des noeuds fils
+            Arc down(j-getPosition()[1], filsBas);
+            this->setArc(1, &down);
+        }
     }
     else
     {
@@ -182,11 +189,19 @@ void Noeud::chercherFils(QList<int[2]> &discover)
             i--;
         }
         count++;
-        Noeud *filsGauche = new Noeud(count,i,j, discover);
 
-        this->getLstNoeudFils().push_back(filsGauche); // On ajoute le noeud fils la liste des noeuds fils
-        Arc left(i-getPosition()[0], filsGauche);
-        this->setArc(1, &left);
+        //Si la position n'est pas encore découverte :
+        p[0] = i;
+        p[1] = j;
+        if(!(discover.contains(p)))
+        {
+            discover.append(p);
+            Noeud *filsGauche = new Noeud(count,i,j, discover);
+
+            this->getLstNoeudFils().push_back(filsGauche); // On ajoute le noeud fils la liste des noeuds fils
+            Arc left(i-getPosition()[0], filsGauche);
+            this->setArc(1, &left);
+        }
     }
     else
     {
@@ -205,11 +220,18 @@ void Noeud::chercherFils(QList<int[2]> &discover)
             i++;
         }
         count++;
-        Noeud *filsDroite = new Noeud(count,i,j,discover);
+        //Si la position n'est pas encore découverte :
+        p[0] = i;
+        p[1] = j;
+        if(!(discover.contains(p)))
+        {
+            discover.append(p);
+            Noeud *filsDroite = new Noeud(count,i,j,discover);
 
-        this->getLstNoeudFils().push_back(filsDroite); // On ajoute le noeud fils la liste des noeuds fils
-        Arc right(j-getPosition()[0], filsDroite);
-        this->setArc(1, &right);
+            this->getLstNoeudFils().push_back(filsDroite); // On ajoute le noeud fils la liste des noeuds fils
+            Arc right(j-getPosition()[0], filsDroite);
+            this->setArc(1, &right);
+        }
     }
     else
     {
