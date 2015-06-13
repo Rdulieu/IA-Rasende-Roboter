@@ -19,7 +19,7 @@ Noeud::Noeud(int _id, int x, int y)
     this->position[1] = y;
 }
 
-Noeud::Noeud(int _id, int x, int y, std::list<Noeud*> _lst)
+Noeud::Noeud(int _id, int x, int y, QList<Noeud*> _lst)
 {
     this->id = _id;
     this->position[0]=x;
@@ -64,12 +64,12 @@ int* Noeud::getPosition()
     return this->position;
 }
 
-void Noeud::setLstNoeudFils(std::list<Noeud*> _lst)
+void Noeud::setLstNoeudFils(QList<Noeud*> _lst)
 {
     this->lstNoeudFils = _lst;
 }
 
-std::list<Noeud*> Noeud::getLstNoeudFils()
+QList<Noeud*> Noeud::getLstNoeudFils()
 {
     return this->lstNoeudFils;
 }
@@ -81,7 +81,6 @@ void Noeud::chercherFils()
     int pos[4]={0,0,0,0}; // : 0 haut 1 bas 2 gauche 3 droite, si pos[0]==1 alors il y a un obstacle horizontale au-dessus de notre case
     int count; // nombre de fils partir du noeud parent
     map = new Bd();
-   // Bd *t=new Bd();
 
     // On cherche quel(s) bords notre case est collée
     if(map->getlist_murV(this->getPosition()[0],this->getPosition()[1])) // est-ce qu'il y a un mur vertical droite
@@ -192,9 +191,42 @@ void Noeud::chercherFils()
     return;
 }
 
+int getG()
+{
+    return gCost;
+}
+
+int setG(int val)
+{
+    gCost = val;
+}
+
+Arc* getArc(int option)
+{
+    switch(option)
+    {
+    case 1:
+        return bas;
+        break;
+    case 2:
+        return gauche;
+        break;
+    case 3:
+        return droit;
+        break;
+    case 0:
+        return haut;
+        break;
+    default:
+        return NULL;
+    }
+}
+
+void setArc(int, Arc*);
+
 Response Noeud::astar(Noeud* final)
 {
-    std::list<Noeud*> open, closed, origin;
+    QList<Noeud*> open, closed, origin;
     open.push_back(this);
 
     int f,tempG;
@@ -212,39 +244,38 @@ Response Noeud::astar(Noeud* final)
         {
             return build_path(origin, final); //On retourne le chemin parcouru.
         }
-        open.remove(cur);
+        open.removeOne(cur);
         closed.push_back(cur);
 
         //S'il ne l'est pas on met dans open tout les noeuds fils qui ne sont ni dans open,
         //ni dans closed et qui possède un coût de déplacement inférieur au noeud courrant.
         int i = 0;
-        for(std::list<Noeud*>::iterator it = lstNoeudFils.begin(); it != lstNoeudFils.end(); it++)
+        for(int i = 0; i<lstNoeudFils.size(); i++)
         {
-            if(!(member(*it, closed)))
+            if(!(member(lstNoeudFils[i], closed)))
             {
                 tempG = cur->getG() + cur->getArc(i)->getPoids();
 
-                if(!(member(*it, open)) || tempG < *it->getG())
+                if(!(member(lstNoeudFils[i], open)) || tempG < lstNoeudFils[i]->getG())
                 {
                     origin.push_back(cur);
-                    *it->setG(tempG);
-                    *it->setHeuristique(tempG + 0); //Add calcHeuritique.
+                    lstNoeudFils[i]->setG(tempG);
+                    lstNoeudFils[i]->setHeuristique(tempG + 0); //Add calcHeuritique.
 
-                    if(!(member(*it, open))) open.push_back(*it);
+                    if(!(member(lstNoeudFils[i], open))) open.push_back(lstNoeudFils[i]);
 
                 }
             }
-            i++;
         }
     }
     //Si échec on retourne null.
-    return VoidResponse;
+    return NULL;
 }
 
-Noeud* getBestNode(const std::list<Noeud*>& open)
+Noeud* getBestNode(const QList<Noeud*>& open)
 {
     Noeud* res = open[0];
-    int f(res->getHeuritisque() + res->getG());
+    int f(res->getHeuristique() + res->getG());
 
     //On parcours la liste des fils et on recupère le meilleurs noeuds selon f.
     for(int i = 1; i<open.size(); i++)
@@ -255,15 +286,16 @@ Noeud* getBestNode(const std::list<Noeud*>& open)
     return res;
 }
 
-Response build_path(const std::list<Noeud*>& origin, Noeud* final)
+Response build_path(const QList<Noeud*>& origin, Noeud* final)
 {
-    Response path(2(origin.size()+1)); //On alloue un tableau de 2 fois la taille de origin + final
+    Response path(2*(origin.size()+1)); //On alloue un tableau de 2 fois la taille de origin + final
     int j(0);
-    for(int i = 0, k = 0; i < 2(origin.size()+1); i+=2, k++)
+
+    for(int i = 0, k = 0; i < 2*(origin.size()+1); i+=2, k++)
     {
         path[i] = 0;
         //On cherche la direction
-        while(origin[k].getLstNoeudFils()[j] != origin[k+1])
+        while(origin[k]->getLstNoeudFils()[j] != origin[k+1])
         {
             j++;
         }
@@ -273,7 +305,7 @@ Response build_path(const std::list<Noeud*>& origin, Noeud* final)
 
 }
 
-bool member(const std::list<Noeud*>& list, const Noeud* node)
+bool member(const QList<Noeud*>& list, const Noeud* node)
 {
     for(int i = 0; i < list.size(); i++)
     {

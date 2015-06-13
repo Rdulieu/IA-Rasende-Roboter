@@ -1,7 +1,7 @@
 #ifndef NOEUD_H
 #define NOEUD_H
 #include <map>
-#include <list>
+#include <QList>
 #include "arc.h"
 #include "bd.h"
 #include"IpseityTalker.h"
@@ -15,17 +15,17 @@ private :
     int position[2];  // position[0] : coordX  position[1] : coordY
     int heuristique;
     int gCost;
-    std::list<Noeud*> lstNoeudFils;
-    Arc* haut;
-    Arc* bas;
-    Arc* gauche;
-    Arc* droite;
+    QList<Noeud*> lstNoeudFils;
+    Arc* haut; // id : 0
+    Arc* bas; // id : 1
+    Arc* gauche; // id : 2
+    Arc* droite; // id : 3
     Bd* map;
 
 public :
     Noeud();
     Noeud(int,int,int); // id, x, y
-    Noeud(int,int,int,std::list<Noeud*>); // id, x, y, lstNoeudFils
+    Noeud(int,int,int,QList<Noeud*>); // id, x, y, lstNoeudFils
     ~Noeud();
 
     int getId();
@@ -35,9 +35,9 @@ public :
     void calcHeuristique(Noeud* final);
     int* getPosition();
     void setPosition(int x, int y);
-    std::list<Noeud*> getLstNoeudFils();
+    QList<Noeud*> getLstNoeudFils();
     void chercherFils();
-    void setLstNoeudFils(std::list<Noeud*>);
+    void setLstNoeudFils(QList<Noeud*>);
 /* -> INUTILE
     std::list<std::pair<Noeud*, int> > astar(const Noeud& final);
 };
@@ -50,10 +50,10 @@ std::list<std::pair<Noeud*, int> > build_path(const std::list<Noeud*>& origin, c
     Response astar(Noeud* final);
 
 };
-Noeud* getBestNode(const std::list<Noeud*>& open);
+Noeud* getBestNode(const QList<Noeud*>& open);
 
-Response build_path(const std::list<Noeud*>& origin, Noeud* final);
+Response build_path(const QList<Noeud*>& origin, Noeud* final);
 
-bool member(const Noeud* node, const std::list<Noeud*>& list); //true if node is in list, false otherwise.
+bool member(const Noeud* node, const QList<Noeud*>& list); //true if node is in list, false otherwise.
 
 #endif // NOEUD_H
