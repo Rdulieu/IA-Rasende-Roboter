@@ -222,7 +222,26 @@ Arc* getArc(int option)
     }
 }
 
-void setArc(int, Arc*);
+void setArc(int option, Arc* val)
+{
+    switch(option)
+    {
+    case 0:
+        haut = val;
+        break;
+    case 1:
+        bas = val;
+        break;
+    case 2:
+        gauche = val;
+        break;
+    case 3:
+        droite = val;
+        break;
+    default :
+        printf("Bad option.\n");
+    }
+}
 
 Response Noeud::astar(Noeud* final)
 {
