@@ -191,17 +191,17 @@ void Noeud::chercherFils()
     return;
 }
 
-int getG()
+int Noeud::getG()
 {
     return gCost;
 }
 
-int setG(int val)
+int Noeud::setG(int val)
 {
     gCost = val;
 }
 
-Arc* getArc(int option)
+Arc* Noeud::getArc(int option)
 {
     switch(option)
     {
@@ -212,7 +212,7 @@ Arc* getArc(int option)
         return gauche;
         break;
     case 3:
-        return droit;
+        return droite;
         break;
     case 0:
         return haut;
@@ -222,7 +222,7 @@ Arc* getArc(int option)
     }
 }
 
-void setArc(int option, Arc* val)
+void Noeud::setArc(int option, Arc* val)
 {
     switch(option)
     {
@@ -324,7 +324,7 @@ Response build_path(const QList<Noeud*>& origin, Noeud* final)
 
 }
 
-bool member(const QList<Noeud*>& list, const Noeud* node)
+bool member(const Noeud* node, const QList<Noeud*>& list)
 {
     for(int i = 0; i < list.size(); i++)
     {
