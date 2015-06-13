@@ -24,12 +24,12 @@ private :
 
 public :
     Noeud();
-    Noeud(int,int,int); // id, x, y
+    Noeud(int,int,int,QList<int[2]>&); // id, x, y
     Noeud(int,int,int,QList<Noeud*>); // id, x, y, lstNoeudFils
     Noeud(const Noeud& copy);
     ~Noeud();
 
-    bool isEqual(const Noeuds& b);
+    bool isEqual(const Noeud& b) const;
 
     int getId();
     void setId(int);
@@ -39,7 +39,7 @@ public :
     int* getPosition();
     void setPosition(int x, int y);
     QList<Noeud*> getLstNoeudFils();
-    void chercherFils();
+    void chercherFils(QList<int[2]>&);
     void setLstNoeudFils(QList<Noeud*>);
 /* -> INUTILE
     std::list<std::pair<Noeud*, int> > astar(const Noeud& final);
@@ -59,4 +59,7 @@ Response build_path(const QList<Noeud*>& origin, Noeud* final);
 
 bool member(const Noeud* node, const QList<Noeud*>& list); //true if node is in list, false otherwise.
 
+bool operator==(const Noeud& a, const Noeud& b);
+
+bool operator!=(const Noeud& a, const Noeud& b);
 #endif // NOEUD_H

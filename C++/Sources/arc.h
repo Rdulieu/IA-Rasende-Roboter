@@ -13,6 +13,7 @@ public :
     Arc();
     Arc(int,Noeud*);
     Arc(const Arc& copy);
+    ~Arc();
 
     int getPoids();
     void setPoids(int);

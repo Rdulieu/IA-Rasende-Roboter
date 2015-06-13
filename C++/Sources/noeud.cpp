@@ -14,16 +14,16 @@ Noeud::~Noeud()
     delete bas;
     delete gauche;
     delete droite;
-    delete Bd;
+    delete map;
 }
 
-Noeud::Noeud(int _id, int x, int y)
+Noeud::Noeud(int _id, int x, int y, QList<int[2]> &discover)
 {
     this->id = _id;
     this->position[0] = x;
     this->position[1] = y;
     this->map = new Bd();
-    chercherFils();
+    chercherFils(discover);
 }
 
 Noeud::Noeud(int _id, int x, int y, QList<Noeud*> _lst)
@@ -45,11 +45,11 @@ Noeud::Noeud(const Noeud& copy)
         this->heuristique = copy.heuristique;
         this->gCost = copy.gCost;
         this->getLstNoeudFils() = copy.lstNoeudFils;
-        this->haut = new Arc(copy.haut);
-        this->bas = new Arc(Copy.bas);
-        this->gauche = new Arc(copy.gauche);
-        this->droite = new Arc(Copy.droite);
-        this->map = new Bd(map);
+        this->haut = new Arc(*(copy.haut));
+        this->bas = new Arc(*(copy.bas));
+        this->gauche = new Arc(*(copy.gauche));
+        this->droite = new Arc(*(copy.droite));
+        this->map = new Bd(*map);
     }
 }
 
@@ -101,10 +101,10 @@ QList<Noeud*> Noeud::getLstNoeudFils()
 }
 
 // On cherche tous les noeuds fils, ce sont les cases qui sont accessibles partir de la case actuelle (Noeud parent)
-void Noeud::chercherFils()
+void Noeud::chercherFils(QList<int[2]> &discover)
 {
     int i,j;
-    int pos[4]={0,0,0,0}; // : 0 haut 1 bas 2 gauche 3 droite, si pos[0]==1 alors il y a un obstacle horizontale au-dessus de notre case
+    int pos[4]={0,0,0,0}, p[2]; // : 0 haut 1 bas 2 gauche 3 droite, si pos[0]==1 alors il y a un obstacle horizontale au-dessus de notre case
     int count; // nombre de fils partir du noeud parent
     map = new Bd();
 
@@ -128,12 +128,19 @@ void Noeud::chercherFils()
         {
             j--;
         }
-        count++;
-        Noeud *filsHaut = new Noeud(count,i,j);
+        j--; //TO TEST : I modified count-- by j--.
+        //Si la position n'est pas encore découverte :
+        p[0] = i;
+        p[1] = j;
+        if(!(discover.contains(p)))
+        {
+            discover.append(p);
+            Noeud *filsHaut = new Noeud(count,i,j, discover);
 
-        this->getLstNoeudFils().push_back(filsHaut); // On ajoute le noeud fils la liste des noeuds fils
-        Arc up(getPosition()[1]-j, filsHaut);
-        this->setArc(0, &up);
+            this->getLstNoeudFils().push_back(filsHaut); // On ajoute le noeud fils la liste des noeuds fils
+            Arc up(getPosition()[1]-j, filsHaut);
+            this->setArc(0, &up);
+        }
     }
     else
     {
@@ -152,7 +159,7 @@ void Noeud::chercherFils()
             j++;
         }
         count++;
-        Noeud *filsBas = new Noeud(count,i,j);
+        Noeud *filsBas = new Noeud(count,i,j,discover);
 
         this->getLstNoeudFils().push_back(filsBas); // On ajoute le noeud fils la liste des noeuds fils
         Arc down(j-getPosition()[1], filsBas);
@@ -175,7 +182,7 @@ void Noeud::chercherFils()
             i--;
         }
         count++;
-        Noeud *filsGauche = new Noeud(count,i,j);
+        Noeud *filsGauche = new Noeud(count,i,j, discover);
 
         this->getLstNoeudFils().push_back(filsGauche); // On ajoute le noeud fils la liste des noeuds fils
         Arc left(i-getPosition()[0], filsGauche);
@@ -198,7 +205,7 @@ void Noeud::chercherFils()
             i++;
         }
         count++;
-        Noeud *filsDroite = new Noeud(count,i,j);
+        Noeud *filsDroite = new Noeud(count,i,j,discover);
 
         this->getLstNoeudFils().push_back(filsDroite); // On ajoute le noeud fils la liste des noeuds fils
         Arc right(j-getPosition()[0], filsDroite);
@@ -357,4 +364,19 @@ bool member(const Noeud* node, const QList<Noeud*>& list)
         if(list[i] == node) return true;
     }
     return false;
+}
+
+bool Noeud::isEqual(const Noeud& b) const
+{
+    return (id == b.id && position[1] == b.position[1] && position[2] == b.position[2] && heuristique == b.heuristique && gCost == b.gCost && lstNoeudFils == b.lstNoeudFils && haut == b.haut && bas = b.bas && gauche == b.gauche && droite == b.droite && map == b.map);
+}
+
+bool operator==(const Noeud& a, const Noeud& b)
+{
+    return a.isEqual(b);
+}
+
+bool operator!=(const Noeud& a, const Noeud& b)
+{
+    return !(a.isEqual(b));
 }
