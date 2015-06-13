@@ -26,7 +26,10 @@ public :
     Noeud();
     Noeud(int,int,int); // id, x, y
     Noeud(int,int,int,QList<Noeud*>); // id, x, y, lstNoeudFils
+    Noeud(const Noeud& copy);
     ~Noeud();
+
+    bool isEqual(const Noeuds& b);
 
     int getId();
     void setId(int);

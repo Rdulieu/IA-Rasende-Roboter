@@ -3,13 +3,18 @@
 #include <QMap>
 
 // Constructeurs & Destructeurs
-Noeud::Noeud()
+Noeud::Noeud() : map(new Bd())
 {
-
+    this->map = new Bd();
 }
 
 Noeud::~Noeud()
 {
+    delete haut;
+    delete bas;
+    delete gauche;
+    delete droite;
+    delete Bd;
 }
 
 Noeud::Noeud(int _id, int x, int y)
@@ -17,6 +22,8 @@ Noeud::Noeud(int _id, int x, int y)
     this->id = _id;
     this->position[0] = x;
     this->position[1] = y;
+    this->map = new Bd();
+    chercherFils();
 }
 
 Noeud::Noeud(int _id, int x, int y, QList<Noeud*> _lst)
@@ -25,6 +32,25 @@ Noeud::Noeud(int _id, int x, int y, QList<Noeud*> _lst)
     this->position[0]=x;
     this->position[1]=y;
     this->lstNoeudFils = _lst;
+    this->map = new Bd();
+}
+
+Noeud::Noeud(const Noeud& copy)
+{
+    if(*this !=  copy)
+    {
+        this->id = copy.id;
+        this->position[1] = copy.position[1];
+        this->position[2] = copy.position[2];
+        this->heuristique = copy.heuristique;
+        this->gCost = copy.gCost;
+        this->getLstNoeudFils() = copy.lstNoeudFils;
+        this->haut = new Arc(copy.haut);
+        this->bas = new Arc(Copy.bas);
+        this->gauche = new Arc(copy.gauche);
+        this->droite = new Arc(Copy.droite);
+        this->map = new Bd(map);
+    }
 }
 
 // Accesseurs et mutateurs
