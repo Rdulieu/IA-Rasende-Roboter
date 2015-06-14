@@ -139,7 +139,7 @@ void Noeud::chercherFils(std::vector<P> discover)
             Noeud *filsHaut = new Noeud(count,i,j, discover);
 
             this->getLstNoeudFils().push_back(filsHaut); // On ajoute le noeud fils la vectore des noeuds fils
-            Arc up(getPosition()[1]-j, filsHaut);
+            Arc up(1, filsHaut);
             this->setArc(0, &up);
         }
     }
@@ -169,7 +169,7 @@ void Noeud::chercherFils(std::vector<P> discover)
             Noeud *filsBas = new Noeud(count,i,j,discover);
 
             this->getLstNoeudFils().push_back(filsBas); // On ajoute le noeud fils la vectore des noeuds fils
-            Arc down(j-getPosition()[1], filsBas);
+            Arc down(1, filsBas);
             this->setArc(1, &down);
         }
     }
@@ -200,8 +200,8 @@ void Noeud::chercherFils(std::vector<P> discover)
             Noeud *filsGauche = new Noeud(count,i,j, discover);
 
             this->getLstNoeudFils().push_back(filsGauche); // On ajoute le noeud fils la vectore des noeuds fils
-            Arc left(i-getPosition()[0], filsGauche);
-            this->setArc(1, &left);
+            Arc left(1, filsGauche);
+            this->setArc(2, &left);
         }
     }
     else
@@ -230,8 +230,8 @@ void Noeud::chercherFils(std::vector<P> discover)
             Noeud *filsDroite = new Noeud(count,i,j,discover);
 
             this->getLstNoeudFils().push_back(filsDroite); // On ajoute le noeud fils la vectore des noeuds fils
-            Arc right(j-getPosition()[0], filsDroite);
-            this->setArc(1, &right);
+            Arc right(1, filsDroite);
+            this->setArc(3, &right);
         }
     }
     else

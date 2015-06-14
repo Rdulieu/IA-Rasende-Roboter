@@ -3,7 +3,7 @@
 //test
 
 // Constructeurs
-Arc::Arc():poids(0)
+Arc::Arc(): poids(0)
 {
 
 }
