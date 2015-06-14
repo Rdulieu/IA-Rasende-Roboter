@@ -1,5 +1,5 @@
 #include "noeud.h"
-#include <QList>
+#include <vector>
 #include <QMap>
 
 // Constructeurs & Destructeurs
@@ -17,7 +17,7 @@ Noeud::~Noeud()
     delete map;
 }
 
-Noeud::Noeud(int _id, int x, int y, QList<int[2]> &discover)
+Noeud::Noeud(int _id, int x, int y, std::vector<P> &discover)
 {
     this->id = _id;
     this->position[0] = x;
@@ -26,7 +26,7 @@ Noeud::Noeud(int _id, int x, int y, QList<int[2]> &discover)
     chercherFils(discover);
 }
 
-Noeud::Noeud(int _id, int x, int y, QList<Noeud*> _lst)
+Noeud::Noeud(int _id, int x, int y, std::vector<Noeud*> _lst)
 {
     this->id = _id;
     this->position[0]=x;
@@ -90,22 +90,23 @@ int* Noeud::getPosition()
     return this->position;
 }
 
-void Noeud::setLstNoeudFils(QList<Noeud*> _lst)
+void Noeud::setLstNoeudFils(std::vector<Noeud*> _lst)
 {
     this->lstNoeudFils = _lst;
 }
 
-QList<Noeud*> Noeud::getLstNoeudFils()
+std::vector<Noeud*> Noeud::getLstNoeudFils()
 {
     return this->lstNoeudFils;
 }
 
 // On cherche tous les noeuds fils, ce sont les cases qui sont accessibles partir de la case actuelle (Noeud parent)
-void Noeud::chercherFils(QList<int[2]> &discover)
+void Noeud::chercherFils(std::vector<P> &discover)
 {
     int i,j;
-    int pos[4]={0,0,0,0}, p[2]; // : 0 haut 1 bas 2 gauche 3 droite, si pos[0]==1 alors il y a un obstacle horizontale au-dessus de notre case
+    int pos[4]={0,0,0,0};// : 0 haut 1 bas 2 gauche 3 droite, si pos[0]==1 alors il y a un obstacle horizontale au-dessus de notre case
     int count; // nombre de fils partir du noeud parent
+    P p; // anciennement int p[2];
     map = new Bd();
 
     // On cherche quel(s) bords notre case est collée
@@ -130,14 +131,14 @@ void Noeud::chercherFils(QList<int[2]> &discover)
         }
         count++;
         //Si la position n'est pas encore découverte :
-        p[0] = i;
-        p[1] = j;
-        if(!(discover.contains(p)))
+        p.i = i;
+        p.j = j;
+        if(!(std::find(discover.begin(), discover.end(),p) != discover.end()))
         {
-            discover.append(p);
+            discover.push_back(p);
             Noeud *filsHaut = new Noeud(count,i,j, discover);
 
-            this->getLstNoeudFils().push_back(filsHaut); // On ajoute le noeud fils la liste des noeuds fils
+            this->getLstNoeudFils().push_back(filsHaut); // On ajoute le noeud fils la vectore des noeuds fils
             Arc up(getPosition()[1]-j, filsHaut);
             this->setArc(0, &up);
         }
@@ -160,14 +161,14 @@ void Noeud::chercherFils(QList<int[2]> &discover)
         }
         count++;
         //Si la position n'est pas encore découverte :
-        p[0] = i;
-        p[1] = j;
-        if(!(discover.contains(p)))
+        p.i = i;
+        p.j = j;
+        if(!(std::find(discover.begin(), discover.end(),p) != discover.end()))
         {
-            discover.append(p);
+            discover.push_back(p);
             Noeud *filsBas = new Noeud(count,i,j,discover);
 
-            this->getLstNoeudFils().push_back(filsBas); // On ajoute le noeud fils la liste des noeuds fils
+            this->getLstNoeudFils().push_back(filsBas); // On ajoute le noeud fils la vectore des noeuds fils
             Arc down(j-getPosition()[1], filsBas);
             this->setArc(1, &down);
         }
@@ -191,14 +192,14 @@ void Noeud::chercherFils(QList<int[2]> &discover)
         count++;
 
         //Si la position n'est pas encore découverte :
-        p[0] = i;
-        p[1] = j;
-        if(!(discover.contains(p)))
+        p.i = i;
+        p.j = j;
+        if(!(std::find(discover.begin(), discover.end(),p) != discover.end()))
         {
-            discover.append(p);
+            discover.push_back(p);
             Noeud *filsGauche = new Noeud(count,i,j, discover);
 
-            this->getLstNoeudFils().push_back(filsGauche); // On ajoute le noeud fils la liste des noeuds fils
+            this->getLstNoeudFils().push_back(filsGauche); // On ajoute le noeud fils la vectore des noeuds fils
             Arc left(i-getPosition()[0], filsGauche);
             this->setArc(1, &left);
         }
@@ -221,14 +222,14 @@ void Noeud::chercherFils(QList<int[2]> &discover)
         }
         count++;
         //Si la position n'est pas encore découverte :
-        p[0] = i;
-        p[1] = j;
-        if(!(discover.contains(p)))
+        p.i = i;
+        p.j = j;
+        if(!(std::find(discover.begin(), discover.end(),p) != discover.end()))
         {
-            discover.append(p);
+            discover.push_back(p);
             Noeud *filsDroite = new Noeud(count,i,j,discover);
 
-            this->getLstNoeudFils().push_back(filsDroite); // On ajoute le noeud fils la liste des noeuds fils
+            this->getLstNoeudFils().push_back(filsDroite); // On ajoute le noeud fils la vectore des noeuds fils
             Arc right(j-getPosition()[0], filsDroite);
             this->setArc(1, &right);
         }
@@ -251,7 +252,7 @@ int Noeud::getG()
     return gCost;
 }
 
-int Noeud::setG(int val)
+void Noeud::setG(int val)
 {
     gCost = val;
 }
@@ -300,7 +301,7 @@ void Noeud::setArc(int option, Arc* val)
 
 Response Noeud::astar(Noeud* final)
 {
-    QList<Noeud*> open, closed, origin;
+    std::vector<Noeud*> open, closed, origin;
     open.push_back(this);
 
     int f,tempG;
@@ -318,25 +319,25 @@ Response Noeud::astar(Noeud* final)
         {
             return build_path(origin, final); //On retourne le chemin parcouru.
         }
-        open.removeOne(cur);
+        open.erase(open.begin()); // open.remove(cur)
         closed.push_back(cur);
-
+        Noeud* temp;
         //S'il ne l'est pas on met dans open tout les noeuds fils qui ne sont ni dans open,
         //ni dans closed et qui possède un coût de déplacement inférieur au noeud courrant.
         int i = 0;
-        for(int i = 0; i<lstNoeudFils.size(); i++)
+        for(std::vector<Noeud*>::iterator it = lstNoeudFils.begin(); it != lstNoeudFils.end(); it++)
         {
-            if(!(member(lstNoeudFils[i], closed)))
+            if(!(member(*it, closed)))
             {
                 tempG = cur->getG() + cur->getArc(i)->getPoids();
-
-                if(!(member(lstNoeudFils[i], open)) || tempG < lstNoeudFils[i]->getG())
+                temp = *it;
+                if(!(member(*it, open)) || tempG < temp->getG())
                 {
                     origin.push_back(cur);
-                    lstNoeudFils[i]->setG(tempG);
-                    lstNoeudFils[i]->setHeuristique(tempG + 0); //Add calcHeuritique.
+                    temp->setG(tempG);
+                    temp->setHeuristique(tempG + 0); //Add calcHeuritique.
 
-                    if(!(member(lstNoeudFils[i], open))) open.push_back(lstNoeudFils[i]);
+                    if(!(member(*it, open))) open.push_back(*it);
 
                 }
             }
@@ -346,12 +347,13 @@ Response Noeud::astar(Noeud* final)
     return NULL;
 }
 
-Noeud* getBestNode(const QList<Noeud*>& open)
+
+Noeud* getBestNode(const std::vector<Noeud*>& open)
 {
     Noeud* res = open[0];
     int f(res->getHeuristique() + res->getG());
 
-    //On parcours la liste des fils et on recupère le meilleurs noeuds selon f.
+    //On parcours la vectore des fils et on recupère le meilleurs noeuds selon f.
     for(int i = 1; i<open.size(); i++)
     {
         if (f > open[i]->getG() + open[i]->getHeuristique()) res = open[i];
@@ -360,7 +362,7 @@ Noeud* getBestNode(const QList<Noeud*>& open)
     return res;
 }
 
-Response build_path(const QList<Noeud*>& origin, Noeud* final)
+Response build_path(const std::vector<Noeud*>& origin, Noeud* final)
 {
     Response path(2*(origin.size()+1)); //On alloue un tableau de 2 fois la taille de origin + final
     int j(0);
@@ -379,26 +381,26 @@ Response build_path(const QList<Noeud*>& origin, Noeud* final)
 
 }
 
-bool member(const Noeud* node, const QList<Noeud*>& list)
+bool member(const Noeud* node, const std::vector<Noeud*>& vector)
 {
-    for(int i = 0; i < list.size(); i++)
+    for(int i = 0; i < vector.size(); i++)
     {
-        if(list[i] == node) return true;
+        if(vector[i] == node) return true;
     }
     return false;
 }
 
 bool Noeud::isEqual(const Noeud& b) const
 {
-    return (id == b.id && position[1] == b.position[1] && position[2] == b.position[2] && heuristique == b.heuristique && gCost == b.gCost && lstNoeudFils == b.lstNoeudFils && haut == b.haut && bas = b.bas && gauche == b.gauche && droite == b.droite && map == b.map);
+    return (id == b.id && position[1] == b.position[1] && position[2] == b.position[2] && heuristique == b.heuristique && gCost == b.gCost && lstNoeudFils == b.lstNoeudFils && haut == b.haut && bas == b.bas && gauche == b.gauche && droite == b.droite && map == b.map);
 }
 
-bool operator==(const Noeud& a, const Noeud& b)
+bool Noeud::operator==(const Noeud& a)
 {
-    return a.isEqual(b);
+    return this->isEqual(a);
 }
 
-bool operator!=(const Noeud& a, const Noeud& b)
+bool Noeud::operator!=(const Noeud& a)
 {
-    return !(a.isEqual(b));
+    return !(this->isEqual(a));
 }

@@ -1,7 +1,9 @@
 #ifndef NOEUD_H
 #define NOEUD_H
 #include <map>
-#include <QList>
+#include <vector>
+#include <vector>
+#include <algorithm>
 #include "arc.h"
 #include "bd.h"
 #include"IpseityTalker.h"
@@ -11,11 +13,20 @@ class Noeud
 //La classe Noeud représente un noeud du graphe sur lequel on souhaite appliquer notre algorithme Astar.
 {
 private :
+
+    struct P
+    {
+        int i;
+        int j;
+    };
+    typedef struct P P;
+
     int id;
     int position[2];  // position[0] : coordX  position[1] : coordY
     int heuristique;
     int gCost;
-    QList<Noeud*> lstNoeudFils;
+    //Qvector<Noeud*> lstNoeudFils;
+    std::vector<Noeud*> lstNoeudFils;
     Arc* haut; // id : 0
     Arc* bas; // id : 1
     Arc* gauche; // id : 2
@@ -24,8 +35,8 @@ private :
 
 public :
     Noeud();
-    Noeud(int,int,int,QList<int[2]>&); // id, x, y
-    Noeud(int,int,int,QList<Noeud*>); // id, x, y, lstNoeudFils
+    Noeud(int,int,int,std::vector<P>&); // id, x, y
+    Noeud(int,int,int,std::vector<Noeud*>); // id, x, y, lstNoeudFils
     Noeud(const Noeud& copy);
     ~Noeud();
 
@@ -38,28 +49,29 @@ public :
     void calcHeuristique(Noeud* final);
     int* getPosition();
     void setPosition(int x, int y);
-    QList<Noeud*> getLstNoeudFils();
-    void chercherFils(QList<int[2]>&);
-    void setLstNoeudFils(QList<Noeud*>);
+    std::vector<Noeud*> getLstNoeudFils();
+    void chercherFils(std::vector<P>&);
+    void setLstNoeudFils(std::vector<Noeud*>);
 /* -> INUTILE
-    std::list<std::pair<Noeud*, int> > astar(const Noeud& final);
+    std::vector<std::pair<Noeud*, int> > astar(const Noeud& final);
 };
-std::list<std::pair<Noeud*, int> > build_path(const std::list<Noeud*>& origin, const Noeud& final);*/
+std::vector<std::pair<Noeud*, int> > build_path(const std::vector<Noeud*>& origin, const Noeud& final);*/
     int getG();
-    int setG(int);
+    void setG(int);
     Arc* getArc(int);
     void setArc(int, Arc*);
 
     Response astar(Noeud* final);
+    Noeud* getBestNode(const std::vector<Noeud*>& open);
+
+    Response build_path(const std::vector<Noeud*>& origin, Noeud* final);
+
+    bool member(const Noeud* node, const std::vector<Noeud*>& vector); //true if node is in vector, false otherwise.
+
+    bool operator==(const Noeud& a);
+
+    bool operator!=(const Noeud& a);
 
 };
-Noeud* getBestNode(const QList<Noeud*>& open);
 
-Response build_path(const QList<Noeud*>& origin, Noeud* final);
-
-bool member(const Noeud* node, const QList<Noeud*>& list); //true if node is in list, false otherwise.
-
-bool operator==(const Noeud& a, const Noeud& b);
-
-bool operator!=(const Noeud& a, const Noeud& b);
 #endif // NOEUD_H
