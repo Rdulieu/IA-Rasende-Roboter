@@ -194,21 +194,59 @@ void Bd::builddata()
 
     robot_target=floor((target-1)/4);     // prolog : move([_,_,_,_,TargetId|_],[Robot,1]):-Robot is floor((TargetId-1)/4).
     //cout << robot_target << endl;
+    Coordonnees Blue_robot=Coordonnees(m_CurrentStimulus[5],m_CurrentStimulus[6]);
+    Coordonnees Green_robot=Coordonnees(m_CurrentStimulus[7],m_CurrentStimulus[8]);
+    Coordonnees Red_robot=Coordonnees(m_CurrentStimulus[9],m_CurrentStimulus[10]);
+    Coordonnees Yellow_robot=Coordonnees(m_CurrentStimulus[11],m_CurrentStimulus[12]);
+
+
+
     switch(robot_target){
         case 0:
-            robot_target_coord=Coordonnees(m_CurrentStimulus[5],m_CurrentStimulus[6]);
+            robot_target_coord=Blue_robot;
+            list_murH[Green_robot.getX()][Green_robot.getY()]=true;
+            list_murH[Red_robot.getX()][Red_robot.getY()]=true;
+            list_murH[Yellow_robot.getX()][Yellow_robot.getY()]=true;
+            list_murV[Green_robot.getX()][Green_robot.getY()]=true;
+            list_murV[Red_robot.getX()][Red_robot.getY()]=true;
+            list_murV[Yellow_robot.getX()][Yellow_robot.getY()]=true;
         break;
         case 1:
-            robot_target_coord=Coordonnees(m_CurrentStimulus[7],m_CurrentStimulus[8]);
+            robot_target_coord=Green_robot;
+            list_murH[Blue_robot.getX()][Blue_robot.getY()]=true;
+            list_murH[Red_robot.getX()][Red_robot.getY()]=true;
+            list_murH[Yellow_robot.getX()][Yellow_robot.getY()]=true;
+            list_murV[Blue_robot.getX()][Blue_robot.getY()]=true;
+            list_murV[Red_robot.getX()][Red_robot.getY()]=true;
+            list_murV[Yellow_robot.getX()][Yellow_robot.getY()]=true;
         break;
         case 2:
-            robot_target_coord=Coordonnees(m_CurrentStimulus[9],m_CurrentStimulus[10]);
+            robot_target_coord=Red_robot;
+            list_murH[Green_robot.getX()][Green_robot.getY()]=true;
+            list_murH[Blue_robot.getX()][Blue_robot.getY()]=true;
+            list_murH[Yellow_robot.getX()][Yellow_robot.getY()]=true;
+            list_murV[Green_robot.getX()][Green_robot.getY()]=true;
+            list_murV[Blue_robot.getX()][Blue_robot.getY()]=true;
+            list_murV[Yellow_robot.getX()][Yellow_robot.getY()]=true;
         break;
         case 3:
-            robot_target_coord=Coordonnees(m_CurrentStimulus[11],m_CurrentStimulus[12]);
+            robot_target_coord=Yellow_robot;
+            list_murH[Green_robot.getX()][Green_robot.getY()]=true;
+            list_murH[Blue_robot.getX()][Blue_robot.getY()]=true;
+            list_murH[Blue_robot.getX()][Blue_robot.getY()]=true;
+            list_murV[Green_robot.getX()][Green_robot.getY()]=true;
+            list_murV[Blue_robot.getX()][Blue_robot.getY()]=true;
+            list_murV[Blue_robot.getX()][Blue_robot.getY()]=true;
         break;
     default:
-            robot_target_coord=Coordonnees(m_CurrentStimulus[5],m_CurrentStimulus[6]);
+            robot_target_coord=Blue_robot;
+            list_murH[Green_robot.getX()][Green_robot.getY()]=true;
+            list_murH[Red_robot.getX()][Red_robot.getY()]=true;
+            list_murH[Yellow_robot.getX()][Yellow_robot.getY()]=true;
+            list_murV[Green_robot.getX()][Green_robot.getY()]=true;
+            list_murV[Red_robot.getX()][Red_robot.getY()]=true;
+            list_murV[Yellow_robot.getX()][Yellow_robot.getY()]=true;
+            break;
 
 
     }
