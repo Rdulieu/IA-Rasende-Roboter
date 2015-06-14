@@ -17,7 +17,7 @@ Noeud::~Noeud()
     delete map;
 }
 
-Noeud::Noeud(int _id, int x, int y, std::vector<P> &discover)
+Noeud::Noeud(int _id, int x, int y, std::vector<P> discover)
 {
     this->id = _id;
     this->position[0] = x;
@@ -101,7 +101,7 @@ std::vector<Noeud*> Noeud::getLstNoeudFils()
 }
 
 // On cherche tous les noeuds fils, ce sont les cases qui sont accessibles partir de la case actuelle (Noeud parent)
-void Noeud::chercherFils(std::vector<P> &discover)
+void Noeud::chercherFils(std::vector<P> discover)
 {
     int i,j;
     int pos[4]={0,0,0,0};// : 0 haut 1 bas 2 gauche 3 droite, si pos[0]==1 alors il y a un obstacle horizontale au-dessus de notre case
@@ -348,7 +348,7 @@ Response Noeud::astar(Noeud* final)
 }
 
 
-Noeud* getBestNode(const std::vector<Noeud*>& open)
+Noeud* Noeud::getBestNode(const std::vector<Noeud*> open)
 {
     Noeud* res = open[0];
     int f(res->getHeuristique() + res->getG());
@@ -362,7 +362,7 @@ Noeud* getBestNode(const std::vector<Noeud*>& open)
     return res;
 }
 
-Response build_path(const std::vector<Noeud*>& origin, Noeud* final)
+Response build_path(const std::vector<Noeud*> origin, Noeud* final)
 {
     Response path(2*(origin.size()+1)); //On alloue un tableau de 2 fois la taille de origin + final
     int j(0);
@@ -381,7 +381,7 @@ Response build_path(const std::vector<Noeud*>& origin, Noeud* final)
 
 }
 
-bool member(const Noeud* node, const std::vector<Noeud*>& vector)
+bool member(const Noeud* node, const std::vector<Noeud*> vector)
 {
     for(int i = 0; i < vector.size(); i++)
     {
@@ -390,17 +390,17 @@ bool member(const Noeud* node, const std::vector<Noeud*>& vector)
     return false;
 }
 
-bool Noeud::isEqual(const Noeud& b) const
+bool Noeud::isEqual(const Noeud b) const
 {
     return (id == b.id && position[1] == b.position[1] && position[2] == b.position[2] && heuristique == b.heuristique && gCost == b.gCost && lstNoeudFils == b.lstNoeudFils && haut == b.haut && bas == b.bas && gauche == b.gauche && droite == b.droite && map == b.map);
 }
 
-bool Noeud::operator==(const Noeud& a)
+bool Noeud::operator==(const Noeud a)
 {
     return this->isEqual(a);
 }
 
-bool Noeud::operator!=(const Noeud& a)
+bool Noeud::operator!=(const Noeud a)
 {
     return !(this->isEqual(a));
 }
