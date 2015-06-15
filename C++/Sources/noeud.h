@@ -7,7 +7,7 @@
 #include "arc.h"
 #include "bd.h"
 #include"IpseityTalker.h"
-
+#include"global_base.h"
 struct P
 {
     int i;
@@ -39,8 +39,9 @@ private :
     Arc* droite; // id : 3
     Bd* map;
 
+
 public :
-    Noeud();
+    //Noeud();
     Noeud(int,int,int,std::vector<P>); // id, x, y
     Noeud(int,int,int,std::vector<Noeud*>); // id, x, y, lstNoeudFils
     Noeud(const Noeud& copy);
@@ -67,7 +68,7 @@ std::vector<std::pair<Noeud*, int> > build_path(const std::vector<Noeud*>& origi
     Arc* getArc(int);
     void setArc(int, Arc*);
 
-    Response astar(Noeud* final);
+    Response astar(int,int);
     Noeud* getBestNode(const std::vector<Noeud*> open);
 
     bool operator==(const Noeud a);

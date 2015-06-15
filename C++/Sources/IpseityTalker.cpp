@@ -34,7 +34,8 @@
 #include "noeud.h"
 #include "arc.h"
 #include "coordonnees.h"
-
+#include "bd.h"
+#include "global_base.h"
 
 //const int32 SHIFT = 1;
 //const int32 NBR_DECISIONS = 12;
@@ -45,7 +46,6 @@ IpseityTalker::IpseityTalker()
     //RandomNumberGenerator::initSeed( 0 );
     cout << "=================================================Projet IA41 Constructed" << endl;
     //m_NextResponse.setDimension( 1 );
-
 }
 
 IpseityTalker::~IpseityTalker()
@@ -150,184 +150,52 @@ IpseityTalker::observe( const Sensation & x )
 const Response &
 IpseityTalker::selectResponse()
 {
-    Noeud *n = new Noeud(); //unused
+    //Bd::m_instance(this->m_CurrentStimulus);
+int start_x,start_y,target_x,target_y;
+    //on creee la base de donne unique
+    GlobalBase& g_uniqueBase=GlobalBase::Instance();
+    g_uniqueBase.setBd(new Bd(this->m_CurrentStimulus));
+
+    //trouvons quelle est le robot qui doit bouger en premier via la cible
+    int TargetID = m_CurrentStimulus[4];
+    if(TargetID>=0 &&TargetID <5)
+    {
+        //c'est le robot bleu ou la spirale (et j'emmerde la spirale ) qui est designé
+        start_x = (int)m_CurrentStimulus[5];
+        start_y = (int)m_CurrentStimulus[6];
+    }
+    else if(TargetID>=5 &&TargetID <9)
+    {
+        //robot vert
+        start_x = (int)m_CurrentStimulus[7];
+        start_y = (int)m_CurrentStimulus[8];
+    }
+    else if(TargetID>=9 &&TargetID <13)
+    {
+        //jaune
+        start_x = (int)m_CurrentStimulus[9];
+        start_y = (int)m_CurrentStimulus[10];
+    }
+    else if(TargetID>=13 &&TargetID <17)
+    {
+        //rouge
+        start_x = (int)m_CurrentStimulus[11];
+        start_y = (int)m_CurrentStimulus[12];
+    }
+    //generons le graphe
+    std::vector<P> discover;
+    Noeud *n = new Noeud(0,start_x,start_y,discover); //unused
 
 
-    //    /*
-    //        Construction de la list_murV qui contient les Coordonnées de chaque mur
-    //        en fonction de des 4 variables définissant le plateau. Ce sont bien les coordonnées des murs et non des cases*/
-    //    for(int i=0;i<16;++i){
-    //        for(int j=0;j<15;++j){
-    //            list_murH[i][j]=list_murV[j][i]=false;
-    //        }
-    //    }
+    //on trouve les coordonné du but grace à la base de dudul
+    target_x = g_uniqueBase.getBd()->getlist_target(TargetID).getX(); //sublime comme appel
+    target_y = g_uniqueBase.getBd()->getlist_target(TargetID).getY();
 
+    //cherchons une solution au but et retournons là
+    cout << "=================================================Projet IA41 : Astar" << endl;
+    return n->astar(target_x,target_y);
 
-    //    /* Base de connaissances
-    //        Construction de la list_target qui contient les Coordonnées de chaque cible
-    //        en fonction de des 4 variables définissant le plateau*/
-
-
-    //    //carré du centre
-    //    list_murH[6][7]=true;
-    //    list_murH[8][7]=true;
-    //    list_murH[6][8]=true;
-    //    list_murH[8][8]=true;
-    //    list_murV[7][6]=true;
-    //    list_murV[8][6]=true;
-    //    list_murV[7][8]=true;
-    //    list_murV[8][8]=true;
-
-    //    if(m_CurrentStimulus[0]){
-    //        list_target[0]=Coordonnees(3,7);
-    //        list_target[1]=Coordonnees(5,6);
-    //        list_target[6]=Coordonnees(1,3);
-    //        list_target[12]=Coordonnees(6,4);
-    //        list_target[15]=Coordonnees(2,1);
-
-    //        list_murH[4][0]=true;
-    //        list_murH[2][1]=true;
-    //        list_murH[0][3]=true;
-    //        list_murH[5][4]=true;
-    //        list_murH[5][6]=true;
-    //        list_murH[3][7]=true;
-
-    //        list_murV[0][2]=true;
-    //        list_murV[0][4]=true;
-    //        list_murV[1][3]=true;
-    //        list_murV[2][1]=true;
-    //        list_murV[3][7]=true;
-    //        list_murV[5][5]=true;
-    //        list_murV[6][3]=true;
-    //    }else{
-    //        list_target[0]=Coordonnees(7,5);
-    //        list_target[1]=Coordonnees(6,1);
-    //        list_target[6]=Coordonnees(5,4);
-    //        list_target[12]=Coordonnees(1,3);
-    //        list_target[15]=Coordonnees(2,5);
-
-    //        list_murH[3][0]=true;
-    //        list_murH[5][1]=true;
-    //        list_murH[1][3]=true;
-    //        list_murH[4][4]=true;
-    //        list_murH[7][5]=true;
-    //        list_murH[2][5]=true;
-
-    //         list_murV[0][3]=true;
-    //         list_murV[0][6]=true;
-    //         list_murV[1][2]=true;
-    //         list_murV[2][5]=true;
-    //         list_murV[5][3]=true;
-    //         list_murV[6][1]=true;
-    //         list_murV[7][5]=true;
-    //    }
-    //    if(m_CurrentStimulus[1]){
-    //        list_target[3]=Coordonnees(11,2);
-    //        list_target[5]=Coordonnees(13,6);
-    //        list_target[10]=Coordonnees(10,7);
-    //        list_target[16]=Coordonnees(14,1);
-
-    //        list_murH[9][0]=true;
-    //        list_murH[13][1]=true;
-    //        list_murH[10][2]=true;
-    //        list_murH[13][6]=true;
-    //        list_murH[10][7]=true;
-
-    //        list_murV[10][6]=true;
-    //        list_murV[11][2]=true;
-    //        list_murV[13][6]=true;
-    //        list_murV[14][0]=true;
-    //        list_murV[15][1]=true;
-    //        list_murV[15][3]=true;
-    //    }else{
-    //        list_target[3]=Coordonnees(13,5);
-    //        list_target[5]=Coordonnees(11,2);
-    //        list_target[10]=Coordonnees(9,1);
-    //        list_target[16]=Coordonnees(10,7);
-
-    //        list_murH[10][0]=true;
-    //        list_murH[9][1]=true;
-    //        list_murH[11][2]=true;
-    //        list_murH[12][5]=true;
-    //        list_murH[9][7]=true;
-
-
-    //        list_murV[1][9]=true;
-    //        list_murV[2][14]=true;
-    //        list_murV[4][9]=true;
-    //        list_murV[6][12]=true;
-    //    }
-    //    if(m_CurrentStimulus[2]){
-    //        list_target[4]=Coordonnees(3,9);
-    //        list_target[7]=Coordonnees(6,14);
-    //        list_target[9]=Coordonnees(1,13);
-    //        list_target[14]=Coordonnees(5,11);
-
-    //        list_murH[3][9]=true;
-    //        list_murH[4][11]=true;
-    //        list_murH[0][13]=true;
-    //        list_murH[6][14]=true;
-    //        list_murH[4][15]=true;
-
-    //        list_murV[1][14]=true;
-    //        list_murV[3][9]=true;
-    //        list_murV[5][10]=true;
-    //        list_murV[6][14]=true;
-    //    }else{
-    //        list_target[4]=Coordonnees(6,13);
-    //        list_target[7]=Coordonnees(1,10);
-    //        list_target[9]=Coordonnees(4,9);
-    //        list_target[14]=Coordonnees(2,14);
-
-    //        list_murH[3][9]=true;
-    //        list_murH[1][10]=true;
-    //        list_murH[5][13]=true;
-    //        list_murH[2][14]=true;
-    //        list_murH[3][15]=true;
-
-    //        list_murV[9][0]=true;
-    //        list_murV[10][6]=true;
-    //        list_murV[11][2]=true;
-    //        list_murV[13][5]=true;
-    //        list_murV[15][3]=true;
-    //    }
-    //    if(m_CurrentStimulus[3]){
-    //        list_target[2]=Coordonnees(12,9);
-    //        list_target[11]=Coordonnees(9,12);
-    //        list_target[13]=Coordonnees(11,14);
-
-    //        list_murH[12][9]=true;
-    //        list_murH[8][12]=true;
-    //        list_murH[13][13]=true;
-    //        list_murH[11][14]=true;
-    //        list_murH[13][15]=true;
-
-    //        list_murV[9][11]=true;
-    //        list_murV[11][14]=true;
-    //        list_murV[12][8]=true;
-    //        list_murV[14][13]=true;
-    //    }else{
-    //        list_target[2]=Coordonnees(9,10);
-    //        list_target[11]=Coordonnees(9,14);
-    //        list_target[13]=Coordonnees(12,9);
-
-    //        list_murH[12][9]=true;
-    //        list_murH[8][10]=true;
-    //        list_murH[14][13]=true;
-    //        list_murH[8][14]=true;
-    //        list_murH[10][15]=true;
-
-    //        list_murV[9][10]=true;
-    //        list_murV[9][13]=true;
-    //        list_murV[12][8]=true;
-    //        list_murV[14][13]=true;
-    //        list_murV[15][9]=true;
-    //    }
-    //    list_target[8]=Coordonnees(14,13);
-  //  target_coord=list_target[target];
-
-
-
+    /*
     m_NextResponse.setDimension( 4 );
     m_NextResponse[0] = 1;
 
@@ -338,8 +206,8 @@ IpseityTalker::selectResponse()
     m_NextResponse[3] = 1;
 
 
-    cout << "=================================================Projet IA41 Retour de la reponse" << endl;
-    return m_NextResponse;
+
+    return m_NextResponse;*/
 }
 
 

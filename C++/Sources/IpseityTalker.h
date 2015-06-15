@@ -36,8 +36,7 @@ using namespace std;
 #include "Math/RandomNumberGenerator.h"
 
 #include "AL/BasePluginCognitiveModule.h"
-
-
+#include "bd.h"
 //! IpseityTalker.
 /*!
     \author
@@ -50,6 +49,7 @@ class IpseityTalker : public QObject, public BasePluginCognitiveModule
     public:
         IpseityTalker();
         ~IpseityTalker();
+
 
         INTERFACE_ABSTRACT_PLUGIN
         INTERFACE_BASE_PLUGIN_COGNITIVE_MODULE

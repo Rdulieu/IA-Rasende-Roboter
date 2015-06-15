@@ -3,11 +3,12 @@
 #include <QMap>
 
 // Constructeurs & Destructeurs
+/* ULTRA DANGEREUSE UTILISE UNE BD NON EXISTENTE
 Noeud::Noeud() : map(new Bd())
 {
     this->map = new Bd();
 }
-
+*/
 Noeud::~Noeud()
 {
     delete haut;
@@ -19,20 +20,22 @@ Noeud::~Noeud()
 
 Noeud::Noeud(int _id, int x, int y, std::vector<P> discover)
 {
+    GlobalBase& g_uniqueBase=GlobalBase::Instance(); //singloton
     this->id = _id;
     this->position[0] = x;
     this->position[1] = y;
-    this->map = new Bd();
+    this->map = g_uniqueBase.getBd(); //a tester si g nest init recupere la bdd unique generé dans ipseity tazlker
     chercherFils(discover);
 }
 
 Noeud::Noeud(int _id, int x, int y, std::vector<Noeud*> _lst)
 {
+    GlobalBase& g_uniqueBase=GlobalBase::Instance(); //singloton
     this->id = _id;
     this->position[0]=x;
     this->position[1]=y;
     this->lstNoeudFils = _lst;
-    this->map = new Bd();
+    this->map = g_uniqueBase.getBd(); //a tester si g nest init recupere la bdd unique generé dans ipseity tazlker
 }
 
 Noeud::Noeud(const Noeud& copy)
@@ -107,7 +110,8 @@ void Noeud::chercherFils(std::vector<P> discover)
     int pos[4]={0,0,0,0};// : 0 haut 1 bas 2 gauche 3 droite, si pos[0]==1 alors il y a un obstacle horizontale au-dessus de notre case
     int count; // nombre de fils partir du noeud parent
     P p; // anciennement int p[2];
-    map = new Bd();
+    GlobalBase& g_uniqueBase=GlobalBase::Instance(); //singloton
+    map = g_uniqueBase.getBd(); //a tester si g nest init recupere la bdd unique generé dans ipseity tazlker;
 
     // On cherche quel(s) bords notre case est collÃ©e
     if(map->getlist_murV(this->getPosition()[0],this->getPosition()[1])) // est-ce qu'il y a un mur vertical droite
@@ -299,13 +303,14 @@ void Noeud::setArc(int option, Arc* val)
     }
 }
 
-Response Noeud::astar(Noeud* final)
+Response Noeud::astar(int final_x,int final_y)
 {
     std::vector<Noeud*> open, closed, origin;
     open.push_back(this);
 
     int f,tempG;
-    calcHeuristique(final);
+   // calcHeuristique(final_x,final_y); //a  corriger pour ne plus recevoir un noeud mais des coordoné
+    setHeuristique(0); //en attendant de calculer l'heuristique
     f = getHeuristique();
     setG(0);
 
@@ -315,9 +320,9 @@ Response Noeud::astar(Noeud* final)
         //On rÃ©cupÃ¨re le meilleurs noeud selon f
         //On rest s'il est le noeud final.
         Noeud* cur = getBestNode(open);
-        if(cur == final)
+        if(cur->getPosition()[0] == final_x && cur->getPosition()[1] == final_y)
         {
-            return build_path(origin, final); //On retourne le chemin parcouru.
+            return build_path(origin, cur); //On retourne le chemin parcouru.
         }
         open.erase(open.begin()); // open.remove(cur)
         closed.push_back(cur);
