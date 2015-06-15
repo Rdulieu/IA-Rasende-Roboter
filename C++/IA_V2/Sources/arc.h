@@ -18,7 +18,7 @@ public :
     Arc& operator=(const Arc& copy)
     {
         poids = copy.poids;
-        cible = new Noeud(copy.cible);
+        cible = copy.cible;
     }
     
     int getPoids();
