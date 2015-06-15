@@ -21,16 +21,22 @@ Noeud::~Noeud()
 
 Noeud::Noeud(int _id, int x, int y, std::vector<P> discover)
 {
-    GlobalBase& g_uniqueBase=GlobalBase::Instance(); //singloton
+    cout << "Debut de Noeud" << endl;
+    GlobalBase& g_uniqueBase=GlobalBase::Instance(); //singleton
+    cout << "Etape 1 de Noeud" << endl;
     this->id = _id;
     this->position[0] = x;
     this->position[1] = y;
+    cout << "Etape 2 de Noeud" << endl;
     this->map = g_uniqueBase.getBd(); //a tester si g nest init recupere la bdd unique generé dans ipseity tazlker
+    cout << "Etape 3 de Noeud" << endl;
     chercherFils(discover);
+    cout << "Etape 4 de Noeud" << endl;
 }
 
 Noeud::Noeud(int _id, int x, int y, std::vector<Noeud*> _lst)
 {
+        cout << "OMG" << endl;
     GlobalBase& g_uniqueBase=GlobalBase::Instance(); //singloton
     this->id = _id;
     this->position[0]=x;
@@ -107,13 +113,14 @@ std::vector<Noeud*> Noeud::getLstNoeudFils()
 // On cherche tous les noeuds fils, ce sont les cases qui sont accessibles partir de la case actuelle (Noeud parent)
 void Noeud::chercherFils(std::vector<P> discover)
 {
+        cout << "Debut de chercherFils" << endl;
     int i,j;
     int pos[4]={0,0,0,0};// : 0 haut 1 bas 2 gauche 3 droite, si pos[0]==1 alors il y a un obstacle horizontale au-dessus de notre case
     int count=0; // nombre de fils partir du noeud parent 15/06 9h41 ajout de l'initialisation
     P p; // anciennement int p[2];
     GlobalBase& g_uniqueBase=GlobalBase::Instance(); //singloton
     map = g_uniqueBase.getBd(); //a tester si g nest init recupere la bdd unique generé dans ipseity tazlker;
-
+    cout << "Etape 1 de chercherFils" << endl;
     // On cherche quel(s) bords notre case est collÃ©e
     if(map->getlist_murV(this->getPosition()[0],this->getPosition()[1])) // est-ce qu'il y a un mur vertical droite
         pos[3]=1;
@@ -127,11 +134,13 @@ void Noeud::chercherFils(std::vector<P> discover)
     // On cherche la position des noeuds fils possibles dans chaque direction
     i = this->getPosition()[0];
     j = this->getPosition()[1];
-
+    cout << "Etape 2 de chercherFils" << endl;
     if(pos[0]==0) // On cherche la position d'un noeud fils s'il n'y a pas d'obstacle collÃ© au-dessus de notre case actuelle
     {
-        while(map->getlist_murH(this->getPosition()[i],this->getPosition()[j]-1)==false) // On monte dans la grille tant qu'on ne rencontre pas de mur
+        cout << "Etape 2 : IF de chercherFils et j:" << j << " i:" << i << endl;
+        while(map->getlist_murH(i,j-1)==false && j>0) // On monte dans la grille tant qu'on ne rencontre pas de mur
         {
+            cout << "Etape 2 : WHILE de chercherFils et j:" << j << " i " << i << endl;
             j--;
         }
         count++;
@@ -140,6 +149,7 @@ void Noeud::chercherFils(std::vector<P> discover)
         p.j = j;
         if(!(std::find(discover.begin(), discover.end(),p) != discover.end()))
         {
+            cout << "Etape 2 : IF nb2 de chercherFils" << endl;
             discover.push_back(p);
             Noeud *filsHaut = new Noeud(count,i,j, discover);
 
@@ -150,17 +160,18 @@ void Noeud::chercherFils(std::vector<P> discover)
     }
     else
     {
+        cout << "Etape 2 : ELSE de chercherFils" << endl;
         this->getLstNoeudFils().push_back(NULL);
         this->setArc(0, NULL);
     }
-
+        cout << "Etape 3 de chercherFils" << endl;
     // On revient sur notre case de dÃ©part
     i = this->getPosition()[0];
     j = this->getPosition()[1];
 
     if(pos[1]==0) // Libre en bas
     {
-        while(map->getlist_murH(this->getPosition()[i],this->getPosition()[j])==false) // On descend dans la grille tant qu'on ne rencontre pas de mur
+        while(map->getlist_murH(i,j)==false && j<=15) // On descend dans la grille tant qu'on ne rencontre pas de mur
         {
             j++;
         }
@@ -184,13 +195,13 @@ void Noeud::chercherFils(std::vector<P> discover)
         this->setArc(1, NULL);
 
     }
-
+        cout << "Etape 4 de chercherFils" << endl;
     i = this->getPosition()[0];
     j = this->getPosition()[1];
 
     if(pos[2]==0) //Libre gauche
     {
-        while(map->getlist_murH(this->getPosition()[i]-1,this->getPosition()[j])==false) // On va gauche dans la grille tant qu'on ne rencontre pas de mur
+        while(map->getlist_murH(i-1,j)==false && i>0) // On va gauche dans la grille tant qu'on ne rencontre pas de mur
         {
             i--;
         }
@@ -215,13 +226,13 @@ void Noeud::chercherFils(std::vector<P> discover)
         this->setArc(2, NULL);
 
     }
-
+    cout << "Etape 5 de chercherFils" << endl;
     i = this->getPosition()[0];
     j = this->getPosition()[1];
 
     if(pos[3]==0) // Libre droite
     {
-        while(map->getlist_murH(this->getPosition()[i],this->getPosition()[j])==false) // On va droite dans la grille tant qu'on ne rencontre pas de mur
+        while(map->getlist_murH(i,j)==false && i<=14) // On va droite dans la grille tant qu'on ne rencontre pas de mur
         {
             i++;
         }
@@ -245,11 +256,12 @@ void Noeud::chercherFils(std::vector<P> discover)
         this->setArc(3, NULL);
 
     }
-
+        cout << "Etape 6 de chercherFils" << endl;
     i = this->getPosition()[0];
     j = this->getPosition()[1];
 
-    return;
+            cout << "fin de chercherFils" << endl;
+  // inutile  return;
 }
 
 int Noeud::getG()
@@ -385,7 +397,6 @@ Response build_path(const std::vector<Noeud*> origin, Noeud* final)
 
     }
     return path;
-    //need a return here
 }
 
 bool member(const Noeud* node, const std::vector<Noeud*> vector)

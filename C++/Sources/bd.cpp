@@ -14,6 +14,7 @@ Bd::~Bd()
 Bd::Bd(Stimulus _m)
 {
     this->m_CurrentStimulus = _m;
+    this->builddata();
 }
 
 // Construction de la base de connaissances

@@ -153,16 +153,19 @@ IpseityTalker::selectResponse()
     //Bd::m_instance(this->m_CurrentStimulus);
     int start_x,start_y,target_x,target_y;
     //on cree la base de donne unique
+    cout << "Debut de selectResponse" << endl;
     GlobalBase& g_uniqueBase=GlobalBase::Instance();
+    cout << "etape 1 de selectResponse" << endl;
     g_uniqueBase.setBd(new Bd(this->m_CurrentStimulus));
-
+    cout << "etape 2 de selectResponse" << endl;
     //trouvons quelle est le robot qui doit bouger en premier via la cible
     start_x=g_uniqueBase.getBd()->getRobot_Target_Coord().getX();
     start_y=g_uniqueBase.getBd()->getRobot_Target_Coord().getY();
+    cout << "etape 3 de selectResponse" << endl;
   /*  int TargetID = m_CurrentStimulus[4];  Déjà fait dans la base de donnée.... il manquait juste les getters
     if(TargetID>=0 &&TargetID <5)
     {
-        //c'est le robot bleu ou la spirale(on ignore la spirale pour le moment) qui est designé
+        //c'est le robot bleu ou la spirale (on ignore la spirale pour le moment) qui est designé
         start_x = (int)m_CurrentStimulus[5];
         start_y = (int)m_CurrentStimulus[6];
     }
@@ -186,7 +189,8 @@ IpseityTalker::selectResponse()
     }*/
     //generons le graphe
     std::vector<P> discover;
-    Noeud *n = new Noeud(0,start_x,start_y,discover); //unused
+    cout << "etape 4 de selectResponse start_x:" << start_x << " y:" << start_y << endl;
+    Noeud *n = new Noeud(0,start_x,start_y,discover); //unused -> bug ici
 
 
  /*   //on trouve les coordonné du but grace à la base de dudul (déjà fait ça aussi)
@@ -194,6 +198,7 @@ IpseityTalker::selectResponse()
     target_y = g_uniqueBase.getBd()->getlist_target(TargetID).getY(); */
 
     //cherchons une solution au but et retournons là
+    cout << "etape 5 de selectResponse" << endl;
     cout << "=================================================Projet IA41 : Astar" << endl;
     return n->astar(target_x,target_y);
 

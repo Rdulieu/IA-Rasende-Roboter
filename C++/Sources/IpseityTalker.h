@@ -26,7 +26,7 @@
 #ifndef IpseityTalker_h
 #define IpseityTalker_h
 
-using namespace std;
+
 
 
 #include <QtGui>
@@ -37,6 +37,8 @@ using namespace std;
 
 #include "AL/BasePluginCognitiveModule.h"
 #include "bd.h"
+
+using namespace std;
 //! IpseityTalker.
 /*!
     \author
