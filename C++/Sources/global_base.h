@@ -8,8 +8,8 @@ public:
     Bd* getBd();
     void setBd(Bd *bdd_c);
 private:
-    GlobalBase& operator= (const GlobalBase&){}
-    GlobalBase (const GlobalBase&){}
+    GlobalBase& operator= (const GlobalBase&);//{}
+    GlobalBase (const GlobalBase&);//{}
     Bd *bdd;
     static GlobalBase m_instance;
     GlobalBase();

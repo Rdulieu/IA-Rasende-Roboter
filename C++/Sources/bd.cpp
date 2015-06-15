@@ -270,5 +270,24 @@ bool Bd::getlist_murV(int i, int j)
     return list_murV[i][j];
 }
 
+Coordonnees Bd::getRobot_Target_Coord()
+{
+    return this->robot_target_coord;
+}
+
+Coordonnees Bd::getTarget_Coord()
+{
+    return this->target_coord;
+}
+
+int Bd::getRobot_Target()
+{
+    return this->robot_target;
+}
+
+int Bd::getTarget()
+{
+    return this->target;
+}
 
 

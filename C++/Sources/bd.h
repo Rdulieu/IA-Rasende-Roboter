@@ -26,6 +26,10 @@ public:
     Coordonnees getlist_target(int);
     bool getlist_murH(int,int);
     bool getlist_murV(int,int);
+    Coordonnees getRobot_Target_Coord();
+    Coordonnees getTarget_Coord();
+    int getRobot_Target();
+    int getTarget();
 };
 
 #endif // BD_H

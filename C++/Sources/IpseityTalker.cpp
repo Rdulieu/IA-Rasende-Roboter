@@ -151,16 +151,18 @@ const Response &
 IpseityTalker::selectResponse()
 {
     //Bd::m_instance(this->m_CurrentStimulus);
-int start_x,start_y,target_x,target_y;
-    //on creee la base de donne unique
+    int start_x,start_y,target_x,target_y;
+    //on cree la base de donne unique
     GlobalBase& g_uniqueBase=GlobalBase::Instance();
     g_uniqueBase.setBd(new Bd(this->m_CurrentStimulus));
 
     //trouvons quelle est le robot qui doit bouger en premier via la cible
-    int TargetID = m_CurrentStimulus[4];
+    start_x=g_uniqueBase.getBd()->getRobot_Target_Coord().getX();
+    start_y=g_uniqueBase.getBd()->getRobot_Target_Coord().getY();
+  /*  int TargetID = m_CurrentStimulus[4];  Déjà fait dans la base de donnée.... il manquait juste les getters
     if(TargetID>=0 &&TargetID <5)
     {
-        //c'est le robot bleu ou la spirale (et j'emmerde la spirale ) qui est designé
+        //c'est le robot bleu ou la spirale(on ignore la spirale pour le moment) qui est designé
         start_x = (int)m_CurrentStimulus[5];
         start_y = (int)m_CurrentStimulus[6];
     }
@@ -181,15 +183,15 @@ int start_x,start_y,target_x,target_y;
         //rouge
         start_x = (int)m_CurrentStimulus[11];
         start_y = (int)m_CurrentStimulus[12];
-    }
+    }*/
     //generons le graphe
     std::vector<P> discover;
     Noeud *n = new Noeud(0,start_x,start_y,discover); //unused
 
 
-    //on trouve les coordonné du but grace à la base de dudul
+ /*   //on trouve les coordonné du but grace à la base de dudul (déjà fait ça aussi)
     target_x = g_uniqueBase.getBd()->getlist_target(TargetID).getX(); //sublime comme appel
-    target_y = g_uniqueBase.getBd()->getlist_target(TargetID).getY();
+    target_y = g_uniqueBase.getBd()->getlist_target(TargetID).getY(); */
 
     //cherchons une solution au but et retournons là
     cout << "=================================================Projet IA41 : Astar" << endl;

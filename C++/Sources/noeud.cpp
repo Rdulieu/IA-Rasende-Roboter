@@ -1,4 +1,5 @@
 #include "noeud.h"
+#include "global_base.h"
 #include <vector>
 #include <QMap>
 
@@ -108,7 +109,7 @@ void Noeud::chercherFils(std::vector<P> discover)
 {
     int i,j;
     int pos[4]={0,0,0,0};// : 0 haut 1 bas 2 gauche 3 droite, si pos[0]==1 alors il y a un obstacle horizontale au-dessus de notre case
-    int count; // nombre de fils partir du noeud parent
+    int count=0; // nombre de fils partir du noeud parent 15/06 9h41 ajout de l'initialisation
     P p; // anciennement int p[2];
     GlobalBase& g_uniqueBase=GlobalBase::Instance(); //singloton
     map = g_uniqueBase.getBd(); //a tester si g nest init recupere la bdd unique generé dans ipseity tazlker;
@@ -359,7 +360,7 @@ Noeud* Noeud::getBestNode(const std::vector<Noeud*> open)
     int f(res->getHeuristique() + res->getG());
 
     //On parcours la vectore des fils et on recupÃ¨re le meilleurs noeuds selon f.
-    for(int i = 1; i<open.size(); i++)
+    for(int i = 1; i<open.size(); i++) //warning here
     {
         if (f > open[i]->getG() + open[i]->getHeuristique()) res = open[i];
     }
@@ -372,7 +373,7 @@ Response build_path(const std::vector<Noeud*> origin, Noeud* final)
     Response path(2*(origin.size()+1)); //On alloue un tableau de 2 fois la taille de origin + final
     int j(0);
 
-    for(int i = 0, k = 0; i < 2*(origin.size()+1); i+=2, k++)
+    for(int i = 0, k = 0; i < 2*(origin.size()+1); i+=2, k++) //warning here
     {
         path[i] = 0;
         //On cherche la direction
@@ -383,12 +384,13 @@ Response build_path(const std::vector<Noeud*> origin, Noeud* final)
         path[i+1] = j;
 
     }
-
+    return path;
+    //need a return here
 }
 
 bool member(const Noeud* node, const std::vector<Noeud*> vector)
 {
-    for(int i = 0; i < vector.size(); i++)
+    for(int i = 0; i < vector.size(); i++) //warning here
     {
         if(vector[i] == node) return true;
     }
