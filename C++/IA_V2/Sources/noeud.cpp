@@ -22,16 +22,12 @@ Noeud::~Noeud()
 
 Noeud::Noeud(int _id, int x, int y)
 {
-    cout << "Debut de Noeud" << endl;
     GlobalBase& g_uniqueBase=GlobalBase::Instance(); //singleton
-    cout << "Etape 1 de Noeud" << endl;
     this->id = _id;
     this->position[0] = x;
     this->position[1] = y;
-    cout << "Etape 2 de Noeud" << endl;
     this->map = g_uniqueBase.getBd(); //a tester si g nest init recupere la bdd unique generé dans ipseity tazlker
-    cout << "Etape 3 de Noeud" << endl;
-    cout << "Etape 4 de Noeud" << endl;
+    cout << "id : " << id << endl << "(x,y) : (" << position[0] << ',' << position[1] << ')' << endl;
 }
 
 Noeud::Noeud(int _id, int x, int y, std::vector<Noeud*> _lst)
@@ -100,7 +96,7 @@ int* Noeud::getPosition()
     return this->position;
 }
 
-void Noeud::setLstNoeudFils(std::vector<Noeud*> _lst)
+void Noeud::setLstNoeudFils(std::vector<Noeud*>& _lst)
 {
     this->lstNoeudFils = _lst;
 }
@@ -111,9 +107,9 @@ std::vector<Noeud*> Noeud::getLstNoeudFils()
 }
 
 // On cherche tous les noeuds fils, ce sont les cases qui sont accessibles partir de la case actuelle (Noeud parent)
-void Noeud::chercherFils(std::vector<P> discover)
+void Noeud::chercherFils(std::vector<P>& discover)
 {
-        cout << "Debut de chercherFils" << endl;
+    /*cout << "Debut de chercherFils" << endl;
     int i,j;
     int pos[4]={0,0,0,0};// : 0 haut 1 bas 2 gauche 3 droite, si pos[0]==1 alors il y a un obstacle horizontale au-dessus de notre case
     int count=0; // nombre de fils partir du noeud parent 15/06 9h41 ajout de l'initialisation
@@ -269,7 +265,172 @@ void Noeud::chercherFils(std::vector<P> discover)
     j = this->getPosition()[1];
 
             cout << "fin de chercherFils" << endl;
-  // inutile  return;
+  // inutile  return;*/
+
+    int i, j, count = 0;
+    int pos[4] = {0, 0, 0, 0}; //Haut, Bas, Gauche, Droite.
+    P p;
+    GlobalBase& g_uniqueBase = GlobalBase::Instance();
+    map = g_uniqueBase.getBd();
+
+    //Recherche des murs.
+    if(map->getlist_murV(getPosition()[0], getPosition()[1])) pos[3] = 1;
+    if(map->getlist_murV(getPosition()[0]-1, getPosition()[1])) pos[2] = 1;
+    if(map->getlist_murV(getPosition()[0], getPosition()[1])) pos[1] = 1;
+    if(map->getlist_murV(getPosition()[0], getPosition()[1]-1)) pos[0] = 1;
+
+    //Recherche des noeuds fils dans chaque directions.
+    //Initialisation de la position de départs
+    i = getPosition()[0];
+    j = getPosition()[1];
+
+    //Si il y a absence de mur haut.
+    if (pos[0] == 1)
+    {
+        //On avance jusqu'à recontrer un mur ou les limite de la cartes.
+        while(!(map->getlist_murH(i, j-1)) && j>0)
+        {
+            j--;
+        }
+        count++;
+
+        //On récupère la position actuel pour la tester.
+        p.i = i;
+        p.j = j;
+        Noeud* filsHaut = new Noeud(count, i, j);
+
+        //Si la position n'est pas déjà découverte :
+        //NB : find renvoie end s'il ne trouve rien, ont s'assure que
+        //Le dernier element est différent de celui qu'on cherche.
+        if(std::find(discover.begin(), discover.end(), p) == discover.end() && p != discover.back())
+        {
+            discover.push_back(p); //Ajout à la liste des cases découvertes
+
+            getLstNoeudFils().push_back(filsHaut); //Ajout au noeud fils.
+
+            setArc(0, new Arc(1, filsHaut)); //Création de l'Arc.
+        }
+        else link(this, filsHaut); //Sinon on effectue une rattachement.
+    }
+    else //Si c'est un mur on met tout a NULL.
+    {
+        getLstNoeudFils().push_back(NULL);
+        setArc(0, NULL);
+    }
+
+    //Réinitialisation de la position.
+    i = getPosition()[0];
+    j = getPosition()[1];
+
+    //Si il y a absence de mur bas.
+    if (pos[1] == 1)
+    {
+        //On avance jusqu'à recontrer un mur ou les limite de la carte.
+        while(!(map->getlist_murH(i, j)) && j<=15)
+        {
+            j++;
+        }
+        count++;
+
+        //On récupère la position actuel pour la tester.
+        p.i = i;
+        p.j = j;
+        Noeud* filsBas = new Noeud(count, i, j);
+
+        //Si la position n'est pas déjà découverte :
+        //NB : find renvoie end s'il ne trouve rien, ont s'assure que
+        //Le dernier element est différent de celui qu'on cherche.
+        if(std::find(discover.begin(), discover.end(), p) == discover.end() && p != discover.back())
+        {
+            discover.push_back(p); //Ajout à la liste des cases découvertes
+
+            getLstNoeudFils().push_back(filsBas); //Ajout au noeud fils.
+
+            setArc(1, new Arc(1, filsBas)); //Création de l'Arc.
+        }
+        else link(this, filsBas); //Sinon on effectue une rattachement.
+    }
+    else //Si c'est un mur on met tout a NULL.
+    {
+        getLstNoeudFils().push_back(NULL);
+        setArc(1, NULL);
+    }
+
+    //Réinitialisation de la position.
+    i = getPosition()[0];
+    j = getPosition()[1];
+
+    //Si il y a absence de mur gauche.
+    if (pos[2] == 1)
+    {
+        //On avance jusqu'à recontrer un mur ou les limite de la carte.
+        while(!(map->getlist_murH(i-1, j)) && i>0)
+        {
+            j++;
+        }
+        count++;
+
+        //On récupère la position actuel pour la tester.
+        p.i = i;
+        p.j = j;
+        Noeud* filsGauche = new Noeud(count, i, j);
+
+        //Si la position n'est pas déjà découverte :
+        //NB : find renvoie end s'il ne trouve rien, ont s'assure que
+        //Le dernier element est différent de celui qu'on cherche.
+        if(std::find(discover.begin(), discover.end(), p) == discover.end() && p != discover.back())
+        {
+            discover.push_back(p); //Ajout à la liste des cases découvertes
+
+            getLstNoeudFils().push_back(filsGauche); //Ajout au noeud fils.
+
+            setArc(2, new Arc(1, filsGauche)); //Création de l'Arc.
+        }
+        else link(this, filsGauche); //Sinon on effectue une rattachement.
+    }
+    else //Si c'est un mur on met tout a NULL.
+    {
+        getLstNoeudFils().push_back(NULL);
+        setArc(2, NULL);
+    }
+
+    //Réinitialisation de la position.
+    i = getPosition()[0];
+    j = getPosition()[1];
+
+    //Si il y a absence de mur gauche.
+    if (pos[3] == 1)
+    {
+        //On avance jusqu'à recontrer un mur ou les limite de la carte.
+        while(!(map->getlist_murH(i, j)) && i>=15)
+        {
+            j++;
+        }
+        count++;
+
+        //On récupère la position actuel pour la tester.
+        p.i = i;
+        p.j = j;
+        Noeud* filsDroit = new Noeud(count, i, j);
+
+        //Si la position n'est pas déjà découverte :
+        //NB : find renvoie end s'il ne trouve rien, ont s'assure que
+        //Le dernier element est différent de celui qu'on cherche.
+        if(std::find(discover.begin(), discover.end(), p) == discover.end() && p != discover.back())
+        {
+            discover.push_back(p); //Ajout à la liste des cases découvertes
+
+            getLstNoeudFils().push_back(filsDroit); //Ajout au noeud fils.
+
+            setArc(3, new Arc(1, filsDroit)); //Création de l'Arc.
+        }
+        else link(this, filsDroit); //Sinon on effectue une rattachement.
+    }
+    else //Si c'est un mur on met tout a NULL.
+    {
+        getLstNoeudFils().push_back(NULL);
+        setArc(2, NULL);
+    }
 }
 
 int Noeud::getG()
@@ -373,8 +534,7 @@ Response Noeud::astar(int final_x,int final_y)
     return NULL;
 }
 
-
-Noeud* Noeud::getBestNode(const std::vector<Noeud*> open)
+Noeud* Noeud::getBestNode(const std::vector<Noeud*>& open)
 {
     Noeud* res = open[0];
     int f(res->getHeuristique() + res->getG());
@@ -388,7 +548,7 @@ Noeud* Noeud::getBestNode(const std::vector<Noeud*> open)
     return res;
 }
 
-Response build_path(const std::vector<Noeud*> origin, Noeud* final)
+Response build_path(const std::vector<Noeud*>& origin, Noeud* final)
 {
     Response path(2*(origin.size()+1)); //On alloue un tableau de 2 fois la taille de origin + final
     int j(0);
@@ -407,7 +567,7 @@ Response build_path(const std::vector<Noeud*> origin, Noeud* final)
     return path;
 }
 
-bool member(const Noeud* node, const std::vector<Noeud*> vector)
+bool member(const Noeud* node, const std::vector<Noeud*>& vector)
 {
     for(int i = 0; i < vector.size(); i++) //warning here
     {
@@ -429,4 +589,16 @@ bool Noeud::operator==(const Noeud a)
 bool Noeud::operator!=(const Noeud a)
 {
     return !(this->isEqual(a));
+}
+
+ostream& Noeud::display(ostream& stream) const
+{
+    stream << "id : " << id << endl;
+    stream << "(x,y) : (" << position[0] << ',' << position[1] << ')' << endl;
+    return stream;
+}
+
+ostream& operator<<(const Noeud& a, ostream& stream)
+{
+    return a.display(stream);
 }

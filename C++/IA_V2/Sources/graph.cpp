@@ -13,8 +13,11 @@ Graph::Graph(Noeud* init)
 
 Graph::Graph(int x, int y, int id)
 {
+    cout << "Debut constructeur de Graph | Création du Noeud start" << endl;
     start = new Noeud(id, x, y);
+    cout << "Constructeur de Graph : Avant Init" << endl;
 	init();
+    cout << "Fin du constructeur de Graph" << endl;
 }
 
 Graph::Graph(const Graph& copy)
@@ -27,6 +30,12 @@ Graph::~Graph()
     delete start;
 }
 
+Noeud* Graph::getStart()
+{
+    return start;
+}
+
+
 void Graph::init()
 {
 	std::queue<Noeud*> toSearch;
@@ -36,13 +45,14 @@ void Graph::init()
 	
     while(!(toSearch.empty()))
     {
+        cout << toSearch.front();
         toSearch.front()->chercherFils(discover);
 		addAll(toSearch.front()->getLstNoeudFils(), toSearch, discover);
-		toSearch.pop();
+        toSearch.pop();
 	}
 }
 
-void addAll(std::vector<Noeud*> cont, std::queue<Noeud*>& q, std::vector<P> v)
+void addAll(std::vector<Noeud*> cont, std::queue<Noeud*>& q, std::vector<P>& v)
 {
 	P temp;
 	for(int k = 0; k<cont.size(); k++)

@@ -63,8 +63,8 @@ public :
     int* getPosition();
     void setPosition(int x, int y);
     std::vector<Noeud*> getLstNoeudFils();
-    void chercherFils(std::vector<P>);
-    void setLstNoeudFils(std::vector<Noeud*>);
+    void chercherFils(std::vector<P>&);
+    void setLstNoeudFils(std::vector<Noeud*>&);
 /* -> INUTILE
     std::vector<std::pair<Noeud*, int> > astar(const Noeud& final);
 };
@@ -75,15 +75,19 @@ std::vector<std::pair<Noeud*, int> > build_path(const std::vector<Noeud*>& origi
     void setArc(int, Arc*);
 
     Response astar(int,int);
-    Noeud* getBestNode(const std::vector<Noeud*> open);
+    Noeud* getBestNode(const std::vector<Noeud*>& open);
 
     bool operator==(const Noeud a);
 
     bool operator!=(const Noeud a);
 
+    ostream& display(ostream& stream) const;
+
 };
 
-Response build_path(const std::vector<Noeud*> origin, Noeud* final);
+Response build_path(const std::vector<Noeud*>& origin, Noeud* final);
 
-bool member(const Noeud* node, const std::vector<Noeud*> vector); //true if node is in vector, false otherwise.
+bool member(const Noeud* node, const std::vector<Noeud*>& vector); //true if node is in vector, false otherwise.
+
+ostream& operator<<(const Noeud& a, ostream& stream);
 #endif // NOEUD_H
