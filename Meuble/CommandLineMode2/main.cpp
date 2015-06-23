@@ -49,13 +49,14 @@ int main(int argc, char *argv[])
     cout << base->getTarget_Coord().getX() << endl;
     cout << base->getTarget_Coord().getY() << endl;
     cout <<"Main : Fin coordone target" << endl;
-    //solution = n->astar(base->getTarget_Coord().getX(),base->getTarget_Coord().getY(),base->getRobot_Target());
-    solution = n->astar(10,0,base->getRobot_Target());
+    solution = n->astar(base->getTarget_Coord().getX(),base->getTarget_Coord().getY(),base->getRobot_Target());
+    //solution = n->astar(10,0,base->getRobot_Target());
     int showit;
     foreach(showit,solution)
     {
         cout << "Main : result : " << showit << endl;
     }
+
     return EXIT_SUCCESS;
 }
 

@@ -51,7 +51,7 @@ void Bd::builddata()
     list_murV[7][8]=true;
     list_murV[8][8]=true;
 
-    if(m_CurrentStimulus[0]){
+    if(m_CurrentStimulus[0]==1){
         list_target[0]=Coordonnees(3,7);
         list_target[1]=Coordonnees(5,6);
         list_target[6]=Coordonnees(1,3);
@@ -80,18 +80,18 @@ void Bd::builddata()
         list_target[15]=Coordonnees(2,5);
 
         list_murH[3][0]=true;
-        list_murH[5][1]=true;
-        list_murH[1][3]=true;
-        list_murH[4][4]=true;
+        list_murH[5][1]=true;//false
+        list_murH[1][3]=true;//false
+        list_murH[4][4]=true;//false
         list_murH[7][5]=true;
         list_murH[2][5]=true;
 
         list_murV[0][3]=true;
-        list_murV[0][6]=true;
-        list_murV[1][2]=true;
+        list_murV[0][6]=true;//false
+        list_murV[1][2]=true;//false
         list_murV[2][5]=true;
-        list_murV[5][3]=true;
-        list_murV[6][1]=true;
+        list_murV[5][3]=true;//false
+        list_murV[6][1]=true;//false
         list_murV[7][5]=true;
     }
     if(m_CurrentStimulus[1]){
