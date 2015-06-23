@@ -134,7 +134,7 @@ void Noeud::chercherFils(QVector<P> discover,Bd* bdd, QVector<Noeud*> unicity)
     map = bdd;
 
     //cout << "Etape 1 de chercherFils" << endl;
-    // On cherche quel(s) bords notre case est collÃ©e
+    // On cherche quel(s) bords notre case est collée
     if(map->getlist_murV(this->getPosition()[0],this->getPosition()[1])) // est-ce qu'il y a un mur vertical droite
         pos[3]=1;
     else if(map->getlist_murV(this->getPosition()[0]-1,this->getPosition()[1])) // est-ce qu'il y a un mur vertical gauche

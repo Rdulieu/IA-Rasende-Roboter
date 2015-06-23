@@ -52,12 +52,14 @@ void Bd::builddata()
     list_murV[8][8]=true;
 
     if(m_CurrentStimulus[0]==1){
+        //correct
         list_target[0]=Coordonnees(3,7);
         list_target[1]=Coordonnees(5,6);
         list_target[6]=Coordonnees(1,3);
         list_target[12]=Coordonnees(6,4);
         list_target[15]=Coordonnees(2,1);
 
+        //corect
         list_murH[4][0]=true;
         list_murH[2][1]=true;
         list_murH[0][3]=true;
@@ -65,6 +67,7 @@ void Bd::builddata()
         list_murH[5][6]=true;
         list_murH[3][7]=true;
 
+        //correct
         list_murV[0][2]=true;
         list_murV[0][4]=true;
         list_murV[1][3]=true;
@@ -73,19 +76,30 @@ void Bd::builddata()
         list_murV[5][5]=true;
         list_murV[6][3]=true;
     }else{
+        //correct
         list_target[0]=Coordonnees(7,5);
         list_target[1]=Coordonnees(6,1);
         list_target[6]=Coordonnees(5,4);
         list_target[12]=Coordonnees(1,3);
         list_target[15]=Coordonnees(2,5);
 
+        //corrigé ?
+        list_murH[3][0]=true;
+        list_murH[5][2]=true;//false
+        list_murH[1][3]=true;//false
+        list_murH[4][4]=true;//false
+        list_murH[7][5]=true;
+        list_murH[2][5]=true;
+        /*
         list_murH[3][0]=true;
         list_murH[5][1]=true;//false
         list_murH[1][3]=true;//false
         list_murH[4][4]=true;//false
         list_murH[7][5]=true;
         list_murH[2][5]=true;
+        */
 
+        //correct
         list_murV[0][3]=true;
         list_murV[0][6]=true;//false
         list_murV[1][2]=true;//false
@@ -94,18 +108,21 @@ void Bd::builddata()
         list_murV[6][1]=true;//false
         list_murV[7][5]=true;
     }
-    if(m_CurrentStimulus[1]){
+    if(m_CurrentStimulus[1]==1){
+        //correct
         list_target[3]=Coordonnees(11,2);
         list_target[5]=Coordonnees(13,6);
         list_target[10]=Coordonnees(10,7);
         list_target[16]=Coordonnees(14,1);
 
+        //correct
         list_murH[9][0]=true;
         list_murH[13][1]=true;
         list_murH[10][2]=true;
         list_murH[13][6]=true;
         list_murH[10][7]=true;
 
+        //correct
         list_murV[10][6]=true;
         list_murV[11][2]=true;
         list_murV[13][6]=true;
@@ -113,11 +130,14 @@ void Bd::builddata()
         list_murV[15][1]=true;
         list_murV[15][3]=true;
     }else{
+
+        //correct
         list_target[3]=Coordonnees(13,5);
         list_target[5]=Coordonnees(11,2);
         list_target[10]=Coordonnees(9,1);
         list_target[16]=Coordonnees(10,7);
 
+        //correct
         list_murH[10][0]=true;
         list_murH[9][1]=true;
         list_murH[11][2]=true;
@@ -125,82 +145,120 @@ void Bd::builddata()
         list_murH[9][7]=true;
 
 
+/*
         list_murV[1][9]=true;
         list_murV[2][14]=true;
         list_murV[4][9]=true;
         list_murV[6][12]=true;
+        */
+        //corrigé?
+        list_murV[9][0]=true;
+        list_murV[11][2]=true;
+        list_murV[15][3]=true;
+        list_murV[13][5]=true;
+        list_murV[10][6]=true;
+
     }
     if(m_CurrentStimulus[2]){
+        //correct
         list_target[4]=Coordonnees(3,9);
         list_target[7]=Coordonnees(6,14);
         list_target[9]=Coordonnees(1,13);
         list_target[14]=Coordonnees(5,11);
 
+        //correct
         list_murH[3][9]=true;
         list_murH[4][11]=true;
         list_murH[0][13]=true;
         list_murH[6][14]=true;
         list_murH[4][15]=true;
 
+        /*
         list_murV[1][14]=true;
         list_murV[3][9]=true;
         list_murV[5][10]=true;
         list_murV[6][14]=true;
+         */
+
+        list_murV[1][13]=true;
+        list_murV[3][9]=true;
+        list_murV[5][10]=true;
+        list_murV[6][13]=true;
     }else{
+
+        //correct
         list_target[4]=Coordonnees(6,13);
         list_target[7]=Coordonnees(1,10);
         list_target[9]=Coordonnees(4,9);
         list_target[14]=Coordonnees(2,14);
 
+        //correct
         list_murH[3][9]=true;
         list_murH[1][10]=true;
         list_murH[5][13]=true;
         list_murH[2][14]=true;
         list_murH[3][15]=true;
 
+/*
         list_murV[9][0]=true;
         list_murV[10][6]=true;
         list_murV[11][2]=true;
         list_murV[13][5]=true;
         list_murV[15][3]=true;
+        */
+
+        //corigé?
+        list_murV[1][9]=true;
+        list_murV[4][9]=true;
+        list_murV[6][12]=true;
+        list_murV[2][14]=true;
     }
-    if(m_CurrentStimulus[3]){
+    if(m_CurrentStimulus[3]==1){
+
+        //correct
         list_target[2]=Coordonnees(12,9);
         list_target[11]=Coordonnees(9,12);
         list_target[13]=Coordonnees(11,14);
 
+        //correct
         list_murH[12][9]=true;
         list_murH[8][12]=true;
         list_murH[13][13]=true;
         list_murH[11][14]=true;
         list_murH[13][15]=true;
 
+        //correct
         list_murV[9][11]=true;
         list_murV[11][14]=true;
         list_murV[12][8]=true;
         list_murV[14][13]=true;
     }else{
+        //correct
         list_target[2]=Coordonnees(9,10);
         list_target[11]=Coordonnees(9,14);
         list_target[13]=Coordonnees(12,9);
 
+
+        //correct
         list_murH[12][9]=true;
         list_murH[8][10]=true;
         list_murH[14][13]=true;
         list_murH[8][14]=true;
         list_murH[10][15]=true;
 
+        //correct
         list_murV[9][10]=true;
         list_murV[9][13]=true;
         list_murV[12][8]=true;
         list_murV[14][13]=true;
         list_murV[15][9]=true;
     }
-    list_target[8]=Coordonnees(14,13);
+
+    list_target[8]=Coordonnees(14,13);//averif
     target_coord=list_target[target];
 
     robot_target=floor((target-1)/4);     // prolog : move([_,_,_,_,TargetId|_],[Robot,1]):-Robot is floor((TargetId-1)/4).
-    //cout << robot_target << endl;
+
     Coordonnees Blue_robot=Coordonnees(m_CurrentStimulus[5],m_CurrentStimulus[6]);
     Coordonnees Green_robot=Coordonnees(m_CurrentStimulus[7],m_CurrentStimulus[8]);
     Coordonnees Red_robot=Coordonnees(m_CurrentStimulus[9],m_CurrentStimulus[10]);
