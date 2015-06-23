@@ -57,6 +57,7 @@ int main(int argc, char *argv[])
         cout << "Main : result : " << showit << endl;
     }
 
+    delete base;
     return EXIT_SUCCESS;
 }
 
