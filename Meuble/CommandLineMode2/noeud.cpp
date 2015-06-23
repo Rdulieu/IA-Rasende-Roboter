@@ -18,24 +18,30 @@ Noeud::~Noeud()
     delete map;
 }
 
-Noeud::Noeud(int _id, int x, int y, QVector<P> discover,Bd * bdd)
+Noeud::Noeud(int _id, int x, int y, QVector<P> discover,Bd * bdd, QVector<Noeud*> unicity)
 {
-    cout << "Debut de Noeud" << endl;
+    //cout << "Debut de Noeud" << endl;
     //GlobalBase& g_uniqueBase=GlobalBase::m_instance; //singleton
     //GlobalBase *g_uniqueBase=new GlobalBase();
-    cout << "Etape 1 de Noeud" << endl;
+    //cout << "Etape 1 de Noeud" << endl;
     this->id = _id;
     this->position[0] = x;
     this->position[1] = y;
-    cout << "Etape 2 de Noeud" << endl;
+    //cout << "Etape 2 de Noeud" << endl;
     this->map = bdd; //a tester si g nest init recupere la bdd unique generé dans ipseity tazlker
-    cout << "Etape 3 de Noeud" << endl;
-    chercherFils(discover,this->map);
-    cout << "Noeud :Etape 4 de Noeud" << endl;
+    //cout << "Etape 3 de Noeud" << endl;
+    P coor;
+    coor.i = x;
+    coor.j = y;
+
+    discover.append(coor);
+    unicity.append(this);
+    chercherFils(discover,this->map,unicity);
+    //cout << "Noeud :Etape 4 de Noeud" << endl;
 
 }
 
-Noeud::Noeud(int _id, int x, int y, QVector<Noeud*> _lst,Bd * bdd)
+Noeud::Noeud(int _id, int x, int y, QVector<Noeud*> _lst,Bd * bdd,  QVector<Noeud*> unicity)
 {
         cout << "OMG" << endl;
     //GlobalBase *g_uniqueBase=new GlobalBase();
@@ -44,8 +50,9 @@ Noeud::Noeud(int _id, int x, int y, QVector<Noeud*> _lst,Bd * bdd)
     this->position[1]=y;
     this->lstNoeudFils = _lst;
     this->map = bdd; //a tester si g nest init recupere la bdd unique generé dans ipseity tazlker
+    unicity.append(this);
 }
-
+/*
 Noeud::Noeud(const Noeud& copy)
 {
     if(*this !=  copy)
@@ -63,7 +70,7 @@ Noeud::Noeud(const Noeud& copy)
         this->map = copy.map;
     }
 }
-
+*/
 // Accesseurs et mutateurs
 void Noeud::setId(int _id)
 {
@@ -117,15 +124,16 @@ QVector<Noeud*> Noeud::getNonModifiableLstNoeudFils()
 }
 
 // On cherche tous les noeuds fils, ce sont les cases qui sont accessibles partir de la case actuelle (Noeud parent)
-void Noeud::chercherFils(QVector<P> discover,Bd* bdd)
+void Noeud::chercherFils(QVector<P> discover,Bd* bdd, QVector<Noeud*> unicity)
 {
-        cout << "Debut de chercherFils" << endl;
+    cout << "Noeud : ChercherFils" << endl;
     int i,j;
     int pos[4]={0,0,0,0};// : 0 haut 1 bas 2 gauche 3 droite, si pos[0]==1 alors il y a un obstacle horizontale au-dessus de notre case
     int count=0; // nombre de fils partir du noeud parent 15/06 9h41 ajout de l'initialisation
     P p; // anciennement int p[2];
     map = bdd;
-    cout << "Etape 1 de chercherFils" << endl;
+
+    //cout << "Etape 1 de chercherFils" << endl;
     // On cherche quel(s) bords notre case est collÃ©e
     if(map->getlist_murV(this->getPosition()[0],this->getPosition()[1])) // est-ce qu'il y a un mur vertical droite
         pos[3]=1;
@@ -139,13 +147,14 @@ void Noeud::chercherFils(QVector<P> discover,Bd* bdd)
     // On cherche la position des noeuds fils possibles dans chaque direction
     i = this->getPosition()[0];
     j = this->getPosition()[1];
-    cout << "Etape 2 de chercherFils" << endl;
+    //cout << "Etape 2 de chercherFils" << endl;
     if(pos[0]==0) // On cherche la position d'un noeud fils s'il n'y a pas d'obstacle collÃ© au-dessus de notre case actuelle
     {
-        cout << "Etape 2 : IF de chercherFils et j:" << j << " i:" << i << endl;
+        //cout << "Etape 2 : IF de chercherFils et j:" << j << " i:" << i << endl;
+        //cout << "Target is : " << map->getlist_murH(1,1) << endl;
         while(map->getlist_murH(i,j-1)==false && j>0) // On monte dans la grille tant qu'on ne rencontre pas de mur
         {
-            cout << "Etape 2 : WHILE de chercherFils et j:" << j << " i " << i << endl;
+            //cout << "Etape 2 : WHILE de chercherFils et j:" << j << " i " << i << endl;
             j--;
         }
         count++;
@@ -154,22 +163,35 @@ void Noeud::chercherFils(QVector<P> discover,Bd* bdd)
         p.j = j;
         if(!(std::find(discover.begin(), discover.end(),p) != discover.end()))
         {
-            cout << "Etape 2 : IF nb2 de chercherFils" << endl;
+            //cout << "Etape 2 : IF nb2 de chercherFils" << endl;
             discover.push_back(p);
-            Noeud *filsHaut = new Noeud(count,i,j, discover,map);
-
+            Noeud *filsHaut = new Noeud(count,i,j, discover,map,unicity);
             this->getLstNoeudFils()->push_back(filsHaut); // On ajoute le noeud fils la vectore des noeuds fils
             Arc *up = new Arc(1, filsHaut);
             this->setArc(0, up);
         }
+        else
+        {
+            Noeud *n_searched;
+            foreach (n_searched, unicity)
+            {
+                if(n_searched->getPosition()[0]==i && n_searched->getPosition()[1]==j)
+                {
+                    Arc *arcToSet = new Arc(1, n_searched);
+                    this->setArc(0,arcToSet);
+                    break; //to go out from the foreach statement because "life"
+                }
+            }
+        }
+
     }
     else
     {
-        cout << "Etape 2 : ELSE de chercherFils" << endl;
+        //cout << "Etape 2 : ELSE de chercherFils" << endl;
         this->getLstNoeudFils()->push_back(NULL);
         this->setArc(0, NULL);
     }
-        cout << "Etape 3 de chercherFils" << endl;
+        //cout << "Etape 3 de chercherFils" << endl;
     // On revient sur notre case de dÃ©part
     i = this->getPosition()[0];
     j = this->getPosition()[1];
@@ -187,11 +209,24 @@ void Noeud::chercherFils(QVector<P> discover,Bd* bdd)
         if(!(std::find(discover.begin(), discover.end(),p) != discover.end()))
         {
             discover.push_back(p);
-            Noeud *filsBas = new Noeud(count,i,j,discover,map);
+            Noeud *filsBas = new Noeud(count,i,j,discover,map,unicity);
 
             this->getLstNoeudFils()->push_back(filsBas); // On ajoute le noeud fils la vectore des noeuds fils
             Arc *down= new Arc(1, filsBas);
             this->setArc(1, down);
+        }
+        else
+        {
+            Noeud *n_searched;
+            foreach (n_searched, unicity)
+            {
+                if(n_searched->getPosition()[0]==i && n_searched->getPosition()[1]==j)
+                {
+                    Arc *arcToSet = new Arc(1, n_searched);
+                    this->setArc(1,arcToSet);
+                    break; //to go out from the foreach statement because "life"
+                }
+            }
         }
     }
     else
@@ -200,7 +235,7 @@ void Noeud::chercherFils(QVector<P> discover,Bd* bdd)
         this->setArc(1, NULL);
 
     }
-        cout << "Etape 4 de chercherFils" << endl;
+        //cout << "Etape 4 de chercherFils" << endl;
     i = this->getPosition()[0];
     j = this->getPosition()[1];
 
@@ -218,11 +253,24 @@ void Noeud::chercherFils(QVector<P> discover,Bd* bdd)
         if(!(std::find(discover.begin(), discover.end(),p) != discover.end()))
         {
             discover.push_back(p);
-            Noeud *filsGauche = new Noeud(count,i,j, discover,map);
+            Noeud *filsGauche = new Noeud(count,i,j, discover,map,unicity);
 
             this->getLstNoeudFils()->push_back(filsGauche); // On ajoute le noeud fils la vectore des noeuds fils
             Arc *left = new Arc(1, filsGauche);
             this->setArc(2, left);
+        }
+        else
+        {
+            Noeud *n_searched;
+            foreach (n_searched, unicity)
+            {
+                if(n_searched->getPosition()[0]==i && n_searched->getPosition()[1]==j)
+                {
+                    Arc *arcToSet = new Arc(1, n_searched);
+                    this->setArc(2,arcToSet);
+                    break; //to go out from the foreach statement because "life"
+                }
+            }
         }
     }
     else
@@ -231,7 +279,7 @@ void Noeud::chercherFils(QVector<P> discover,Bd* bdd)
         this->setArc(2, NULL);
 
     }
-    cout << "Etape 5 de chercherFils" << endl;
+    //cout << "Etape 5 de chercherFils" << endl;
     i = this->getPosition()[0];
     j = this->getPosition()[1];
 
@@ -248,11 +296,24 @@ void Noeud::chercherFils(QVector<P> discover,Bd* bdd)
         if(!(std::find(discover.begin(), discover.end(),p) != discover.end()))
         {
             discover.push_back(p);
-            Noeud *filsDroite = new Noeud(count,i,j,discover,map);
+            Noeud *filsDroite = new Noeud(count,i,j,discover,map,unicity);
 
             this->getLstNoeudFils()->push_back(filsDroite); // On ajoute le noeud fils la vectore des noeuds fils
             Arc *right = new Arc(1, filsDroite);
             this->setArc(3, right);
+        }
+        else
+        {
+            Noeud *n_searched;
+            foreach (n_searched, unicity)
+            {
+                if(n_searched->getPosition()[0]==i && n_searched->getPosition()[1]==j)
+                {
+                    Arc *arcToSet = new Arc(1, n_searched);
+                    this->setArc(3,arcToSet);
+                    break; //to go out from the foreach statement because "life"
+                }
+            }
         }
     }
     else
@@ -261,11 +322,11 @@ void Noeud::chercherFils(QVector<P> discover,Bd* bdd)
         this->setArc(3, NULL);
 
     }
-        cout << "Etape 6 de chercherFils" << endl;
+        //cout << "Etape 6 de chercherFils" << endl;
     i = this->getPosition()[0];
     j = this->getPosition()[1];
 
-            cout << "fin de chercherFils" << endl;
+      //      cout << "fin de chercherFils" << endl;
   // inutile  return;
 }
 
@@ -348,11 +409,12 @@ QVector<int> Noeud::astar(int final_x,int final_y, int robot)
         //On récupére le meilleurs noeud selon f
         //On rest s'il est le noeud final.
         Noeud* cur = getBestNode(open);
-        cout << "Noeud : Astar : getPositionx :" << cur->getPosition()[0] << endl;
-        cout << "Noeud : Astar : getPositiony :" << cur->getPosition()[1] << endl;
+        cout << "Noeud : Astar : Point de depart x :" << cur->getPosition()[0] << endl;
+        cout << "Noeud : Astar : Point de depart y :" << cur->getPosition()[1] << endl;
         if(cur->getPosition()[0] == final_x && cur->getPosition()[1] == final_y)
         {
-            cout << "Noeud : Astar : le noeud cibl a été atteint"  << endl;
+            cout << "Noeud : Astar : le noeud cibl a ete atteint"  << endl;
+            origin.append(cur);
             return build_path(origin, cur, robot); //On retourne le chemin parcouru.
         }
         open.erase(open.begin()); // open.remove(cur)
@@ -370,24 +432,35 @@ QVector<int> Noeud::astar(int final_x,int final_y, int robot)
         Noeud* it;
         foreach(it , this->lstNoeudFils)
         {
-            cout << "Noeud : Astar : iterations a travers les lstNoeudFils" << endl;
-            if(!(member(it, closed)))
+            if(it!=NULL)
             {
-                cout << "Noeud : Astar : it  n est pas un membre de closed" << endl;
-                tempG = cur->getG() + cur->getArc(i)->getPoids();
-                //temp = it;
-                if(!(member(it, open)) || tempG < it->getG())
+                cout << "Noeud : Astar : iterations a travers les lstNoeudFils" << endl;
+                if(!(member(it, closed)))
                 {
-                    cout << "Noeud : Astar : it  n est pas membre de open ou son G est sup au g temporaore" << endl;
-                    origin.push_back(cur);
-                    cout << "Noeud : Astar : tempG vaut : " << tempG << endl;
-                    it->setG(tempG);
-                    it->setHeuristique(tempG + 0); //Add calcHeuritique.
+                    cout << "Noeud : Astar : it  n est pas un membre de closed" << endl;
+                    if(cur->getArc(i)!=NULL)
+                    {
+                        tempG = cur->getG() + cur->getArc(i)->getPoids();
+                    }
+                    else
+                    {
+                        tempG= cur->getG();
+                    }
+                    //temp = it;
+                    if(!(member(it, open)) || tempG < cur->getG())
+                    {
+                        cout << "Noeud : Astar : it  n est pas membre de open ou son G est sup au g temporaore" << endl;
+                        origin.push_back(cur);
+                        cout << "Noeud : Astar : tempG vaut : " << tempG << endl;
+                        it->setG(tempG);
+                        it->setHeuristique(tempG + 0); //Add calcHeuritique.
 
-                    if(!(member(it, open))) open.push_back(it);
-                    cout << "Noeud : Astar : open est de taille : " << open.size() << endl;
+                        if(!(member(it, open))) open.push_back(it);
+                        cout << "Noeud : Astar : open est de taille : " << open.size() << endl;
+                    }
                 }
             }
+            ++i;
         }
     }
     cout << "Noeud : Astar : Rien trouve" << endl;
@@ -414,29 +487,60 @@ Noeud* Noeud::getBestNode(const QVector<Noeud*> open)
 QVector<int> build_path(QVector<Noeud*> origin, Noeud* final, int robot)
 {
     QVector<int> path/*(">")*/; //On alloue un tableau de 2 fois la taille de origin + final
-    int j(0);
-
-    for(int i = 0, k = 0; i < 2*(origin.size()+1); i+=2, k++) //warning here
+    int j=0,i = 0;
+    /*
+    for(int k = 0; k < origin.size(); k++) //warning here
     {
+        cout << "k vaut :" << k << endl;
+        cout << "origin.size() vaut : "<< origin.size() <<endl;
+        cout << "i vaut : "<< i <<endl;
         path.append(robot);
+        ++i;
         //On cherche la direction
-
-        //QVector<Noeud*> getNonModifiableLstNoeudFils();
-        while(origin[k]->getNonModifiableLstNoeudFils()[j] != origin[k+1])
+        while(j<origin[k]->getNonModifiableLstNoeudFils().size() && (k+1)<origin.size() && origin[k]->getNonModifiableLstNoeudFils()[j] != origin[k+1])
         {
-            j++;
+            //j++;
+            ++j;
         }
+        cout << "CCCCCC" << endl;
         path.push_back(j);
         j=0;
+        ++i;
+
     }
+    cout << "BBBBBB" << endl;
     path.append(robot);
-    while(origin[2*(origin.size()+1)-1]->getNonModifiableLstNoeudFils()[j] != final)
+    while(origin[origin.size()-1]->getNonModifiableLstNoeudFils()[j] != final)
     {
         j++;
     }
     path.push_back(j);
 
     return path;
+
+
+*/
+    for(i=0; i<(origin.size()-1); ++i)
+    {
+        for(j=0; j<origin[i]->getNonModifiableLstNoeudFils().size();++j)
+        {
+            if(origin[i]->getNonModifiableLstNoeudFils()[j]!=NULL)
+            {
+                cout << origin[i]->getNonModifiableLstNoeudFils()[j]->getPosition()[0] << endl;
+                if(origin[i]->getNonModifiableLstNoeudFils()[j]->getPosition()[0] == origin[i+1]->getPosition()[0]
+                        && origin[i]->getNonModifiableLstNoeudFils()[j]->getPosition()[1] == origin[i+1]->getPosition()[1])
+                {
+                    path.append(robot);
+                    path.append(j);
+                }
+            }
+            cout << "j vaut"<< j << endl;
+            cout << "i vaut"<< i << endl;
+            cout << "path est de taille"<< path.size() << endl;
+        }
+    }
+    return path;
+
 }
 
 bool member(const Noeud* node, const QVector<Noeud*> vector)
@@ -452,13 +556,13 @@ bool Noeud::isEqual(const Noeud b) const
 {
     return (id == b.id && position[1] == b.position[1] && position[2] == b.position[2] && heuristique == b.heuristique && gCost == b.gCost && lstNoeudFils == b.lstNoeudFils && haut == b.haut && bas == b.bas && gauche == b.gauche && droite == b.droite && map == b.map);
 }
-
-bool Noeud::operator==(const Noeud a)
+/*
+bool Noeud::operator==(const Noeud& a)
 {
     return this->isEqual(a);
 }
 
-bool Noeud::operator!=(const Noeud a)
+bool Noeud::operator!=(const Noeud& a)
 {
     return !(this->isEqual(a));
-}
+}*/
