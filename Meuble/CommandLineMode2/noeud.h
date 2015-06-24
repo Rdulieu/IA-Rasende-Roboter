@@ -29,7 +29,6 @@ private :
     int position[2];  // position[0] : coordX  position[1] : coordY
     int heuristique;
     int gCost;
-    //Qvector<Noeud*> lstNoeudFils;
     QVector<Noeud*> lstNoeudFils; //0 haut, 1 : bas, 2 droite, 3 gauche;
     Arc* haut; // id : 0
     Arc* bas; // id : 1
@@ -68,6 +67,7 @@ public :
 
     QVector<int> astar(int,int,int);
     Noeud* getBestNode(const QVector<Noeud*> open);
+    int getIndexOfNode(const QVector<Noeud*> open, Noeud* toFind);
 /*
     bool operator==(const Noeud& a);
 

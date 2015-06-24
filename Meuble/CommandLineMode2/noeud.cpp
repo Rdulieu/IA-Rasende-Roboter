@@ -23,6 +23,7 @@ Noeud::Noeud(int _id, int x, int y, QVector<P> discover,Bd * bdd, QVector<Noeud*
     this->id = _id;
     this->position[0] = x;
     this->position[1] = y;
+
     this->map = bdd; //a tester si g nest init recupere la bdd unique generé dans ipseity tazlker
     P coor;
     coor.i = x;
@@ -158,6 +159,7 @@ void Noeud::chercherFils(QVector<P> discover,Bd* bdd, QVector<Noeud*>* unicity)
             this->lstNoeudFils.push_back(n_searched);
             this->haut = new Arc(0,n_searched);
         }
+
     }
     else
     {
@@ -202,6 +204,7 @@ void Noeud::chercherFils(QVector<P> discover,Bd* bdd, QVector<Noeud*>* unicity)
                     this->lstNoeudFils.push_back(n_searched);
                     this->bas = new Arc(0,n_searched);
                 }
+
     }
     else
     {
@@ -247,6 +250,7 @@ void Noeud::chercherFils(QVector<P> discover,Bd* bdd, QVector<Noeud*>* unicity)
                     this->lstNoeudFils.push_back(n_searched);
                     this->droite = new Arc(0,n_searched);
                 }
+
     }
     else
     {
@@ -267,6 +271,7 @@ void Noeud::chercherFils(QVector<P> discover,Bd* bdd, QVector<Noeud*>* unicity)
         {
             j--;
         }
+
         //tester si le noeud n'existe pas déjà dans la liste des noeud decouvert et si oui le racorder
             //FOREACH
         Noeud *n_searched=NULL;
@@ -292,6 +297,7 @@ void Noeud::chercherFils(QVector<P> discover,Bd* bdd, QVector<Noeud*>* unicity)
             this->lstNoeudFils.push_back(n_searched);
             this->gauche = new Arc(0,n_searched);
         }
+
     }
     else
     {
@@ -300,6 +306,7 @@ void Noeud::chercherFils(QVector<P> discover,Bd* bdd, QVector<Noeud*>* unicity)
         this->gauche=NULL;
         this->lstNoeudFils.push_back(NULL);
     }
+
 }
 
 
@@ -390,20 +397,16 @@ QVector<int> Noeud::astar(int final_x,int final_y, int robot)
             origin.append(cur);
             return build_path(origin, cur, robot); //On retourne le chemin parcouru.
         }
-        open.erase(open.begin()); // open.remove(cur)
+        //open.erase(open.begin()); // open.remove(cur)
+        open.remove(this->getIndexOfNode(open,cur));
         closed.push_back(cur);
         //Noeud* temp;
         //S'il ne l'est pas on met dans open tout les noeuds fils qui ne sont ni dans open,
         //ni dans closed et qui possede un coout de deplacement inferieur au noeud courrant.
         int i = 0;
         cout << "Noeud : Astar : avant le for" << endl;
-        if(this->lstNoeudFils.begin() == this->lstNoeudFils.end())
-            cout << "Noeud : Astar : begin et end de noeud fils sont egaux" << endl;
-        /*for(QVector<Noeud*>::iterator it = lstNoeudFils.begin(); it != lstNoeudFils.end(); it++)*/
-        if(this->lstNoeudFils.isEmpty())
-            cout << "Noaud : Astar : lstNoeudFils est vide" << endl;
         Noeud* it;
-        foreach(it , this->lstNoeudFils)
+        foreach(it , cur->lstNoeudFils)
         {
             if(it!=NULL)
             {
@@ -411,23 +414,14 @@ QVector<int> Noeud::astar(int final_x,int final_y, int robot)
                 if(!(member(it, closed)))
                 {
                     cout << "Noeud : Astar : it  n est pas un membre de closed" << endl;
-                    if(cur->getArc(i)!=NULL)
-                    {
-                        tempG = cur->getG() + cur->getArc(i)->getPoids();
-                    }
-                    else
-                    {
-                        tempG= cur->getG();
-                    }
-                    //temp = it;
-                    if(!(member(it, open)) || tempG < cur->getG())
+                    tempG = cur->getG() + 1;
+                    if(!(member(it, open)) || tempG <= cur->getG())
                     {
                         cout << "Noeud : Astar : it  n est pas membre de open ou son G est sup au g temporaore" << endl;
                         origin.push_back(cur);
                         cout << "Noeud : Astar : tempG vaut : " << tempG << endl;
                         it->setG(tempG);
-                        it->setHeuristique(tempG + 0); //Add calcHeuritique.
-
+                        it->setHeuristique(0); //Add calcHeuritique. SALE!
                         if(!(member(it, open))) open.push_back(it);
                         cout << "Noeud : Astar : open est de taille : " << open.size() << endl;
                     }
@@ -455,6 +449,20 @@ Noeud* Noeud::getBestNode(const QVector<Noeud*> open)
     }
 
     return res;
+}
+
+int Noeud::getIndexOfNode(const QVector<Noeud*> open, Noeud* toFind)
+{
+    int i=0;
+    Noeud* it;
+    foreach (it, open)
+    {
+        if(it->position[0]==toFind->position[0]
+                && it->position[1]==toFind->position[1])
+           return i;
+        ++i;
+    }
+    return -1; //si on est là in peut se pendre
 }
 
 QVector<int> build_path(QVector<Noeud*> origin, Noeud* final, int robot)
@@ -513,7 +521,6 @@ QVector<int> build_path(QVector<Noeud*> origin, Noeud* final, int robot)
         }
     }
     return path;
-
 }
 
 bool member(const Noeud* node, const QVector<Noeud*> vector)

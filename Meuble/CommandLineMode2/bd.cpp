@@ -30,7 +30,7 @@ void Bd::builddata()
         Construction de la list_murV qui contient les Coordonnées de chaque mur
         en fonction de des 4 variables définissant le plateau. Ce sont bien les coordonnées des murs et non des cases*/
     for(int i=0;i<16;++i){
-        for(int j=0;j<15;++j){
+        for(int j=0;j<16;++j){
             list_murH[i][j]=list_murV[j][i]=false;
         }
     }
