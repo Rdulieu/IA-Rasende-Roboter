@@ -42,6 +42,9 @@ int main(int argc, char *argv[])
     cout << "Main : Construction du graphe"  << endl;
     n = new Noeud(0,start_x,start_y,discover,base,&unicity);
     cout <<"Main : Construction du graphe termine" << endl;
+    cout <<start_x << endl;
+    cout <<start_x << endl;
+    cout <<start_x << endl;
 
     //cherchons une solution au but et retournons là
     QVector<int> solution;

@@ -375,6 +375,7 @@ void Noeud::setMap(Bd* bdd)
 QVector<int> Noeud::astar(int final_x,int final_y, int robot)
 {
     QVector<Noeud*> open, closed, origin;
+    QMap<Noeud*,Noeud*> came_from;
     open.push_back(this);
 
     int f,tempG;
@@ -395,7 +396,8 @@ QVector<int> Noeud::astar(int final_x,int final_y, int robot)
         {
             cout << "Noeud : Astar : le noeud cibl a ete atteint"  << endl;
             origin.append(cur);
-            return build_path(origin, cur, robot); //On retourne le chemin parcouru.
+            return build_path(came_from, cur, robot); //On retourne le chemin parcouru.
+
         }
         //open.erase(open.begin()); // open.remove(cur)
         open.remove(this->getIndexOfNode(open,cur));
@@ -417,6 +419,7 @@ QVector<int> Noeud::astar(int final_x,int final_y, int robot)
                     tempG = cur->getG() + 1;
                     if(!(member(it, open)) || tempG <= cur->getG())
                     {
+                        came_from.insert(it,cur);// ajout dans la map des deplacemetn si c'était un tablmeau ca serait : came_from[it] = cur;
                         cout << "Noeud : Astar : it  n est pas membre de open ou son G est sup au g temporaore" << endl;
                         origin.push_back(cur);
                         cout << "Noeud : Astar : tempG vaut : " << tempG << endl;
@@ -465,59 +468,31 @@ int Noeud::getIndexOfNode(const QVector<Noeud*> open, Noeud* toFind)
     return -1; //si on est là in peut se pendre
 }
 
-QVector<int> build_path(QVector<Noeud*> origin, Noeud* final, int robot)
+QVector<int> build_path(QMap<Noeud*,Noeud*> came_from, Noeud* current,int robot)
 {
-    QVector<int> path/*(">")*/; //On alloue un tableau de 2 fois la taille de origin + final
+    QVector<int> path;
+    QVector<Noeud*> path_temp;
+    while(came_from.contains(current))
+    {
+        current = came_from[current];
+        path_temp.append(current);
+    }
+
     int j=0,i = 0;
-    /*
-    for(int k = 0; k < origin.size(); k++) //warning here
+    for(i=0; i<(path_temp.size()-1); ++i)
     {
-        cout << "k vaut :" << k << endl;
-        cout << "origin.size() vaut : "<< origin.size() <<endl;
-        cout << "i vaut : "<< i <<endl;
-        path.append(robot);
-        ++i;
-        //On cherche la direction
-        while(j<origin[k]->getNonModifiableLstNoeudFils().size() && (k+1)<origin.size() && origin[k]->getNonModifiableLstNoeudFils()[j] != origin[k+1])
+        for(j=0; j<path_temp[i]->getNonModifiableLstNoeudFils().size();++j)
         {
-            //j++;
-            ++j;
-        }
-        cout << "CCCCCC" << endl;
-        path.push_back(j);
-        j=0;
-        ++i;
-
-    }
-    cout << "BBBBBB" << endl;
-    path.append(robot);
-    while(origin[origin.size()-1]->getNonModifiableLstNoeudFils()[j] != final)
-    {
-        j++;
-    }
-    path.push_back(j);
-
-    return path;
-
-
-*/
-    for(i=0; i<(origin.size()-1); ++i)
-    {
-        for(j=0; j<origin[i]->getNonModifiableLstNoeudFils().size();++j)
-        {
-            if(origin[i]->getNonModifiableLstNoeudFils()[j]!=NULL)
+            if(path_temp[i]->getNonModifiableLstNoeudFils()[j]!=NULL)
             {
-                cout << origin[i]->getNonModifiableLstNoeudFils()[j]->getPosition()[0] << endl;
-                if(origin[i]->getNonModifiableLstNoeudFils()[j]->getPosition()[0] == origin[i+1]->getPosition()[0]
-                        && origin[i]->getNonModifiableLstNoeudFils()[j]->getPosition()[1] == origin[i+1]->getPosition()[1])
+                //cout << path_temp[i]->getNonModifiableLstNoeudFils()[j]->getPosition()[0] << endl;
+                if(path_temp[i]->getNonModifiableLstNoeudFils()[j]->getPosition()[0] == path_temp[i+1]->getPosition()[0]
+                        && path_temp[i]->getNonModifiableLstNoeudFils()[j]->getPosition()[1] == path_temp[i+1]->getPosition()[1])
                 {
                     path.append(robot);
                     path.append(j);
                 }
             }
-            cout << "j vaut"<< j << endl;
-            cout << "i vaut"<< i << endl;
-            cout << "path est de taille"<< path.size() << endl;
         }
     }
     return path;

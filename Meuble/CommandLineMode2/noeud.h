@@ -2,6 +2,7 @@
 #define NOEUD_H
 
 #include <QVector>
+#include <QMap>
 #include <algorithm>
 #include "arc.h"
 #include "bd.h"
@@ -75,7 +76,7 @@ public :
 */
 };
 
-QVector<int> build_path(QVector<Noeud*> origin, Noeud* final, int robot);
+QVector<int> build_path(QMap<Noeud*,Noeud*> came_from, Noeud* current,int robot);
 
 bool member(const Noeud* node, const QVector<Noeud*> vector); //true if node is in vector, false otherwise.
 #endif // NOEUD_H
