@@ -472,12 +472,19 @@ QVector<int> build_path(QMap<Noeud*,Noeud*> came_from, Noeud* current,int robot)
 {
     QVector<int> path;
     QVector<Noeud*> path_temp;
+    path_temp.append(current);
     while(came_from.contains(current))
     {
         current = came_from[current];
         path_temp.append(current);
     }
-
+    QVector<Noeud*> path_temp_inverted;
+    Noeud *it=NULL;
+    foreach (it, path_temp)
+    {
+        path_temp_inverted.prepend(it);
+    }
+    path_temp=path_temp_inverted;
     int j=0,i = 0;
     for(i=0; i<(path_temp.size()-1); ++i)
     {
