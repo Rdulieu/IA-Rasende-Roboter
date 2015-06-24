@@ -15,7 +15,13 @@ Noeud::~Noeud()
     delete bas;
     delete gauche;
     delete droite;
-    delete map;
+    /*
+    Noeud *it;
+    foreach (it, this->lstNoeudFils)
+    {
+       delete it;
+       it=NULL;
+    }*/
 }
 
 Noeud::Noeud(int _id, int x, int y, QVector<P> discover,Bd * bdd, QVector<Noeud*> *unicity)

@@ -1,13 +1,9 @@
-//#include <QCoreApplication>
 #include <iostream>
 using namespace std;
 #include "bd.h"
 #include "global_base.h"
 #include "noeud.h"
-/*Bd* getBDD()
-{
-    return g_uniqueBase;
-}*/
+
 int main(int argc, char *argv[])
 {
     Noeud *n=NULL;
@@ -30,8 +26,6 @@ int main(int argc, char *argv[])
     cout<<"Main : Setting up bdd"<<endl;
 
     base = new Bd(m_CurrentStimulus);
-
-    cout << "Main : Trouvons les coordonees de depart du robot a bouger"  << endl;
     //trouvons quelle est le robot qui doit bouger en premier via la cible
     start_x=base->getRobot_Target_Coord().getX();
     start_y=base->getRobot_Target_Coord().getY();
@@ -39,28 +33,63 @@ int main(int argc, char *argv[])
     //generons le graphe
     QVector<P> discover;//position des case decouverte
     QVector<Noeud*> unicity; //stockage des noeud déjà crée
-    cout << "Main : Construction du graphe"  << endl;
+    cout << unicity.size() << endl;
+ //   cout << "Main : Construction du graphe"  << endl;
     n = new Noeud(0,start_x,start_y,discover,base,&unicity);
-    cout <<"Main : Construction du graphe termine" << endl;
-    cout <<start_x << endl;
-    cout <<start_x << endl;
-    cout <<start_x << endl;
+//    cout <<"Main : Construction du graphe termine" << endl;
 
     //cherchons une solution au but et retournons là
     QVector<int> solution;
-    cout <<"Main : Coordone target" << endl;
-    cout << base->getTarget_Coord().getX() << endl;
-    cout << base->getTarget_Coord().getY() << endl;
-    cout <<"Main : Fin coordone target" << endl;
     solution = n->astar(base->getTarget_Coord().getX(),base->getTarget_Coord().getY(),base->getRobot_Target());
-    //solution = n->astar(10,10,base->getRobot_Target());
-    //solution = n->astar(10,0,base->getRobot_Target());
     int showit;
-    foreach(showit,solution)
+    //preparation de la string de retour
+    if(solution.size()>0)
     {
-        cout << "Main : result : " << showit << endl;
-    }
+        //on traduis d'abord le vector de retour
+        /*
+         *vect  dir     ipseity
+            0 ->haut      2
 
+            1 ->bas       4
+
+            2 ->droite    1
+
+            3 ->gauche    3
+        */
+        for(showit =1;showit<solution.size();showit=2+showit)
+        {
+            switch (solution[showit]) {
+            case 0:
+                solution[showit]=2;
+                break;
+            case 1:
+                solution[showit]=4;
+                break;
+            case 2:
+                solution[showit]=1;
+                break;
+            /*case 3:
+                solution[showit]=3;
+                break;*/
+            }
+        }
+
+        cout << ">";
+        for(showit =0;showit<solution.size();++showit)
+        {
+            cout << solution[showit];
+            if(showit!=solution.size()-1)
+                cout << ";";
+        }
+        cout << "<";
+    }
+    else
+        cout << ">0;1<" << endl;
+    //on nettoie la mémoire
+    foreach(n,unicity)
+    {
+        delete n;
+    }
     delete base;
     return EXIT_SUCCESS;
 }

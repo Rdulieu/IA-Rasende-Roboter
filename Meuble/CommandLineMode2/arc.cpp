@@ -23,7 +23,7 @@ Arc::Arc(const Arc& copy)
 
 Arc::~Arc()
 {
-    delete cible;
+    //delete cible;
 }
 
 // Accesseurs & Mutateurs
