@@ -18,30 +18,25 @@ Noeud::~Noeud()
     delete map;
 }
 
-Noeud::Noeud(int _id, int x, int y, QVector<P> discover,Bd * bdd, QVector<Noeud*> unicity)
+Noeud::Noeud(int _id, int x, int y, QVector<P> discover,Bd * bdd, QVector<Noeud*> *unicity)
 {
-    //cout << "Debut de Noeud" << endl;
-    //GlobalBase& g_uniqueBase=GlobalBase::m_instance; //singleton
-    //GlobalBase *g_uniqueBase=new GlobalBase();
-    //cout << "Etape 1 de Noeud" << endl;
     this->id = _id;
     this->position[0] = x;
     this->position[1] = y;
-    //cout << "Etape 2 de Noeud" << endl;
     this->map = bdd; //a tester si g nest init recupere la bdd unique generé dans ipseity tazlker
-    //cout << "Etape 3 de Noeud" << endl;
     P coor;
     coor.i = x;
     coor.j = y;
 
     discover.append(coor);
-    unicity.append(this);
+    unicity->append(this);
     chercherFils(discover,this->map,unicity);
     //cout << "Noeud :Etape 4 de Noeud" << endl;
 
 }
 
-Noeud::Noeud(int _id, int x, int y, QVector<Noeud*> _lst,Bd * bdd,  QVector<Noeud*> unicity)
+//le noeud de queu?
+Noeud::Noeud(int _id, int x, int y, QVector<Noeud*> _lst,Bd * bdd,  QVector<Noeud*> *unicity)
 {
         cout << "OMG" << endl;
     //GlobalBase *g_uniqueBase=new GlobalBase();
@@ -50,7 +45,7 @@ Noeud::Noeud(int _id, int x, int y, QVector<Noeud*> _lst,Bd * bdd,  QVector<Noeu
     this->position[1]=y;
     this->lstNoeudFils = _lst;
     this->map = bdd; //a tester si g nest init recupere la bdd unique generé dans ipseity tazlker
-    unicity.append(this);
+    unicity->append(this);
 }
 /*
 Noeud::Noeud(const Noeud& copy)
@@ -123,212 +118,190 @@ QVector<Noeud*> Noeud::getNonModifiableLstNoeudFils()
     return lstNoeudFils;
 }
 
-// On cherche tous les noeuds fils, ce sont les cases qui sont accessibles partir de la case actuelle (Noeud parent)
-void Noeud::chercherFils(QVector<P> discover,Bd* bdd, QVector<Noeud*> unicity)
+void Noeud::chercherFils(QVector<P> discover,Bd* bdd, QVector<Noeud*>* unicity)
 {
-    cout << "Noeud : ChercherFils" << endl;
-    int i,j;
-    int pos[4]={0,0,0,0};// : 0 haut 1 bas 2 gauche 3 droite, si pos[0]==1 alors il y a un obstacle horizontale au-dessus de notre case
-    int count=0; // nombre de fils partir du noeud parent 15/06 9h41 ajout de l'initialisation
-    P p; // anciennement int p[2];
-    map = bdd;
-
-    //cout << "Etape 1 de chercherFils" << endl;
-    // On cherche quel(s) bords notre case est collée
-    if(map->getlist_murV(this->getPosition()[0],this->getPosition()[1])) // est-ce qu'il y a un mur vertical droite
-        pos[3]=1;
-    else if(map->getlist_murV(this->getPosition()[0]-1,this->getPosition()[1])) // est-ce qu'il y a un mur vertical gauche
-        pos[2]=1;
-    else if(map->getlist_murH(this->getPosition()[0],this->getPosition()[1])) // est-ce qu'il y a un mur horizontal en bas
-        pos[1]=1;
-    else if(map->getlist_murH(this->getPosition()[0],this->getPosition()[1]-1)) // est-ce qu'il y a un mur horizontal en haut
-        pos[0]=1;
-
-    // On cherche la position des noeuds fils possibles dans chaque direction
-    i = this->getPosition()[0];
-    j = this->getPosition()[1];
-    //cout << "Etape 2 de chercherFils" << endl;
-    if(pos[0]==0) // On cherche la position d'un noeud fils s'il n'y a pas d'obstacle collÃ© au-dessus de notre case actuelle
+    int i=0,j=0;
+//verifier les bord et ceux plein les mettre a nul
+    //verifions qu'en haut il y a un mur ou une sortie du tableau
+    //unicity->append(this);
+    if((this->getPosition()[1]-1)>=0
+            && bdd->getlist_murV(this->getPosition()[0],this->getPosition()[1]-1) != true)
     {
-        //cout << "Etape 2 : IF de chercherFils et j:" << j << " i:" << i << endl;
-        //cout << "Target is : " << map->getlist_murH(1,1) << endl;
-        while(map->getlist_murH(i,j-1)==false && j>0) // On monte dans la grille tant qu'on ne rencontre pas de mur
+        //il faut parcourir vers le haut
+        j=this->getPosition()[1];
+        while((j-1)>=0
+              && bdd->getlist_murV(this->getPosition()[0],j-1) != true)
         {
-            //cout << "Etape 2 : WHILE de chercherFils et j:" << j << " i " << i << endl;
             j--;
         }
-        count++;
-        //Si la position n'est pas encore dÃ©couverte :
-        p.i = i;
-        p.j = j;
-        if(!(std::find(discover.begin(), discover.end(),p) != discover.end()))
+        //tester si le noeud n'existe pas déjà dans la liste des noeud decouvert et si oui le racorder
+            //FOREACH
+        Noeud *n_searched=NULL;
+        QVector<Noeud*> tobesearched=*unicity;
+        foreach (n_searched, tobesearched)
         {
-            //cout << "Etape 2 : IF nb2 de chercherFils" << endl;
-            discover.push_back(p);
-            Noeud *filsHaut = new Noeud(count,i,j, discover,map,unicity);
-            this->getLstNoeudFils()->push_back(filsHaut); // On ajoute le noeud fils la vectore des noeuds fils
-            Arc *up = new Arc(1, filsHaut);
-            this->setArc(0, up);
+            if(n_searched->getPosition()[0]==this->getPosition()[0]  //si on est sur la mêm colonne
+                    && n_searched->getPosition()[1]==j) //et si le j quon a cocgé et identique
+            {//alors c'est que ce noeud la pointe vers un noeud déjà decouvert
+                //en ce cas on casse le foreach car on est au bons endroit
+                break; //to go out from the foreach statement because "life"
+            }
+            n_searched=NULL;
+        }
+        if(n_searched==NULL) //alors c'est que le noeud na pas encore été decouvert
+        {
+            this->lstNoeudFils.push_back(new Noeud(0 /*id inutile*/,getPosition()[0],j,discover,bdd,unicity));
+            this->haut = new Arc(0,this->lstNoeudFils[0]);
         }
         else
         {
-            Noeud *n_searched;
-            foreach (n_searched, unicity)
-            {
-                if(n_searched->getPosition()[0]==i && n_searched->getPosition()[1]==j)
-                {
-                    Arc *arcToSet = new Arc(1, n_searched);
-                    this->setArc(0,arcToSet);
-                    break; //to go out from the foreach statement because "life"
-                }
-            }
-        }
-
-    }
-    else
-    {
-        //cout << "Etape 2 : ELSE de chercherFils" << endl;
-        this->getLstNoeudFils()->push_back(NULL);
-        this->setArc(0, NULL);
-    }
-        //cout << "Etape 3 de chercherFils" << endl;
-    // On revient sur notre case de dÃ©part
-    i = this->getPosition()[0];
-    j = this->getPosition()[1];
-
-    if(pos[1]==0) // Libre en bas
-    {
-        while(map->getlist_murH(i,j)==false && j<=15) // On descend dans la grille tant qu'on ne rencontre pas de mur
-        {
-            j++;
-        }
-        count++;
-        //Si la position n'est pas encore dÃ©couverte :
-        p.i = i;
-        p.j = j;
-        if(!(std::find(discover.begin(), discover.end(),p) != discover.end()))
-        {
-            discover.push_back(p);
-            Noeud *filsBas = new Noeud(count,i,j,discover,map,unicity);
-
-            this->getLstNoeudFils()->push_back(filsBas); // On ajoute le noeud fils la vectore des noeuds fils
-            Arc *down= new Arc(1, filsBas);
-            this->setArc(1, down);
-        }
-        else
-        {
-            Noeud *n_searched;
-            foreach (n_searched, unicity)
-            {
-                if(n_searched->getPosition()[0]==i && n_searched->getPosition()[1]==j)
-                {
-                    Arc *arcToSet = new Arc(1, n_searched);
-                    this->setArc(1,arcToSet);
-                    break; //to go out from the foreach statement because "life"
-                }
-            }
+            this->lstNoeudFils.push_back(n_searched);
+            this->haut = new Arc(0,n_searched);
         }
     }
     else
     {
-        this->getLstNoeudFils()->push_back(NULL);
-        this->setArc(1, NULL);
-
+        //passer a nul l'arc et la lsite des neud fils
+        //vers la haut c'est l'indice 0 donc le premier à ajouter
+        this->haut=NULL;
+        this->lstNoeudFils.push_back(NULL);
     }
-        //cout << "Etape 4 de chercherFils" << endl;
-    i = this->getPosition()[0];
-    j = this->getPosition()[1];
 
-    if(pos[2]==0) //Libre gauche
+    //verifions qu'en bas il y a un mur ou une sortie du tableau
+    if(((this->getPosition()[1])+1)<16 //ce test sert vraimetn le tableau n'étant pas delimité
+            && bdd->getlist_murV(this->getPosition()[0],this->getPosition()[1]) != true)
     {
-        while(map->getlist_murH(i-1,j)==false && i>0) // On va gauche dans la grille tant qu'on ne rencontre pas de mur
+            //il faut parcourir vers le bas
+                j=this->getPosition()[1];
+                while((j+1)<16
+                      && bdd->getlist_murV(this->getPosition()[0],j) != true)
+                {
+                    j++;
+                }
+                //tester si le noeud n'existe pas déjà dans la liste des noeud decouvert et si oui le racorder
+                    //FOREACH
+                Noeud *n_searched=NULL;
+                QVector<Noeud*> tobesearched=*unicity;
+                foreach (n_searched, tobesearched)
+                {
+                    if(n_searched->getPosition()[0]==this->getPosition()[0]  //si on est sur la mêm colonne
+                            && n_searched->getPosition()[1]==j) //et si le j quon a cocgé et identique
+                    {//alors c'est que ce noeud la pointe vers un noeud déjà decouvert
+                        //en ce cas on casse le foreach car on est au bons endroit
+                        break; //to go out from the foreach statement because "life"
+                    }
+                    n_searched=NULL;
+                }
+                if(n_searched==NULL) //alors c'est que le noeud na pas encore été decouvert
+                {
+                    this->lstNoeudFils.push_back(new Noeud(0 /*id inutile*/,getPosition()[0],j,discover,bdd,unicity));
+                    this->bas = new Arc(0,this->lstNoeudFils[1]);
+                }
+                else
+                {
+                    this->lstNoeudFils.push_back(n_searched);
+                    this->bas = new Arc(0,n_searched);
+                }
+    }
+    else
+    {
+        //passer a nul l'arc et la lsite des neud fils
+        //vers la haut c'est l'indice 0 donc le premier à ajouter
+        this->bas=NULL;
+        this->lstNoeudFils.push_back(NULL);
+    }
+
+
+    //verifions qu'a droite il y a un mur ou une sortie du tableau
+    if((this->getPosition()[0]+1) <16 //ce test sert vraimetn le tableau n'étant pas delimité
+            && bdd->getlist_murH(this->getPosition()[0],this->getPosition()[1]) != true)
+    {
+                //il faut parcourir vers la droite
+                j=this->getPosition()[0];
+                while((j+1)<16
+                      && bdd->getlist_murH(j,this->getPosition()[1]) != true)
+                {
+                    j++;
+                }
+                //tester si le noeud n'existe pas déjà dans la liste des noeud decouvert et si oui le racorder
+                    //FOREACH
+                Noeud *n_searched=NULL;
+                QVector<Noeud*> tobesearched=*unicity;
+                foreach (n_searched, tobesearched)
+                {
+                    if(n_searched->getPosition()[0]==j  //si le j quon a cocgé et identique
+                            && n_searched->getPosition()[1]==this->getPosition()[1]) //si on est sur la même ligne
+                    {//alors c'est que ce noeud la pointe vers un noeud déjà decouvert
+                        //en ce cas on casse le foreach car on est au bons endroit
+                        break; //to go out from the foreach statement because "life"
+                    }
+                    n_searched=NULL;
+                }
+                if(n_searched==NULL) //alors c'est que le noeud na pas encore été decouvert
+                {
+                    this->lstNoeudFils.push_back(new Noeud(0 /*id inutile*/,j,getPosition()[1],discover,bdd,unicity));
+                    this->droite = new Arc(0,this->lstNoeudFils[2]);
+                }
+                else
+                {
+                    this->lstNoeudFils.push_back(n_searched);
+                    this->droite = new Arc(0,n_searched);
+                }
+    }
+    else
+    {
+        //passer a nul l'arc et la lsite des neud fils
+        //vers la droite c'est l'indice 2 donc l'avant dernier à ajouter
+        this->droite=NULL;
+        this->lstNoeudFils.push_back(NULL);
+    }
+
+    //verifions qu'a gauche il y a un mur ou une sortie du tableau
+    if((this->getPosition()[0]-1) >=0
+            && bdd->getlist_murH(this->getPosition()[0]-1,this->getPosition()[1]) != true)
+    {
+        //ilfaut parcourir vers la gauche
+        j=this->getPosition()[0];
+        while((j-1)>=0
+              && bdd->getlist_murH(j-1,this->getPosition()[1]) != true)
         {
-            i--;
+            j--;
         }
-        count++;
-
-        //Si la position n'est pas encore dÃ©couverte :
-        p.i = i;
-        p.j = j;
-        if(!(std::find(discover.begin(), discover.end(),p) != discover.end()))
+        //tester si le noeud n'existe pas déjà dans la liste des noeud decouvert et si oui le racorder
+            //FOREACH
+        Noeud *n_searched=NULL;
+        QVector<Noeud*> tobesearched=*unicity;
+        foreach (n_searched, tobesearched)
         {
-            discover.push_back(p);
-            Noeud *filsGauche = new Noeud(count,i,j, discover,map,unicity);
+            if(n_searched->getPosition()[0]==j
+                    && n_searched->getPosition()[1]==this->getPosition()[1])
+            {//alors c'est que ce noeud la pointe vers un noeud déjà decouvert
+                //en ce cas on casse le foreach car on est au bons endroit
+                break; //to go out from the foreach statement because "life"7
+            }
+            n_searched=NULL;
+        }
+        if(n_searched==NULL) //alors c'est que le noeud na pas encore été decouvert
+        {
+            this->lstNoeudFils.push_back(new Noeud(0 /*id inutile*/,j,getPosition()[1],discover,bdd,unicity));
+            this->gauche = new Arc(0,this->lstNoeudFils[3]);
 
-            this->getLstNoeudFils()->push_back(filsGauche); // On ajoute le noeud fils la vectore des noeuds fils
-            Arc *left = new Arc(1, filsGauche);
-            this->setArc(2, left);
         }
         else
         {
-            Noeud *n_searched;
-            foreach (n_searched, unicity)
-            {
-                if(n_searched->getPosition()[0]==i && n_searched->getPosition()[1]==j)
-                {
-                    Arc *arcToSet = new Arc(1, n_searched);
-                    this->setArc(2,arcToSet);
-                    break; //to go out from the foreach statement because "life"
-                }
-            }
+            this->lstNoeudFils.push_back(n_searched);
+            this->gauche = new Arc(0,n_searched);
         }
     }
     else
     {
-        this->getLstNoeudFils()->push_back(NULL);
-        this->setArc(2, NULL);
-
+        //passer a nul l'arc et la lsite des neud fils
+        //vers la gauche c'est l'indice 3 donc le dernier à ajouter
+        this->gauche=NULL;
+        this->lstNoeudFils.push_back(NULL);
     }
-    //cout << "Etape 5 de chercherFils" << endl;
-    i = this->getPosition()[0];
-    j = this->getPosition()[1];
-
-    if(pos[3]==0) // Libre droite
-    {
-        while(map->getlist_murH(i,j)==false && i<=14) // On va droite dans la grille tant qu'on ne rencontre pas de mur
-        {
-            i++;
-        }
-        count++;
-        //Si la position n'est pas encore dÃ©couverte :
-        p.i = i;
-        p.j = j;
-        if(!(std::find(discover.begin(), discover.end(),p) != discover.end()))
-        {
-            discover.push_back(p);
-            Noeud *filsDroite = new Noeud(count,i,j,discover,map,unicity);
-
-            this->getLstNoeudFils()->push_back(filsDroite); // On ajoute le noeud fils la vectore des noeuds fils
-            Arc *right = new Arc(1, filsDroite);
-            this->setArc(3, right);
-        }
-        else
-        {
-            Noeud *n_searched;
-            foreach (n_searched, unicity)
-            {
-                if(n_searched->getPosition()[0]==i && n_searched->getPosition()[1]==j)
-                {
-                    Arc *arcToSet = new Arc(1, n_searched);
-                    this->setArc(3,arcToSet);
-                    break; //to go out from the foreach statement because "life"
-                }
-            }
-        }
-    }
-    else
-    {
-        this->getLstNoeudFils()->push_back(NULL);
-        this->setArc(3, NULL);
-
-    }
-        //cout << "Etape 6 de chercherFils" << endl;
-    i = this->getPosition()[0];
-    j = this->getPosition()[1];
-
-      //      cout << "fin de chercherFils" << endl;
-  // inutile  return;
 }
+
 
 int Noeud::getG()
 {

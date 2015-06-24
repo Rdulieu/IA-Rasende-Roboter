@@ -85,7 +85,7 @@ void Bd::builddata()
 
         //corrigé ?
         list_murH[3][0]=true;
-        list_murH[5][2]=true;//false
+        list_murH[5][1]=true;//false
         list_murH[1][3]=true;//false
         list_murH[4][4]=true;//false
         list_murH[7][5]=true;

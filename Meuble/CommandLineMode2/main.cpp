@@ -40,7 +40,7 @@ int main(int argc, char *argv[])
     QVector<P> discover;//position des case decouverte
     QVector<Noeud*> unicity; //stockage des noeud déjà crée
     cout << "Main : Construction du graphe"  << endl;
-    n = new Noeud(0,start_x,start_y,discover,base,unicity); //unused -> bug ici
+    n = new Noeud(0,start_x,start_y,discover,base,&unicity);
     cout <<"Main : Construction du graphe termine" << endl;
 
     //cherchons une solution au but et retournons là
@@ -50,6 +50,7 @@ int main(int argc, char *argv[])
     cout << base->getTarget_Coord().getY() << endl;
     cout <<"Main : Fin coordone target" << endl;
     solution = n->astar(base->getTarget_Coord().getX(),base->getTarget_Coord().getY(),base->getRobot_Target());
+    //solution = n->astar(10,10,base->getRobot_Target());
     //solution = n->astar(10,0,base->getRobot_Target());
     int showit;
     foreach(showit,solution)

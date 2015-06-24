@@ -30,7 +30,7 @@ private :
     int heuristique;
     int gCost;
     //Qvector<Noeud*> lstNoeudFils;
-    QVector<Noeud*> lstNoeudFils;
+    QVector<Noeud*> lstNoeudFils; //0 haut, 1 : bas, 2 droite, 3 gauche;
     Arc* haut; // id : 0
     Arc* bas; // id : 1
     Arc* gauche; // id : 2
@@ -40,8 +40,8 @@ private :
 
 public :
     //Noeud();
-    Noeud(int,int,int,QVector<P>,Bd*, QVector<Noeud *> unicity); // id, x, y
-    Noeud(int, int, int, QVector<Noeud*>, Bd*, QVector<Noeud *> unicity); // id, x, y, lstNoeudFils
+    Noeud(int, int, int, QVector<P>, Bd*, QVector<Noeud *> *unicity); // id, x, y
+    Noeud(int, int, int, QVector<Noeud*>, Bd*, QVector<Noeud *> *unicity); // id, x, y, lstNoeudFils
     Noeud(const Noeud& copy);
     ~Noeud();
 
@@ -56,7 +56,7 @@ public :
     void setPosition(int x, int y);
     QVector<Noeud*>* getLstNoeudFils();
     QVector<Noeud*> getNonModifiableLstNoeudFils();
-    void chercherFils(QVector<P>, Bd* bdd, QVector<Noeud *> unicity);
+    void chercherFils(QVector<P>, Bd* bdd, QVector<Noeud *> *unicity);
     void setLstNoeudFils(QVector<Noeud*>);
 
     int getG();
