@@ -1,0 +1,20 @@
+Main : Argv[0] est : 
+/mnt/2C326C3E326C0EE0/Users/Qsm-Cqfd/Documents/GitHub/IA-Rasende-Roboter/Meuble/CommandLineMode2/test
+Main : Recuperation des arguments
+Main : case 0 du stimulus est  is : 0.
+Main : case 1 du stimulus est  is : 0.
+Main : case 2 du stimulus est  is : 0.
+Main : case 3 du stimulus est  is : 1.
+Main : case 4 du stimulus est  is : 15.
+Main : case 5 du stimulus est  is : 8.
+Main : case 6 du stimulus est  is : 10.
+Main : case 7 du stimulus est  is : 4.
+Main : case 8 du stimulus est  is : 12.
+Main : case 9 du stimulus est  is : 6.
+Main : case 10 du stimulus est  is : 1.
+Main : case 11 du stimulus est  is : 15.
+Main : case 12 du stimulus est  is : 14.
+Main : stimulus is : 0x7fff037ad5d0.
+Main : Setting up bdd
+Main : Construction du graphe
+Main : Construction du graphe termine

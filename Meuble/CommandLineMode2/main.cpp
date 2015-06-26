@@ -1,29 +1,36 @@
 #include <iostream>
+#include <fstream>
 using namespace std;
 #include "bd.h"
 #include "global_base.h"
 #include "noeud.h"
-
+#include "stdio.h"
 int main(int argc, char *argv[])
 {
+    ofstream logmain;
+    logmain.open ("logmain.log");
     Noeud *n=NULL;
     Bd* base=NULL;
-    if(argc<13)return EXIT_FAILURE;
+    if(argc<13)
+    {
+        logmain << "Argument inferieur à 13 \n";
+        return EXIT_FAILURE;
+    }
     int start_x,start_y;
     int m_CurrentStimulus[13]= {0}; //the first element is 0 so all the following will be zeroed too
-    cout << "Main : Argv[0] est : "  << endl;
-    cout << argv[0] <<endl;
-    cout << "Main : Recuperation des arguments"  << endl;
+    logmain << "Main : Argv[0] est : "  << endl;
+    logmain << argv[0] <<endl;
+    logmain << "Main : Recuperation des arguments"  << endl;
 
     for(int i=1;i<14;++i)
     {
         m_CurrentStimulus[(i)-1]=atoi(argv[i]);
-        cout << "Main : stimulus is : " << m_CurrentStimulus[(i)-1] << "."  << endl;
+        logmain << "Main : case "<< i-1 << " du stimulus est  is : " << m_CurrentStimulus[(i)-1] << "."  << endl;
     }
 
-    cout << "Main : stimulus is : " << m_CurrentStimulus << "."  << endl;
+    logmain << "Main : stimulus is : " << m_CurrentStimulus << "."  << endl;
     //on cree la base de donne unique
-    cout<<"Main : Setting up bdd"<<endl;
+    logmain <<"Main : Setting up bdd"<<endl;
 
     base = new Bd(m_CurrentStimulus);
     //trouvons quelle est le robot qui doit bouger en premier via la cible
@@ -33,10 +40,10 @@ int main(int argc, char *argv[])
     //generons le graphe
     QVector<P> discover;//position des case decouverte
     QVector<Noeud*> unicity; //stockage des noeud déjà crée
-    cout << unicity.size() << endl;
- //   cout << "Main : Construction du graphe"  << endl;
+
+    logmain << "Main : Construction du graphe"  << endl;
     n = new Noeud(0,start_x,start_y,discover,base,&unicity);
-//    cout <<"Main : Construction du graphe termine" << endl;
+    logmain <<"Main : Construction du graphe termine" << endl;
 
     //cherchons une solution au but et retournons là
     QVector<int> solution;
@@ -73,24 +80,32 @@ int main(int argc, char *argv[])
                 break;*/
             }
         }
-
+        logmain << "Reponse donne est : " << endl;
         cout << ">";
+        logmain  << ">";
         for(showit =0;showit<solution.size();++showit)
         {
             cout << solution[showit];
+            logmain  << solution[showit];
             if(showit!=solution.size()-1)
                 cout << ";";
+                logmain  << ";";
         }
+        logmain << "<";
         cout << "<";
     }
     else
-        cout << ">0;1<" << endl;
+    {
+        logmain << "Aucune reponse \n";
+        cout << "Fail" << endl;
+    }
     //on nettoie la mémoire
     foreach(n,unicity)
     {
         delete n;
     }
     delete base;
+    logmain.close();
     return EXIT_SUCCESS;
 }
 

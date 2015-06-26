@@ -1,6 +1,7 @@
 #include "noeud.h"
 #include "global_base.h"
 #include <iostream>
+#include <fstream>
 using namespace std;
 // Constructeurs & Destructeurs
 /* ULTRA DANGEREUSE UTILISE UNE BD NON EXISTENTE
@@ -45,7 +46,7 @@ Noeud::Noeud(int _id, int x, int y, QVector<P> discover,Bd * bdd, QVector<Noeud*
 //le noeud de queu?
 Noeud::Noeud(int _id, int x, int y, QVector<Noeud*> _lst,Bd * bdd,  QVector<Noeud*> *unicity)
 {
-        cout << "OMG" << endl;
+        //cout << "OMG" << endl;
     //GlobalBase *g_uniqueBase=new GlobalBase();
     this->id = _id;
     this->position[0]=x;
@@ -54,25 +55,7 @@ Noeud::Noeud(int _id, int x, int y, QVector<Noeud*> _lst,Bd * bdd,  QVector<Noeu
     this->map = bdd; //a tester si g nest init recupere la bdd unique generé dans ipseity tazlker
     unicity->append(this);
 }
-/*
-Noeud::Noeud(const Noeud& copy)
-{
-    if(*this !=  copy)
-    {
-        this->id = copy.id;
-        this->position[0] = copy.position[0];
-        this->position[1] = copy.position[1];
-        this->heuristique = copy.heuristique;
-        this->gCost = copy.gCost;
-        *(this->getLstNoeudFils()) = copy.lstNoeudFils;
-        this->haut = new Arc(*(copy.haut));
-        this->bas = new Arc(*(copy.bas));
-        this->gauche = new Arc(*(copy.gauche));
-        this->droite = new Arc(*(copy.droite));
-        this->map = copy.map;
-    }
-}
-*/
+
 // Accesseurs et mutateurs
 void Noeud::setId(int _id)
 {
@@ -94,9 +77,13 @@ int Noeud::getHeuristique()
     return this->heuristique;
 }
 
-void Noeud::calcHeuristique(Noeud* final)
+void Noeud::calcHeuristique(int final_x,int final_y)
 {
-    setHeuristique(0);
+    int x=0,y=0;
+    x=this->position[0]-final_x;
+    y=this->position[1]-final_y;
+    this->setHeuristique(x+y);
+    return;
 }
 
 void Noeud::setPosition(int x, int y)
@@ -364,7 +351,8 @@ void Noeud::setArc(int option, Arc* val)
         droite = val;
         break;
     default :
-        cout << "Bad option.\n";
+        //cout << "Bad option.\n";
+        break;
     }
 }
 
@@ -380,13 +368,14 @@ void Noeud::setMap(Bd* bdd)
 
 QVector<int> Noeud::astar(int final_x,int final_y, int robot)
 {
+    ofstream logastar;
+    logastar.open ("logastar.log");
     QVector<Noeud*> open, closed, origin;
-    QMap<Noeud*,Noeud*> came_from;
+    std::map<Noeud*,Noeud*> came_from;
     open.push_back(this);
-
+    logastar << "Noeud : Astar : Debut" << endl;
     int f,tempG;
-   // calcHeuristique(final_x,final_y); //a  corriger pour ne plus recevoir un noeud mais des coordoné
-    setHeuristique(0); //en attendant de calculer l'heuristique
+    this->calcHeuristique(final_x,final_y);
     f = getHeuristique();
     setG(0);
 
@@ -396,51 +385,52 @@ QVector<int> Noeud::astar(int final_x,int final_y, int robot)
         //On récupére le meilleurs noeud selon f
         //On rest s'il est le noeud final.
         Noeud* cur = getBestNode(open);
-        cout << "Noeud : Astar : Point de depart x :" << cur->getPosition()[0] << endl;
-        cout << "Noeud : Astar : Point de depart y :" << cur->getPosition()[1] << endl;
+        logastar << "Noeud : Astar : Point de depart x :" << cur->getPosition()[0] << endl;
+        logastar << "Noeud : Astar : Point de depart y :" << cur->getPosition()[1] << endl;
         if(cur->getPosition()[0] == final_x && cur->getPosition()[1] == final_y)
         {
-            cout << "Noeud : Astar : le noeud cibl a ete atteint"  << endl;
+            logastar << "Noeud : Astar : le noeud cible a ete atteint"  << endl;
             origin.append(cur);
+            logastar.close();
             return build_path(came_from, cur, robot); //On retourne le chemin parcouru.
-
         }
-        //open.erase(open.begin()); // open.remove(cur)
         open.remove(this->getIndexOfNode(open,cur));
         closed.push_back(cur);
-        //Noeud* temp;
         //S'il ne l'est pas on met dans open tout les noeuds fils qui ne sont ni dans open,
         //ni dans closed et qui possede un coout de deplacement inferieur au noeud courrant.
         int i = 0;
-        cout << "Noeud : Astar : avant le for" << endl;
         Noeud* it;
         foreach(it , cur->lstNoeudFils)
         {
             if(it!=NULL)
             {
-                cout << "Noeud : Astar : iterations a travers les lstNoeudFils" << endl;
+                logastar << "Noeud : Astar : iterations a travers les lstNoeudFils" << endl;
                 if(!(member(it, closed)))
                 {
-                    cout << "Noeud : Astar : it  n est pas un membre de closed" << endl;
+                    logastar << "Noeud : Astar : it  n est pas un membre de closed" << endl;
                     tempG = cur->getG() + 1;
                     if(!(member(it, open)) || tempG <= cur->getG())
                     {
-                        came_from.insert(it,cur);// ajout dans la map des deplacemetn si c'était un tablmeau ca serait : came_from[it] = cur;
-                        cout << "Noeud : Astar : it  n est pas membre de open ou son G est sup au g temporaore" << endl;
+
+                        //came_from->insert(it,cur);// ajout dans la map des deplacement si c'était un tablmeau ca serait : came_from[it] = cur;
+                        //came_from.insert(it,cur);
+                        came_from[it] = cur;
+                        logastar << "Noeud : Astar : PushBAck de cur dans origin " << endl;
                         origin.push_back(cur);
-                        cout << "Noeud : Astar : tempG vaut : " << tempG << endl;
+                        logastar << "Noeud : Astar : tempG vaut : " << tempG << endl;
                         it->setG(tempG);
-                        it->setHeuristique(0); //Add calcHeuritique. SALE!
+                        it->calcHeuristique(final_x,final_y); //Add calcHeuritique. SALE!
                         if(!(member(it, open))) open.push_back(it);
-                        cout << "Noeud : Astar : open est de taille : " << open.size() << endl;
+                        logastar << "Noeud : Astar : open est de taille : " << open.size() << endl;
                     }
                 }
             }
             ++i;
         }
     }
-    cout << "Noeud : Astar : Rien trouve" << endl;
+    logastar << "Noeud : Astar : Rien trouve" << endl;
     //Si échec on retourne null.
+    logastar.close();
     QVector<int> fail;
     return fail;
 }
@@ -474,14 +464,17 @@ int Noeud::getIndexOfNode(const QVector<Noeud*> open, Noeud* toFind)
     return -1; //si on est là in peut se pendre
 }
 
-QVector<int> build_path(QMap<Noeud*,Noeud*> came_from, Noeud* current,int robot)
+QVector<int> build_path(/*QMap<Noeud*,Noeud*> *came_from,*/std::map<Noeud*,Noeud*> came_from, Noeud* current,int robot)
 {
     QVector<int> path;
     QVector<Noeud*> path_temp;
     path_temp.append(current);
-    while(came_from.contains(current))
+    /*while(came_from->contains(current))
+    {*/
+    while(came_from.count(current))
     {
         current = came_from[current];
+        //current = came_from->value(current);
         path_temp.append(current);
     }
     QVector<Noeud*> path_temp_inverted;

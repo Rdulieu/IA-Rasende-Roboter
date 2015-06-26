@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 2.8.1, 2015-06-25T00:37:37. -->
+<!-- Written by QtCreator 2.8.1, 2015-06-26T16:24:09. -->
 <qtcreator>
  <data>
   <variable>ProjectExplorer.Project.ActiveTarget</variable>
@@ -227,7 +227,7 @@
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">test</value>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName"></value>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:/mnt/2C326C3E326C0EE0/Users/Qsm-Cqfd/Documents/GitHub/IA-Rasende-Roboter/Meuble/CommandLineMode2/test.pro</value>
-    <value type="QString" key="Qt4ProjectManager.Qt4RunConfiguration.CommandLineArguments">0 0 0 0 1 4 0 8 4 2 10 15 9</value>
+    <value type="QString" key="Qt4ProjectManager.Qt4RunConfiguration.CommandLineArguments">0 0 0 1 15 8 10 4 12 6 1 15 14</value>
     <value type="QString" key="Qt4ProjectManager.Qt4RunConfiguration.ProFile">test.pro</value>
     <value type="bool" key="Qt4ProjectManager.Qt4RunConfiguration.UseDyldImageSuffix">false</value>
     <value type="bool" key="Qt4ProjectManager.Qt4RunConfiguration.UseTerminal">true</value>

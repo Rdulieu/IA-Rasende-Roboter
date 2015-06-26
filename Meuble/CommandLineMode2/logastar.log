@@ -1,0 +1,418 @@
+Noeud : Astar : Debut
+Noeud : Astar : Point de depart x :15
+Noeud : Astar : Point de depart y :14
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : it  n est pas un membre de closed
+Noeud : Astar : PushBAck de cur dans origin 
+Noeud : Astar : tempG vaut : 1
+Noeud : Astar : open est de taille : 1
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : it  n est pas un membre de closed
+Noeud : Astar : PushBAck de cur dans origin 
+Noeud : Astar : tempG vaut : 1
+Noeud : Astar : open est de taille : 2
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : it  n est pas un membre de closed
+Noeud : Astar : PushBAck de cur dans origin 
+Noeud : Astar : tempG vaut : 1
+Noeud : Astar : open est de taille : 3
+Noeud : Astar : Point de depart x :15
+Noeud : Astar : Point de depart y :4
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : it  n est pas un membre de closed
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : it  n est pas un membre de closed
+Noeud : Astar : PushBAck de cur dans origin 
+Noeud : Astar : tempG vaut : 2
+Noeud : Astar : open est de taille : 3
+Noeud : Astar : Point de depart x :5
+Noeud : Astar : Point de depart y :4
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : it  n est pas un membre de closed
+Noeud : Astar : PushBAck de cur dans origin 
+Noeud : Astar : tempG vaut : 3
+Noeud : Astar : open est de taille : 3
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : Point de depart x :5
+Noeud : Astar : Point de depart y :15
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : it  n est pas un membre de closed
+Noeud : Astar : PushBAck de cur dans origin 
+Noeud : Astar : tempG vaut : 4
+Noeud : Astar : open est de taille : 3
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : it  n est pas un membre de closed
+Noeud : Astar : PushBAck de cur dans origin 
+Noeud : Astar : tempG vaut : 4
+Noeud : Astar : open est de taille : 4
+Noeud : Astar : Point de depart x :4
+Noeud : Astar : Point de depart y :15
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : it  n est pas un membre de closed
+Noeud : Astar : PushBAck de cur dans origin 
+Noeud : Astar : tempG vaut : 5
+Noeud : Astar : open est de taille : 4
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : it  n est pas un membre de closed
+Noeud : Astar : Point de depart x :4
+Noeud : Astar : Point de depart y :13
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : it  n est pas un membre de closed
+Noeud : Astar : PushBAck de cur dans origin 
+Noeud : Astar : tempG vaut : 6
+Noeud : Astar : open est de taille : 4
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : it  n est pas un membre de closed
+Noeud : Astar : PushBAck de cur dans origin 
+Noeud : Astar : tempG vaut : 6
+Noeud : Astar : open est de taille : 5
+Noeud : Astar : Point de depart x :0
+Noeud : Astar : Point de depart y :13
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : it  n est pas un membre de closed
+Noeud : Astar : PushBAck de cur dans origin 
+Noeud : Astar : tempG vaut : 7
+Noeud : Astar : open est de taille : 5
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : it  n est pas un membre de closed
+Noeud : Astar : PushBAck de cur dans origin 
+Noeud : Astar : tempG vaut : 7
+Noeud : Astar : open est de taille : 6
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : it  n est pas un membre de closed
+Noeud : Astar : Point de depart x :0
+Noeud : Astar : Point de depart y :15
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : it  n est pas un membre de closed
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : it  n est pas un membre de closed
+Noeud : Astar : PushBAck de cur dans origin 
+Noeud : Astar : tempG vaut : 8
+Noeud : Astar : open est de taille : 6
+Noeud : Astar : Point de depart x :3
+Noeud : Astar : Point de depart y :15
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : it  n est pas un membre de closed
+Noeud : Astar : PushBAck de cur dans origin 
+Noeud : Astar : tempG vaut : 9
+Noeud : Astar : open est de taille : 6
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : Point de depart x :3
+Noeud : Astar : Point de depart y :0
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : it  n est pas un membre de closed
+Noeud : Astar : PushBAck de cur dans origin 
+Noeud : Astar : tempG vaut : 10
+Noeud : Astar : open est de taille : 6
+Noeud : Astar : Point de depart x :0
+Noeud : Astar : Point de depart y :0
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : it  n est pas un membre de closed
+Noeud : Astar : PushBAck de cur dans origin 
+Noeud : Astar : tempG vaut : 11
+Noeud : Astar : open est de taille : 6
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : Point de depart x :0
+Noeud : Astar : Point de depart y :3
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : it  n est pas un membre de closed
+Noeud : Astar : PushBAck de cur dans origin 
+Noeud : Astar : tempG vaut : 12
+Noeud : Astar : open est de taille : 6
+Noeud : Astar : Point de depart x :1
+Noeud : Astar : Point de depart y :3
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : it  n est pas un membre de closed
+Noeud : Astar : PushBAck de cur dans origin 
+Noeud : Astar : tempG vaut : 13
+Noeud : Astar : open est de taille : 6
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : Point de depart x :1
+Noeud : Astar : Point de depart y :9
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : it  n est pas un membre de closed
+Noeud : Astar : PushBAck de cur dans origin 
+Noeud : Astar : tempG vaut : 14
+Noeud : Astar : open est de taille : 6
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : it  n est pas un membre de closed
+Noeud : Astar : PushBAck de cur dans origin 
+Noeud : Astar : tempG vaut : 14
+Noeud : Astar : open est de taille : 7
+Noeud : Astar : Point de depart x :0
+Noeud : Astar : Point de depart y :9
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : it  n est pas un membre de closed
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : it  n est pas un membre de closed
+Noeud : Astar : Point de depart x :3
+Noeud : Astar : Point de depart y :9
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : Point de depart x :0
+Noeud : Astar : Point de depart y :7
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : it  n est pas un membre de closed
+Noeud : Astar : PushBAck de cur dans origin 
+Noeud : Astar : tempG vaut : 8
+Noeud : Astar : open est de taille : 5
+Noeud : Astar : Point de depart x :6
+Noeud : Astar : Point de depart y :7
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : it  n est pas un membre de closed
+Noeud : Astar : PushBAck de cur dans origin 
+Noeud : Astar : tempG vaut : 9
+Noeud : Astar : open est de taille : 5
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : it  n est pas un membre de closed
+Noeud : Astar : PushBAck de cur dans origin 
+Noeud : Astar : tempG vaut : 9
+Noeud : Astar : open est de taille : 6
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : Point de depart x :6
+Noeud : Astar : Point de depart y :12
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : it  n est pas un membre de closed
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : it  n est pas un membre de closed
+Noeud : Astar : PushBAck de cur dans origin 
+Noeud : Astar : tempG vaut : 10
+Noeud : Astar : open est de taille : 6
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : it  n est pas un membre de closed
+Noeud : Astar : PushBAck de cur dans origin 
+Noeud : Astar : tempG vaut : 10
+Noeud : Astar : open est de taille : 7
+Noeud : Astar : Point de depart x :5
+Noeud : Astar : Point de depart y :12
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : it  n est pas un membre de closed
+Noeud : Astar : Point de depart x :8
+Noeud : Astar : Point de depart y :12
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : it  n est pas un membre de closed
+Noeud : Astar : PushBAck de cur dans origin 
+Noeud : Astar : tempG vaut : 11
+Noeud : Astar : open est de taille : 6
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : it  n est pas un membre de closed
+Noeud : Astar : PushBAck de cur dans origin 
+Noeud : Astar : tempG vaut : 11
+Noeud : Astar : open est de taille : 7
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : Point de depart x :8
+Noeud : Astar : Point de depart y :11
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : it  n est pas un membre de closed
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : it  n est pas un membre de closed
+Noeud : Astar : PushBAck de cur dans origin 
+Noeud : Astar : tempG vaut : 12
+Noeud : Astar : open est de taille : 7
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : it  n est pas un membre de closed
+Noeud : Astar : PushBAck de cur dans origin 
+Noeud : Astar : tempG vaut : 12
+Noeud : Astar : open est de taille : 8
+Noeud : Astar : Point de depart x :0
+Noeud : Astar : Point de depart y :11
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : it  n est pas un membre de closed
+Noeud : Astar : Point de depart x :6
+Noeud : Astar : Point de depart y :2
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : it  n est pas un membre de closed
+Noeud : Astar : PushBAck de cur dans origin 
+Noeud : Astar : tempG vaut : 10
+Noeud : Astar : open est de taille : 7
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : it  n est pas un membre de closed
+Noeud : Astar : PushBAck de cur dans origin 
+Noeud : Astar : tempG vaut : 10
+Noeud : Astar : open est de taille : 8
+Noeud : Astar : Point de depart x :0
+Noeud : Astar : Point de depart y :2
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : it  n est pas un membre de closed
+Noeud : Astar : Point de depart x :11
+Noeud : Astar : Point de depart y :2
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : it  n est pas un membre de closed
+Noeud : Astar : PushBAck de cur dans origin 
+Noeud : Astar : tempG vaut : 11
+Noeud : Astar : open est de taille : 7
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : Point de depart x :11
+Noeud : Astar : Point de depart y :0
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : it  n est pas un membre de closed
+Noeud : Astar : PushBAck de cur dans origin 
+Noeud : Astar : tempG vaut : 12
+Noeud : Astar : open est de taille : 7
+Noeud : Astar : Point de depart x :15
+Noeud : Astar : Point de depart y :0
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : it  n est pas un membre de closed
+Noeud : Astar : PushBAck de cur dans origin 
+Noeud : Astar : tempG vaut : 13
+Noeud : Astar : open est de taille : 7
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : Point de depart x :5
+Noeud : Astar : Point de depart y :13
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : Point de depart x :12
+Noeud : Astar : Point de depart y :14
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : it  n est pas un membre de closed
+Noeud : Astar : PushBAck de cur dans origin 
+Noeud : Astar : tempG vaut : 2
+Noeud : Astar : open est de taille : 6
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : it  n est pas un membre de closed
+Noeud : Astar : PushBAck de cur dans origin 
+Noeud : Astar : tempG vaut : 2
+Noeud : Astar : open est de taille : 7
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : Point de depart x :12
+Noeud : Astar : Point de depart y :15
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : it  n est pas un membre de closed
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : it  n est pas un membre de closed
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : Point de depart x :12
+Noeud : Astar : Point de depart y :9
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : it  n est pas un membre de closed
+Noeud : Astar : PushBAck de cur dans origin 
+Noeud : Astar : tempG vaut : 3
+Noeud : Astar : open est de taille : 6
+Noeud : Astar : Point de depart x :4
+Noeud : Astar : Point de depart y :9
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : it  n est pas un membre de closed
+Noeud : Astar : PushBAck de cur dans origin 
+Noeud : Astar : tempG vaut : 4
+Noeud : Astar : open est de taille : 6
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : Point de depart x :4
+Noeud : Astar : Point de depart y :0
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : it  n est pas un membre de closed
+Noeud : Astar : PushBAck de cur dans origin 
+Noeud : Astar : tempG vaut : 5
+Noeud : Astar : open est de taille : 6
+Noeud : Astar : Point de depart x :10
+Noeud : Astar : Point de depart y :0
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : it  n est pas un membre de closed
+Noeud : Astar : PushBAck de cur dans origin 
+Noeud : Astar : tempG vaut : 6
+Noeud : Astar : open est de taille : 6
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : Point de depart x :10
+Noeud : Astar : Point de depart y :6
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : it  n est pas un membre de closed
+Noeud : Astar : PushBAck de cur dans origin 
+Noeud : Astar : tempG vaut : 7
+Noeud : Astar : open est de taille : 6
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : it  n est pas un membre de closed
+Noeud : Astar : PushBAck de cur dans origin 
+Noeud : Astar : tempG vaut : 7
+Noeud : Astar : open est de taille : 7
+Noeud : Astar : Point de depart x :0
+Noeud : Astar : Point de depart y :6
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : it  n est pas un membre de closed
+Noeud : Astar : PushBAck de cur dans origin 
+Noeud : Astar : tempG vaut : 8
+Noeud : Astar : open est de taille : 7
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : it  n est pas un membre de closed
+Noeud : Astar : Point de depart x :0
+Noeud : Astar : Point de depart y :4
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : it  n est pas un membre de closed
+Noeud : Astar : PushBAck de cur dans origin 
+Noeud : Astar : tempG vaut : 9
+Noeud : Astar : open est de taille : 7
+Noeud : Astar : Point de depart x :4
+Noeud : Astar : Point de depart y :4
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : Point de depart x :15
+Noeud : Astar : Point de depart y :6
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : it  n est pas un membre de closed
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : Point de depart x :15
+Noeud : Astar : Point de depart y :15
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : it  n est pas un membre de closed
+Noeud : Astar : PushBAck de cur dans origin 
+Noeud : Astar : tempG vaut : 2
+Noeud : Astar : open est de taille : 5
+Noeud : Astar : Point de depart x :14
+Noeud : Astar : Point de depart y :15
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : it  n est pas un membre de closed
+Noeud : Astar : PushBAck de cur dans origin 
+Noeud : Astar : tempG vaut : 3
+Noeud : Astar : open est de taille : 5
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : Point de depart x :14
+Noeud : Astar : Point de depart y :14
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : Point de depart x :15
+Noeud : Astar : Point de depart y :3
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : it  n est pas un membre de closed
+Noeud : Astar : PushBAck de cur dans origin 
+Noeud : Astar : tempG vaut : 14
+Noeud : Astar : open est de taille : 4
+Noeud : Astar : Point de depart x :2
+Noeud : Astar : Point de depart y :3
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : it  n est pas un membre de closed
+Noeud : Astar : PushBAck de cur dans origin 
+Noeud : Astar : tempG vaut : 15
+Noeud : Astar : open est de taille : 4
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : it  n est pas un membre de closed
+Noeud : Astar : PushBAck de cur dans origin 
+Noeud : Astar : tempG vaut : 15
+Noeud : Astar : open est de taille : 5
+Noeud : Astar : iterations a travers les lstNoeudFils
+Noeud : Astar : Point de depart x :2
+Noeud : Astar : Point de depart y :5
+Noeud : Astar : le noeud cible a ete atteint

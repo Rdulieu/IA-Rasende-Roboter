@@ -25,7 +25,6 @@ Bd::Bd(int _m[])
 // Construction de la base de connaissances
 void Bd::builddata()
 {
-    cout << "lel" << m_CurrentStimulus[12] << endl;
     /*
         Construction de la list_murV qui contient les Coordonnées de chaque mur
         en fonction de des 4 variables définissant le plateau. Ce sont bien les coordonnées des murs et non des cases*/

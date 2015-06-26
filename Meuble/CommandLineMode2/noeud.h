@@ -51,7 +51,7 @@ public :
     void setId(int);
     int getHeuristique();
     void setHeuristique(int);
-    void calcHeuristique(Noeud* final);
+    void calcHeuristique(int final_x, int final_y);
     int* getPosition();
     void setPosition(int x, int y);
     QVector<Noeud*>* getLstNoeudFils();
@@ -76,7 +76,7 @@ public :
 */
 };
 
-QVector<int> build_path(QMap<Noeud*,Noeud*> came_from, Noeud* current,int robot);
+QVector<int> build_path(/*QMap<Noeud*,Noeud*> *came_from,*/std::map<Noeud*,Noeud*> came_from, Noeud* current,int robot);
 
 bool member(const Noeud* node, const QVector<Noeud*> vector); //true if node is in vector, false otherwise.
 #endif // NOEUD_H
