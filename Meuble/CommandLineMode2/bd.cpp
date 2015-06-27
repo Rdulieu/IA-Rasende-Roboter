@@ -41,14 +41,14 @@ void Bd::builddata()
 
 
     //carré du centre
-    list_murH[6][7]=true;
+    /*list_murH[6][7]=true;
     list_murH[8][7]=true;
     list_murH[6][8]=true;
     list_murH[8][8]=true;
     list_murV[7][6]=true;
     list_murV[8][6]=true;
     list_murV[7][8]=true;
-    list_murV[8][8]=true;
+    list_murV[8][8]=true;*/
 
     if(m_CurrentStimulus[0]==1){
         //correct
@@ -58,22 +58,6 @@ void Bd::builddata()
         list_target[12]=Coordonnees(6,4);
         list_target[15]=Coordonnees(2,1);
 
-        //corect
-        list_murH[4][0]=true;
-        list_murH[2][1]=true;
-        list_murH[0][3]=true;
-        list_murH[5][4]=true;
-        list_murH[5][6]=true;
-        list_murH[3][7]=true;
-
-        //correct
-        list_murV[0][2]=true;
-        list_murV[0][4]=true;
-        list_murV[1][3]=true;
-        list_murV[2][1]=true;
-        list_murV[3][7]=true;
-        list_murV[5][5]=true;
-        list_murV[6][3]=true;
     }else{
         //correct
         list_target[0]=Coordonnees(7,5);
@@ -82,30 +66,7 @@ void Bd::builddata()
         list_target[12]=Coordonnees(1,3);
         list_target[15]=Coordonnees(2,5);
 
-        //corrigé ?
-        list_murH[3][0]=true;
-        list_murH[5][1]=true;//false
-        list_murH[1][3]=true;//false
-        list_murH[4][4]=true;//false
-        list_murH[7][5]=true;
-        list_murH[2][5]=true;
-        /*
-        list_murH[3][0]=true;
-        list_murH[5][1]=true;//false
-        list_murH[1][3]=true;//false
-        list_murH[4][4]=true;//false
-        list_murH[7][5]=true;
-        list_murH[2][5]=true;
-        */
 
-        //correct
-        list_murV[0][3]=true;
-        list_murV[0][6]=true;//false
-        list_murV[1][2]=true;//false
-        list_murV[2][5]=true;
-        list_murV[5][3]=true;//false
-        list_murV[6][1]=true;//false
-        list_murV[7][5]=true;
     }
     if(m_CurrentStimulus[1]==1){
         //correct
@@ -114,20 +75,6 @@ void Bd::builddata()
         list_target[10]=Coordonnees(10,7);
         list_target[16]=Coordonnees(14,1);
 
-        //correct
-        list_murH[9][0]=true;
-        list_murH[13][1]=true;
-        list_murH[10][2]=true;
-        list_murH[13][6]=true;
-        list_murH[10][7]=true;
-
-        //correct
-        list_murV[10][6]=true;
-        list_murV[11][2]=true;
-        list_murV[13][6]=true;
-        list_murV[14][0]=true;
-        list_murV[15][1]=true;
-        list_murV[15][3]=true;
     }else{
 
         //correct
@@ -136,26 +83,6 @@ void Bd::builddata()
         list_target[10]=Coordonnees(9,1);
         list_target[16]=Coordonnees(10,7);
 
-        //correct
-        list_murH[10][0]=true;
-        list_murH[9][1]=true;
-        list_murH[11][2]=true;
-        list_murH[12][5]=true;
-        list_murH[9][7]=true;
-
-
-/*
-        list_murV[1][9]=true;
-        list_murV[2][14]=true;
-        list_murV[4][9]=true;
-        list_murV[6][12]=true;
-        */
-        //corrigé?
-        list_murV[9][0]=true;
-        list_murV[11][2]=true;
-        list_murV[15][3]=true;
-        list_murV[13][5]=true;
-        list_murV[10][6]=true;
 
     }
     if(m_CurrentStimulus[2]){
@@ -165,24 +92,6 @@ void Bd::builddata()
         list_target[9]=Coordonnees(1,13);
         list_target[14]=Coordonnees(5,11);
 
-        //correct
-        list_murH[3][9]=true;
-        list_murH[4][11]=true;
-        list_murH[0][13]=true;
-        list_murH[6][14]=true;
-        list_murH[4][15]=true;
-
-        /*
-        list_murV[1][14]=true;
-        list_murV[3][9]=true;
-        list_murV[5][10]=true;
-        list_murV[6][14]=true;
-         */
-
-        list_murV[1][13]=true;
-        list_murV[3][9]=true;
-        list_murV[5][10]=true;
-        list_murV[6][13]=true;
     }else{
 
         //correct
@@ -191,26 +100,6 @@ void Bd::builddata()
         list_target[9]=Coordonnees(4,9);
         list_target[14]=Coordonnees(2,14);
 
-        //correct
-        list_murH[3][9]=true;
-        list_murH[1][10]=true;
-        list_murH[5][13]=true;
-        list_murH[2][14]=true;
-        list_murH[3][15]=true;
-
-/*
-        list_murV[9][0]=true;
-        list_murV[10][6]=true;
-        list_murV[11][2]=true;
-        list_murV[13][5]=true;
-        list_murV[15][3]=true;
-        */
-
-        //corigé?
-        list_murV[1][9]=true;
-        list_murV[4][9]=true;
-        list_murV[6][12]=true;
-        list_murV[2][14]=true;
     }
     if(m_CurrentStimulus[3]==1){
 
@@ -219,39 +108,971 @@ void Bd::builddata()
         list_target[11]=Coordonnees(9,12);
         list_target[13]=Coordonnees(11,14);
 
-        //correct
-        list_murH[12][9]=true;
-        list_murH[8][12]=true;
-        list_murH[13][13]=true;
-        list_murH[11][14]=true;
-        list_murH[13][15]=true;
-
-        //correct
-        list_murV[9][11]=true;
-        list_murV[11][14]=true;
-        list_murV[12][8]=true;
-        list_murV[14][13]=true;
     }else{
         //correct
         list_target[2]=Coordonnees(9,10);
         list_target[11]=Coordonnees(9,14);
         list_target[13]=Coordonnees(12,9);
 
-
-        //correct
-        list_murH[12][9]=true;
-        list_murH[8][10]=true;
-        list_murH[14][13]=true;
-        list_murH[8][14]=true;
-        list_murH[10][15]=true;
-
-        //correct
-        list_murV[9][10]=true;
-        list_murV[9][13]=true;
-        list_murV[12][8]=true;
-        list_murV[14][13]=true;
-        list_murV[15][9]=true;
     }
+
+    //le cancer commence
+    if(m_CurrentStimulus[0]==0 &&
+        m_CurrentStimulus[1]==0 &&
+          m_CurrentStimulus[2]==0 &&
+        m_CurrentStimulus[3]==0)
+    {
+      list_murH[3][0]=true;
+      list_murH[10][0]=true;
+      list_murH[9][1]=true;
+      list_murH[5][1]=true;
+      list_murH[11][2]=true;
+      list_murH[1][3]=true;
+      list_murH[2][5]=true;
+      list_murH[4][4]=true;
+      list_murH[7][5]=true;
+      list_murH[12][5]=true;
+      list_murH[12][9]=true;
+      list_murH[9][7]=true;
+      list_murH[6][7]=true;
+      list_murH[6][8]=true;
+      list_murH[8][7]=true;
+      list_murH[8][8]=true;
+      list_murH[8][10]=true;
+      list_murH[3][9]=true;
+      list_murH[1][10]=true;
+      list_murH[2][14]=true;
+      list_murH[3][15]=true;
+      list_murH[5][13]=true;
+      list_murH[8][14]=true;
+      list_murH[10][15]=true;
+      list_murH[14][13]=true;
+
+      list_murV[0][3]=true;
+      list_murV[0][6]=true;
+      list_murV[1][2]=true;
+      list_murV[6][1]=true;
+      list_murV[9][0]=true;
+      list_murV[11][2]=true;
+      list_murV[15][3]=true;
+      list_murV[13][5]=true;
+      list_murV[15][9]=true;
+      list_murV[10][6]=true;
+      list_murV[12][8]=true;
+      list_murV[7][5]=true;
+      list_murV[5][3]=true;
+      list_murV[2][5]=true;
+      list_murV[4][9]=true;
+      list_murV[9][10]=true;
+      list_murV[14][13]=true;
+      list_murV[9][13]=true;
+      list_murV[6][12]=true;
+      list_murV[2][14]=true;
+      list_murV[1][9]=true;
+      list_murV[7][6]=true;
+      list_murV[8][6]=true;
+      list_murV[7][8]=true;
+      list_murV[8][8]=true;
+    }
+
+
+    if(m_CurrentStimulus[0]==0 &&
+        m_CurrentStimulus[1]==0 &&
+          m_CurrentStimulus[2]==0 &&
+        m_CurrentStimulus[3]==1)
+    {
+      list_murH[3][0]=true;
+      list_murH[5][1]=true;
+      list_murH[9][1]=true;
+      list_murH[10][0]=true;
+      list_murH[11][2]=true;
+      list_murH[1][3]=true;
+      list_murH[4][4]=true;
+      list_murH[12][5]=true;
+      list_murH[7][5]=true;
+      list_murH[2][5]=true;
+      list_murH[6][7]=true;
+      list_murH[6][8]=true;
+      list_murH[8][7]=true;
+      list_murH[8][8]=true;
+      list_murH[9][7]=true;
+      list_murH[12][9]=true;
+      list_murH[3][9]=true;
+      list_murH[1][10]=true;
+      list_murH[5][13]=true;
+      list_murH[2][14]=true;
+      list_murH[3][15]=true;
+      list_murH[8][12]=true;
+      list_murH[11][14]=true;
+      list_murH[13][13]=true;
+      list_murH[13][15]=true;
+
+      list_murV[9][0]=true;
+      list_murV[15][1]=true;
+      list_murV[6][1]=true;
+      list_murV[11][2]=true;
+      list_murV[15][3]=true;
+      list_murV[5][3]=true;
+      list_murV[0][3]=true;
+      list_murV[1][2]=true;
+      list_murV[2][5]=true;
+      list_murV[7][5]=true;
+      list_murV[13][5]=true;
+      list_murV[10][6]=true;
+      list_murV[8][6]=true;
+      list_murV[7][6]=true;
+      list_murV[0][6]=true;
+      list_murV[7][8]=true;
+      list_murV[8][8]=true;
+      list_murV[12][8]=true;
+      list_murV[4][9]=true;
+      list_murV[1][9]=true;
+      list_murV[2][14]=true;
+      list_murV[6][12]=true;
+      list_murV[9][11]=true;
+      list_murV[11][14]=true;
+      list_murV[14][13]=true;
+    }
+
+    if(m_CurrentStimulus[0]==0 &&
+        m_CurrentStimulus[1]==0 &&
+          m_CurrentStimulus[2]==1 &&
+        m_CurrentStimulus[3]==0)
+    {
+    //?
+    list_murH[3][0]=true;
+    list_murH[5][1]=true;
+    list_murH[9][1]=true;
+    list_murH[10][0]=true;
+    list_murH[11][2]=true;
+    list_murH[1][3]=true;
+    list_murH[4][4]=true;
+    list_murH[2][5]=true;
+    list_murH[12][5]=true;
+    list_murH[9][7]=true;
+    list_murH[8][7]=true;
+    list_murH[8][8]=true;
+    list_murH[6][7]=true;
+    list_murH[6][8]=true;
+    list_murH[3][9]=true;
+    list_murH[4][11]=true;
+    list_murH[0][13]=true;
+    list_murH[4][15]=true;
+    list_murH[6][14]=true;
+    list_murH[8][14]=true;
+    list_murH[10][15]=true;
+    list_murH[8][10]=true;
+    list_murH[12][9]=true;
+    list_murH[14][13]=true;
+    list_murH[7][5]=true;
+
+
+
+    list_murV[6][1]=true;
+    list_murV[9][0]=true;
+    list_murV[11][2]=true;
+    list_murV[15][3]=true;
+    list_murV[13][5]=true;
+    list_murV[7][5]=true;
+    list_murV[5][3]=true;
+    list_murV[1][2]=true;
+    list_murV[0][2]=true;
+    list_murV[2][5]=true;
+    list_murV[0][6]=true;
+    list_murV[7][6]=true;
+    list_murV[8][6]=true;
+    list_murV[7][8]=true;
+    list_murV[8][8]=true;
+    list_murV[9][10]=true;
+    list_murV[15][9]=true;
+    list_murV[12][8]=true;
+    list_murV[10][6]=true;
+    list_murV[14][13]=true;
+    list_murV[9][13]=true;
+    list_murV[6][13]=true;
+    list_murV[5][10]=true;
+    list_murV[3][9]=true;
+    list_murV[1][13]=true;
+    }
+
+    if(m_CurrentStimulus[0]==0 &&
+        m_CurrentStimulus[1]==0 &&
+          m_CurrentStimulus[2]==1 &&
+        m_CurrentStimulus[3]==1)
+    {
+    //?
+    list_murH[3][0]=true;
+    list_murH[10][0]=true;
+    list_murH[9][1]=true;
+    list_murH[5][1]=true;
+    list_murH[1][3]=true;
+    list_murH[4][4]=true;
+    list_murH[2][5]=true;
+    list_murH[7][5]=true;
+    list_murH[11][2]=true;
+    list_murH[12][5]=true;
+    list_murH[9][7]=true;
+    list_murH[8][7]=true;
+    list_murH[8][8]=true;
+    list_murH[6][7]=true;
+    list_murH[6][8]=true;
+    list_murH[12][9]=true;
+    list_murH[3][9]=true;
+    list_murH[4][11]=true;
+    list_murH[0][13]=true;
+    list_murH[4][15]=true;
+    list_murH[6][14]=true;
+    list_murH[8][12]=true;
+    list_murH[13][13]=true;
+    list_murH[13][15]=true;
+    list_murH[11][14]=true;
+
+
+    list_murV[6][1]=true;
+    list_murV[9][0]=true;
+    list_murV[11][2]=true;
+    list_murV[15][1]=true;
+    list_murV[15][3]=true;
+    list_murV[5][3]=true;
+    list_murV[1][2]=true;
+    list_murV[0][2]=true;
+    list_murV[0][6]=true;
+    list_murV[2][5]=true;
+    list_murV[7][5]=true;
+    list_murV[13][5]=true;
+    list_murV[10][6]=true;
+    list_murV[8][6]=true;
+    list_murV[7][6]=true;
+    list_murV[7][8]=true;
+    list_murV[8][8]=true;
+    list_murV[12][8]=true;
+    list_murV[9][11]=true;
+    list_murV[5][10]=true;
+    list_murV[3][9]=true;
+    list_murV[14][13]=true;
+    list_murV[11][14]=true;
+    list_murV[6][13]=true;
+    list_murV[1][13]=true;
+
+    }
+
+    if(m_CurrentStimulus[0]==0 &&
+        m_CurrentStimulus[1]==1 &&
+          m_CurrentStimulus[2]==0 &&
+        m_CurrentStimulus[3]==0)
+    {
+    //?
+    list_murH[3][0]=true;
+    list_murH[9][0]=true;
+    list_murH[13][1]=true;
+    list_murH[10][2]=true;
+    list_murH[5][1]=true;
+    list_murH[1][3]=true;
+    list_murH[4][4]=true;
+    list_murH[2][5]=true;
+    list_murH[7][5]=true;
+    list_murH[10][7]=true;
+    list_murH[13][6]=true;
+    list_murH[8][7]=true;
+    list_murH[8][8]=true;
+    list_murH[6][7]=true;
+    list_murH[6][8]=true;
+    list_murH[3][9]=true;
+    list_murH[1][10]=true;
+    list_murH[2][14]=true;
+    list_murH[3][15]=true;
+    list_murH[5][13]=true;
+    list_murH[8][14]=true;
+    list_murH[10][15]=true;
+    list_murH[8][10]=true;
+    list_murH[14][13]=true;
+    list_murH[12][9]=true;
+
+
+    list_murV[6][1]=true;
+    list_murV[11][2]=true;
+    list_murV[14][0]=true;
+    list_murV[15][3]=true;
+    list_murV[7][5]=true;
+    list_murV[5][3]=true;
+    list_murV[1][2]=true;
+    list_murV[0][3]=true;
+    list_murV[0][6]=true;
+    list_murV[2][5]=true;
+    list_murV[4][9]=true;
+    list_murV[1][9]=true;
+    list_murV[7][6]=true;
+    list_murV[8][6]=true;
+    list_murV[7][8]=true;
+    list_murV[8][8]=true;
+    list_murV[10][6]=true;
+    list_murV[12][8]=true;
+    list_murV[15][9]=true;
+    list_murV[13][6]=true;
+    list_murV[14][13]=true;
+    list_murV[9][10]=true;
+    list_murV[9][13]=true;
+    list_murV[6][12]=true;
+    list_murV[2][14]=true;
+    }
+
+
+    if(m_CurrentStimulus[0]==0 &&
+        m_CurrentStimulus[1]==1 &&
+          m_CurrentStimulus[2]==0 &&
+        m_CurrentStimulus[3]==1)
+    {
+    //?
+    list_murH[3][0]=true;
+    list_murH[9][0]=true;
+    list_murH[13][1]=true;
+    list_murH[10][2]=true;
+    list_murH[5][1]=true;
+    list_murH[1][3]=true;
+    list_murH[4][4]=true;
+    list_murH[2][5]=true;
+    list_murH[7][5]=true;
+    list_murH[6][7]=true;
+    list_murH[6][8]=true;
+    list_murH[8][7]=true;
+    list_murH[8][8]=true;
+    list_murH[10][7]=true;
+    list_murH[13][6]=true;
+    list_murH[12][9]=true;
+    list_murH[13][13]=true;
+    list_murH[13][15]=true;
+    list_murH[11][14]=true;
+    list_murH[8][12]=true;
+    list_murH[5][13]=true;
+    list_murH[3][15]=true;
+    list_murH[2][14]=true;
+    list_murH[1][10]=true;
+    list_murH[3][9]=true;
+
+
+    list_murV[6][1]=true;
+    list_murV[14][0]=true;
+    list_murV[15][1]=true;
+    list_murV[15][3]=true;
+    list_murV[11][2]=true;
+    list_murV[13][6]=true;
+    list_murV[10][6]=true;
+    list_murV[8][6]=true;
+    list_murV[7][6]=true;
+    list_murV[7][8]=true;
+    list_murV[8][8]=true;
+    list_murV[7][5]=true;
+    list_murV[5][3]=true;
+    list_murV[2][5]=true;
+    list_murV[1][2]=true;
+    list_murV[0][3]=true;
+    list_murV[0][6]=true;
+    list_murV[4][9]=true;
+    list_murV[1][9]=true;
+    list_murV[2][14]=true;
+    list_murV[6][12]=true;
+    list_murV[9][11]=true;
+    list_murV[11][14]=true;
+    list_murV[14][13]=true;
+    list_murV[12][8]=true;
+    }
+
+
+    if(m_CurrentStimulus[0]==0 &&
+        m_CurrentStimulus[1]==1 &&
+          m_CurrentStimulus[2]==1 &&
+        m_CurrentStimulus[3]==0)
+    {
+
+    //?
+    list_murH[3][0]=true;
+    list_murH[5][1]=true;
+    list_murH[9][0]=true;
+    list_murH[10][2]=true;
+    list_murH[13][1]=true;
+    list_murH[1][3]=true;
+    list_murH[2][5]=true;
+    list_murH[4][4]=true;
+    list_murH[7][5]=true;
+    list_murH[6][7]=true;
+    list_murH[6][8]=true;
+    list_murH[8][7]=true;
+    list_murH[8][8]=true;
+    list_murH[10][7]=true;
+    list_murH[13][6]=true;
+    list_murH[12][9]=true;
+    list_murH[8][10]=true;
+    list_murH[3][9]=true;
+    list_murH[4][11]=true;
+    list_murH[0][13]=true;
+    list_murH[6][14]=true;
+    list_murH[8][14]=true;
+    list_murH[14][13]=true;
+    list_murH[4][15]=true;
+    list_murH[10][15]=true;
+
+
+    list_murV[0][2]=true;
+    list_murV[1][2]=true;
+    list_murV[6][1]=true;
+    list_murV[11][2]=true;
+    list_murV[14][0]=true;
+    list_murV[15][3]=true;
+    list_murV[10][6]=true;
+    list_murV[13][6]=true;
+    list_murV[7][5]=true;
+    list_murV[5][3]=true;
+    list_murV[2][5]=true;
+    list_murV[0][6]=true;
+    list_murV[7][6]=true;
+    list_murV[8][6]=true;
+    list_murV[7][8]=true;
+    list_murV[8][8]=true;
+    list_murV[9][10]=true;
+    list_murV[3][9]=true;
+    list_murV[5][10]=true;
+    list_murV[1][13]=true;
+    list_murV[6][13]=true;
+    list_murV[9][13]=true;
+    list_murV[15][9]=true;
+    list_murV[12][8]=true;
+    list_murV[14][13]=true;
+    }
+
+
+    if(m_CurrentStimulus[0]==0 &&
+        m_CurrentStimulus[1]==1 &&
+          m_CurrentStimulus[2]==1 &&
+        m_CurrentStimulus[3]==1)
+    {
+    //?
+    list_murH[3][0]=true;
+    list_murH[5][1]=true;
+    list_murH[9][0]=true;
+    list_murH[10][2]=true;
+    list_murH[13][1]=true;
+    list_murH[13][6]=true;
+    list_murH[10][7]=true;
+    list_murH[12][9]=true;
+    list_murH[8][7]=true;
+    list_murH[8][8]=true;
+    list_murH[6][7]=true;
+    list_murH[6][8]=true;
+    list_murH[7][5]=true;
+    list_murH[4][4]=true;
+    list_murH[1][3]=true;
+    list_murH[2][5]=true;
+    list_murH[3][9]=true;
+    list_murH[4][11]=true;
+    list_murH[0][13]=true;
+    list_murH[6][14]=true;
+    list_murH[8][12]=true;
+    list_murH[11][14]=true;
+    list_murH[13][13]=true;
+    list_murH[13][15]=true;
+    list_murH[4][15]=true;
+
+
+
+    list_murV[0][2]=true;
+    list_murV[1][2]=true;
+    list_murV[6][1]=true;
+    list_murV[5][3]=true;
+    list_murV[11][2]=true;
+    list_murV[15][1]=true;
+    list_murV[15][3]=true;
+    list_murV[14][0]=true;
+    list_murV[13][6]=true;
+    list_murV[10][6]=true;
+    list_murV[8][6]=true;
+    list_murV[7][6]=true;
+    list_murV[7][5]=true;
+    list_murV[7][8]=true;
+    list_murV[8][8]=true;
+    list_murV[12][8]=true;
+    list_murV[14][13]=true;
+    list_murV[11][14]=true;
+    list_murV[9][11]=true;
+    list_murV[5][10]=true;
+    list_murV[6][13]=true;
+    list_murV[1][13]=true;
+    list_murV[3][9]=true;
+    list_murV[0][6]=true;
+    list_murV[2][5]=true;
+    }
+
+    if(m_CurrentStimulus[0]==1 &&
+        m_CurrentStimulus[1]==0 &&
+          m_CurrentStimulus[2]==0 &&
+        m_CurrentStimulus[3]==0)
+    {
+    list_murH[4][0]=true;
+    list_murH[10][0]=true;
+    list_murH[11][2]=true;
+    list_murH[12][5]=true;
+    list_murH[5][4]=true;
+    list_murH[2][1]=true;
+    list_murH[0][3]=true;
+    list_murH[6][7]=true;
+    list_murH[6][8]=true;
+    list_murH[5][6]=true;
+    list_murH[8][7]=true;
+    list_murH[8][8]=true;
+    list_murH[3][7]=true;
+    list_murH[3][9]=true;
+    list_murH[1][10]=true;
+    list_murH[2][14]=true;
+    list_murH[3][15]=true;
+    list_murH[5][13]=true;
+    list_murH[10][15]=true;
+    list_murH[8][14]=true;
+    list_murH[14][13]=true;
+    list_murH[12][9]=true;
+    list_murH[8][10]=true;
+    list_murH[9][7]=true;
+    list_murH[9][1]=true;
+
+
+    list_murV[0][3]=true;
+    list_murV[1][3]=true;
+    list_murV[0][4]=true;
+    list_murV[2][1]=true;
+    list_murV[6][3]=true;
+    list_murV[9][0]=true;
+    list_murV[11][2]=true;
+    list_murV[15][3]=true;
+    list_murV[13][5]=true;
+    list_murV[12][8]=true;
+    list_murV[15][9]=true;
+    list_murV[10][6]=true;
+    list_murV[8][6]=true;
+    list_murV[7][6]=true;
+    list_murV[7][8]=true;
+    list_murV[8][8]=true;
+    list_murV[9][10]=true;
+    list_murV[4][9]=true;
+    list_murV[5][5]=true;
+    list_murV[3][7]=true;
+    list_murV[1][9]=true;
+    list_murV[2][14]=true;
+    list_murV[6][12]=true;
+    list_murV[9][13]=true;
+    list_murV[14][13]=true;
+    }
+
+    if(m_CurrentStimulus[0]==1 &&
+        m_CurrentStimulus[1]==0 &&
+          m_CurrentStimulus[2]==0 &&
+        m_CurrentStimulus[3]==1)
+    {
+    list_murH[4][0]=true;
+    list_murH[2][1]=true;
+    list_murH[0][3]=true;
+    list_murH[5][4]=true;
+    list_murH[5][6]=true;
+    list_murH[3][7]=true;
+    list_murH[3][9]=true;
+    list_murH[1][10]=true;
+    list_murH[2][14]=true;
+    list_murH[3][15]=true;
+    list_murH[5][13]=true;
+    list_murH[8][12]=true;
+    list_murH[6][8]=true;
+    list_murH[6][7]=true;
+    list_murH[8][7]=true;
+    list_murH[8][8]=true;
+    list_murH[9][7]=true;
+    list_murH[9][1]=true;
+    list_murH[10][0]=true;
+    list_murH[11][2]=true;
+    list_murH[12][5]=true;
+    list_murH[12][9]=true;
+    list_murH[13][13]=true;
+    list_murH[13][15]=true;
+    list_murH[11][14]=true;
+
+
+    list_murV[2][1]=true;
+    list_murV[0][3]=true;
+    list_murV[1][3]=true;
+    list_murV[0][4]=true;
+    list_murV[6][3]=true;
+    list_murV[9][0]=true;
+    list_murV[15][1]=true;
+    list_murV[15][3]=true;
+    list_murV[11][2]=true;
+    list_murV[13][5]=true;
+    list_murV[10][6]=true;
+    list_murV[12][8]=true;
+    list_murV[7][6]=true;
+    list_murV[8][6]=true;
+    list_murV[7][8]=true;
+    list_murV[8][8]=true;
+    list_murV[5][5]=true;
+    list_murV[4][9]=true;
+    list_murV[3][7]=true;
+    list_murV[1][9]=true;
+    list_murV[2][14]=true;
+    list_murV[6][12]=true;
+    list_murV[9][11]=true;
+    list_murV[14][13]=true;
+    list_murV[11][14]=true;
+    }
+
+    if(m_CurrentStimulus[0]==1 &&
+        m_CurrentStimulus[1]==0 &&
+          m_CurrentStimulus[2]==1 &&
+        m_CurrentStimulus[3]==0)
+    {
+    list_murH[4][0]=true;
+    list_murH[10][0]=true;
+    list_murH[9][1]=true;
+    list_murH[11][2]=true;
+    list_murH[12][5]=true;
+    list_murH[5][4]=true;
+    list_murH[2][1]=true;
+    list_murH[0][3]=true;
+    list_murH[3][7]=true;
+    list_murH[5][6]=true;
+    list_murH[6][7]=true;
+    list_murH[6][8]=true;
+    list_murH[8][7]=true;
+    list_murH[8][8]=true;
+    list_murH[9][7]=true;
+    list_murH[12][9]=true;
+    list_murH[8][10]=true;
+    list_murH[4][11]=true;
+    list_murH[3][9]=true;
+    list_murH[0][13]=true;
+    list_murH[4][15]=true;
+    list_murH[6][14]=true;
+    list_murH[8][14]=true;
+    list_murH[10][15]=true;
+    list_murH[14][13]=true;
+
+
+    list_murV[0][2]=true;
+    list_murV[1][3]=true;
+    list_murV[2][1]=true;
+    list_murV[6][3]=true;
+    list_murV[9][0]=true;
+    list_murV[11][2]=true;
+    list_murV[15][3]=true;
+    list_murV[13][5]=true;
+    list_murV[15][9]=true;
+    list_murV[12][8]=true;
+    list_murV[10][6]=true;
+    list_murV[8][6]=true;
+    list_murV[7][6]=true;
+    list_murV[7][8]=true;
+    list_murV[8][8]=true;
+    list_murV[5][5]=true;
+    list_murV[0][4]=true;
+    list_murV[3][7]=true;
+    list_murV[3][9]=true;
+    list_murV[5][10]=true;
+    list_murV[1][13]=true;
+    list_murV[6][13]=true;
+    list_murV[9][13]=true;
+    list_murV[9][10]=true;
+    list_murV[14][13]=true;
+    }
+
+    if(m_CurrentStimulus[0]==1 &&
+        m_CurrentStimulus[1]==0 &&
+          m_CurrentStimulus[2]==1 &&
+        m_CurrentStimulus[3]==1)
+    {
+    list_murH[4][0]=true;
+    list_murH[10][0]=true;
+    list_murH[9][1]=true;
+    list_murH[11][2]=true;
+    list_murH[12][5]=true;
+    list_murH[5][4]=true;
+    list_murH[5][6]=true;
+    list_murH[0][3]=true;
+    list_murH[3][7]=true;
+    list_murH[3][9]=true;
+    list_murH[0][13]=true;
+    list_murH[4][11]=true;
+    list_murH[6][14]=true;
+    list_murH[8][12]=true;
+    list_murH[13][13]=true;
+    list_murH[13][15]=true;
+    list_murH[11][14]=true;
+    list_murH[12][9]=true;
+    list_murH[9][7]=true;
+    list_murH[8][7]=true;
+    list_murH[8][8]=true;
+    list_murH[6][7]=true;
+    list_murH[6][8]=true;
+    list_murH[4][15]=true;
+    list_murH[2][1]=true;
+
+
+    list_murV[2][1]=true;
+    list_murV[0][2]=true;
+    list_murV[1][3]=true;
+    list_murV[0][4]=true;
+    list_murV[6][3]=true;
+    list_murV[5][5]=true;
+    list_murV[3][7]=true;
+    list_murV[3][9]=true;
+    list_murV[1][13]=true;
+    list_murV[5][10]=true;
+    list_murV[6][13]=true;
+    list_murV[9][11]=true;
+    list_murV[11][14]=true;
+    list_murV[14][13]=true;
+    list_murV[12][8]=true;
+    list_murV[10][6]=true;
+    list_murV[13][5]=true;
+    list_murV[15][3]=true;
+    list_murV[15][1]=true;
+    list_murV[11][2]=true;
+    list_murV[9][0]=true;
+    list_murV[8][6]=true;
+    list_murV[7][6]=true;
+    list_murV[7][8]=true;
+    list_murV[8][8]=true;
+    }
+
+    if(m_CurrentStimulus[0]==1 &&
+        m_CurrentStimulus[1]==1 &&
+          m_CurrentStimulus[2]==0 &&
+        m_CurrentStimulus[3]==0)
+    {
+    list_murH[4][0]=true;
+    list_murH[9][0]=true;
+    list_murH[10][2]=true;
+    list_murH[13][1]=true;
+    list_murH[13][6]=true;
+    list_murH[10][7]=true;
+    list_murH[8][7]=true;
+    list_murH[8][8]=true;
+    list_murH[6][7]=true;
+    list_murH[6][8]=true;
+    list_murH[5][6]=true;
+    list_murH[5][4]=true;
+    list_murH[0][3]=true;
+    list_murH[3][7]=true;
+    list_murH[3][9]=true;
+    list_murH[1][10]=true;
+    list_murH[2][14]=true;
+    list_murH[3][15]=true;
+    list_murH[5][13]=true;
+    list_murH[8][14]=true;
+    list_murH[10][15]=true;
+    list_murH[14][13]=true;
+    list_murH[12][9]=true;
+    list_murH[8][10]=true;
+    list_murH[2][1]=true;
+
+
+    list_murV[2][1]=true;
+    list_murV[0][3]=true;
+    list_murV[1][3]=true;
+    list_murV[0][4]=true;
+    list_murV[6][3]=true;
+    list_murV[5][5]=true;
+    list_murV[7][6]=true;
+    list_murV[8][6]=true;
+    list_murV[7][8]=true;
+    list_murV[8][8]=true;
+    list_murV[10][6]=true;
+    list_murV[13][6]=true;
+    list_murV[15][3]=true;
+    list_murV[14][0]=true;
+    list_murV[11][2]=true;
+    list_murV[15][9]=true;
+    list_murV[12][8]=true;
+    list_murV[9][10]=true;
+    list_murV[14][13]=true;
+    list_murV[9][13]=true;
+    list_murV[6][12]=true;
+    list_murV[4][9]=true;
+    list_murV[2][14]=true;
+    list_murV[1][9]=true;
+    list_murV[3][7]=true;
+    }
+
+    if(m_CurrentStimulus[0]==1 &&
+        m_CurrentStimulus[1]==1 &&
+          m_CurrentStimulus[2]==0 &&
+        m_CurrentStimulus[3]==1)
+    {
+    list_murH[4][0]=true;
+    list_murH[9][0]=true;
+    list_murH[10][2]=true;
+    list_murH[13][1]=true;
+    list_murH[13][6]=true;
+    list_murH[10][7]=true;
+    list_murH[5][4]=true;
+    list_murH[0][3]=true;
+    list_murH[5][6]=true;
+    list_murH[3][7]=true;
+    list_murH[3][9]=true;
+    list_murH[1][10]=true;
+    list_murH[2][14]=true;
+    list_murH[3][15]=true;
+    list_murH[5][13]=true;
+    list_murH[8][12]=true;
+    list_murH[11][14]=true;
+    list_murH[13][15]=true;
+    list_murH[13][13]=true;
+    list_murH[12][9]=true;
+    list_murH[6][7]=true;
+    list_murH[6][8]=true;
+    list_murH[8][7]=true;
+    list_murH[8][8]=true;
+    list_murH[2][1]=true;
+
+
+    list_murV[0][3]=true;
+    list_murV[1][3]=true;
+    list_murV[0][4]=true;
+    list_murV[2][1]=true;
+    list_murV[6][3]=true;
+    list_murV[11][2]=true;
+    list_murV[15][1]=true;
+    list_murV[15][3]=true;
+    list_murV[14][0]=true;
+    list_murV[13][6]=true;
+    list_murV[10][6]=true;
+    list_murV[12][8]=true;
+    list_murV[14][13]=true;
+    list_murV[11][14]=true;
+    list_murV[9][11]=true;
+    list_murV[6][12]=true;
+    list_murV[4][9]=true;
+    list_murV[1][9]=true;
+    list_murV[2][14]=true;
+    list_murV[3][7]=true;
+    list_murV[5][5]=true;
+    list_murV[7][6]=true;
+    list_murV[8][6]=true;
+    list_murV[7][8]=true;
+    list_murV[8][8]=true;
+    }
+
+    if(m_CurrentStimulus[0]==1 &&
+        m_CurrentStimulus[1]==1 &&
+          m_CurrentStimulus[2]==1 &&
+        m_CurrentStimulus[3]==0)
+    {
+    list_murH[4][0]=true;
+    list_murH[2][1]=true;
+    list_murH[0][3]=true;
+    list_murH[5][4]=true;
+    list_murH[5][6]=true;
+    list_murH[3][7]=true;
+    list_murH[3][9]=true;
+    list_murH[0][13]=true;
+    list_murH[4][15]=true;
+    list_murH[6][14]=true;
+    list_murH[4][11]=true;
+    list_murH[8][10]=true;
+    list_murH[8][14]=true;
+    list_murH[10][15]=true;
+    list_murH[14][13]=true;
+    list_murH[12][9]=true;
+    list_murH[10][7]=true;
+    list_murH[13][6]=true;
+    list_murH[13][1]=true;
+    list_murH[10][2]=true;
+    list_murH[9][0]=true;
+    list_murH[6][7]=true;
+    list_murH[6][8]=true;
+    list_murH[8][7]=true;
+    list_murH[8][8]=true;
+
+
+    list_murV[7][8]=true;
+    list_murV[8][8]=true;
+    list_murV[7][6]=true;
+    list_murV[8][6]=true;
+    list_murV[2][1]=true;
+    list_murV[0][2]=true;
+    list_murV[1][3]=true;
+    list_murV[0][4]=true;
+    list_murV[6][3]=true;
+    list_murV[11][2]=true;
+    list_murV[14][0]=true;
+    list_murV[15][3]=true;
+    list_murV[15][9]=true;
+    list_murV[12][8]=true;
+    list_murV[13][6]=true;
+    list_murV[10][6]=true;
+    list_murV[14][13]=true;
+    list_murV[9][13]=true;
+    list_murV[9][10]=true;
+    list_murV[6][13]=true;
+    list_murV[5][10]=true;
+    list_murV[1][13]=true;
+    list_murV[3][7]=true;
+    list_murV[3][9]=true;
+    list_murV[5][5]=true;
+    }
+
+    if(m_CurrentStimulus[0]==1 &&
+        m_CurrentStimulus[1]==1 &&
+          m_CurrentStimulus[2]==1 &&
+        m_CurrentStimulus[3]==1)
+    {
+    list_murH[2][1]=true;
+    list_murH[4][0]=true;
+    list_murH[0][3]=true;
+    list_murH[5][4]=true;
+    list_murH[5][6]=true;
+    list_murH[9][0]=true;
+    list_murH[10][2]=true;
+    list_murH[13][1]=true;
+    list_murH[13][6]=true;
+    list_murH[10][7]=true;
+    list_murH[12][9]=true;
+    list_murH[13][13]=true;
+    list_murH[13][15]=true;
+    list_murH[11][14]=true;
+    list_murH[8][12]=true;
+    list_murH[6][14]=true;
+    list_murH[4][15]=true;
+    list_murH[4][11]=true;
+    list_murH[3][9]=true;
+    list_murH[0][13]=true;
+    list_murH[3][7]=true;
+    list_murH[6][7]=true;
+    list_murH[6][8]=true;
+    list_murH[8][7]=true;
+    list_murH[8][8]=true;
+
+
+    list_murV[0][2]=true;
+    list_murV[1][3]=true;
+    list_murV[2][1]=true;
+    list_murV[6][3]=true;
+    list_murV[0][4]=true;
+    list_murV[3][7]=true;
+    list_murV[5][5]=true;
+    list_murV[3][9]=true;
+    list_murV[5][10]=true;
+    list_murV[1][13]=true;
+    list_murV[6][13]=true;
+    list_murV[9][11]=true;
+    list_murV[11][14]=true;
+    list_murV[14][13]=true;
+    list_murV[12][8]=true;
+    list_murV[10][6]=true;
+    list_murV[13][6]=true;
+    list_murV[15][3]=true;
+    list_murV[15][1]=true;
+    list_murV[14][0]=true;
+    list_murV[11][2]=true;
+    list_murV[7][6]=true;
+    list_murV[8][6]=true;
+    list_murV[7][8]=true;
+    list_murV[8][8]=true;
+    }
+
 
     list_target[8]=Coordonnees(14,13);//averif
     target_coord=list_target[target];
